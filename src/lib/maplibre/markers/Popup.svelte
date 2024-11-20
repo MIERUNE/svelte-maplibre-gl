@@ -4,11 +4,10 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
-	import type { LngLat } from '../common.js';
 	import { resetEventListener } from '../utils.js';
 
 	interface Props extends Omit<maplibregl.PopupOptions, 'className'> {
-		lnglat?: LngLat;
+		lnglat?: maplibregl.LngLatLike;
 		class?: string;
 		/** HTML content of the popup */
 		content?: Snippet;
@@ -22,7 +21,7 @@
 	let container = $state<HTMLElement | null>(null);
 
 	let {
-		lnglat = $bindable(),
+		lnglat,
 		class: className = undefined,
 		offset,
 		closeButton,
@@ -87,10 +86,7 @@
 
 	$effect(() => {
 		if (lnglat && !firstRun) {
-			const prevLnglat = popup?.getLngLat();
-			if (prevLnglat && (prevLnglat.lat !== lnglat.lat || prevLnglat.lng !== lnglat.lng)) {
-				popup?.setLngLat(lnglat);
-			}
+			popup?.setLngLat(lnglat);
 		}
 	});
 

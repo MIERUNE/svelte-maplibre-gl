@@ -2,13 +2,21 @@
 
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 
-Svelte wrapper for MapLibre GL JS (supports Svlete 5+ only)
+[Svelte](https://svelte.dev/) library for using [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) as reactive components.
 
 ⚠️ This project is currently in the early stages of development. Features and APIs are subject to change.
 
 Documentaion and Examples: https://svelte-maplibre-gl.pages.dev/examples/
 
 License: MIT or Apache 2.0
+
+## Installation
+
+Using `svelte-maplibre-gl` requires `svelte >= 5.0.0`.
+
+```bash
+npm install --dev svelte-maplibre-gl
+```
 
 ## License
 
@@ -25,6 +33,8 @@ Everyone is welcomed to contribute to this project! There are many ways to suppo
 - Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
 - TODO: Add core contributors
 - And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)
+
+Supported by [MIERUNE Inc.](https://www.mierune.co.jp/)
 
 ## Acknowledgements
 

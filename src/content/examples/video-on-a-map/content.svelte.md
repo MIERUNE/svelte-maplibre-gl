@@ -4,11 +4,11 @@ description: Display a video.
 ---
 
 <script lang="ts">
-  import Video from "./Video.svelte";
+  import Demo from "./Video.svelte";
+  import demoRaw from "./Video.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Video />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

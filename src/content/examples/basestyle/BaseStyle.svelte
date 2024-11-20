@@ -75,7 +75,6 @@
 		<HillshadeLayer paint={{ 'hillshade-exaggeration': 0.2 }} />
 	</RasterDEMTileSource>
 	{#if !globe}
-		<!-- Globe + 3D Terrain is not yet suported. -->
 		<RasterDEMTileSource
 			id="terrain"
 			tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}

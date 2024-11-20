@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ModeWatcher } from 'mode-watcher';
+	import { ModeWatcher, mode } from 'mode-watcher';
 	import '../app.css';
 	import '$lib/assets/fonts/geist.css';
 	import Header from './Header.svelte';

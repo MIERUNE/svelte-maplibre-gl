@@ -2,11 +2,10 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import maplibregl, { type LngLatLike } from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { prepareMapContext } from '../contexts.svelte.js';
-	import type { LngLat } from '../common.js';
-	import { resetEventListener } from '../utils.js';
+	import { formatLngLat, resetEventListener } from '../utils.js';
 
 	type MapEventProps = {
 		[K in keyof maplibregl.MapEventType as `on${K}`]?: (ev: maplibregl.MapEventType[K]) => void;
@@ -16,7 +15,7 @@
 		map?: maplibregl.Map;
 		class?: string;
 		inlineStyle?: string;
-		center?: LngLat;
+		center?: LngLatLike;
 		padding?: maplibregl.PaddingOptions;
 		fov?: number;
 
@@ -207,7 +206,12 @@
 		map.on('move', (ev) => {
 			if (map) {
 				const tr = map.transform;
-				if (!center || center.lat !== tr.center.lat || center.lng !== tr.center.lng) {
+				if (center) {
+					const _center = maplibregl.LngLat.convert(center);
+					if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
+						center = formatLngLat(center, tr.center);
+					}
+				} else {
 					center = tr.center;
 				}
 				if (tr.zoom !== zoom) {
@@ -361,9 +365,12 @@
 				return Math.abs(a - b) > 1e-14;
 			}
 
-			if (center && (notAlmostEqual(tr.center.lat, center.lat) || notAlmostEqual(tr.center.lng, center.lng))) {
-				jumpTo.center = center;
-				changed = true;
+			if (center) {
+				const _center = maplibregl.LngLat.convert(center);
+				if (notAlmostEqual(tr.center.lat, _center.lat) || notAlmostEqual(tr.center.lng, _center.lng)) {
+					jumpTo.center = center;
+					changed = true;
+				}
 			}
 			if (zoom !== undefined && notAlmostEqual(tr.zoom, zoom)) {
 				jumpTo.zoom = zoom;

@@ -53,3 +53,13 @@ export function resetLayerEventListener(
 		}
 	};
 }
+
+export function formatLngLat(target: maplibregl.LngLatLike, lnglat: maplibregl.LngLat): maplibregl.LngLatLike {
+	if (Array.isArray(target)) {
+		return [lnglat.lng, lnglat.lat];
+	} else if ('lon' in target) {
+		return { lon: lnglat.lng, lat: lnglat.lat };
+	} else {
+		return { lng: lnglat.lng, lat: lnglat.lat };
+	}
+}

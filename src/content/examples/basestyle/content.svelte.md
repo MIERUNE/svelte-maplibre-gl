@@ -4,11 +4,11 @@ description: Dynamic contents must be preserved when the base style is changed.
 ---
 
 <script lang="ts">
-  import BaseStyle from "./BaseStyle.svelte";
+  import Demo from "./BaseStyle.svelte";
+  import demoRaw from "./BaseStyle.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<BaseStyle />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

@@ -43,7 +43,7 @@
 	let lineColor = $state('#ff00dd');
 	let lineWidth = $state(1.5);
 	let circleRadius = $state(3);
-	let center = $state({ lng: 137.3543, lat: 37.062 });
+	let center: [number, number] = $state([137.3543, 37.062]);
 	let zoom = $state(6.0);
 	let pitch = $state(0);
 	let bearing = $state(0);
@@ -122,7 +122,7 @@
 </div>
 <div class="flex items-center gap-x-4 text-sm">
 	<pre
-		class="my-1 grow">{`lat: ${center.lat.toFixed(3)}, lng: ${center.lng.toFixed(3)}, z: ${zoom.toFixed(1)}, pitch: ${pitch.toFixed(1)}, bearing: ${bearing.toFixed(1)}`}</pre>
+		class="my-1 grow">{`lat: ${center[1].toFixed(3)}, lng: ${center[0].toFixed(3)}, z: ${zoom.toFixed(1)}, pitch: ${pitch.toFixed(1)}, bearing: ${bearing.toFixed(1)}`}</pre>
 	<pre class="my-1 grow">marker: {`${markerLnglat.lat.toFixed(3)}, ${markerLnglat.lng.toFixed(3)}`}</pre>
 	<label>
 		z:

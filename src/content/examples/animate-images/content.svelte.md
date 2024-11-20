@@ -4,11 +4,11 @@ description: Use a series of image sources to create an animation.
 ---
 
 <script lang="ts">
-  import AnimateImages from "./AnimateImages.svelte";
+  import Demo from "./AnimateImages.svelte";
+  import demoRaw from "./AnimateImages.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<AnimateImages />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

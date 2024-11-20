@@ -4,11 +4,11 @@ description: Use MapLibre's built-in functions to visualize points as clusters.
 ---
 
 <script lang="ts">
-  import Clusters from "./Clusters.svelte";
+  import Demo from "./Clusters.svelte";
+  import demoRaw from "./Clusters.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Clusters />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

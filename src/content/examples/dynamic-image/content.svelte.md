@@ -4,11 +4,11 @@ description: Add an icon to the map that was generated at runtime.
 ---
 
 <script lang="ts">
-  import DynamicImage from "./DynamicImage.svelte";
+  import Demo from "./DynamicImage.svelte";
+  import demoRaw from "./DynamicImage.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<DynamicImage />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

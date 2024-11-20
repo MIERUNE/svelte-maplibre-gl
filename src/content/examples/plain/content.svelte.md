@@ -4,11 +4,11 @@ description: Plain map.
 ---
 
 <script lang="ts">
-  import Plain from "./Plain.svelte";
+  import Demo from "./Plain.svelte";
+  import demoRaw from "./Plain.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Plain />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

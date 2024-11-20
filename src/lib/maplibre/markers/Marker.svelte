@@ -4,11 +4,10 @@
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
-	import type { LngLat } from '../common.js';
-	import { resetEventListener } from '../utils.js';
+	import { formatLngLat, resetEventListener } from '../utils.js';
 
 	interface Props extends Omit<maplibregl.MarkerOptions, 'className'> {
-		lnglat: LngLat;
+		lnglat: maplibregl.LngLatLike;
 		class?: string;
 		/** HTML content of the marker */
 		content?: Snippet;
@@ -77,11 +76,11 @@
 		marker = new maplibregl.Marker(options);
 		markerCtx.marker = marker;
 
-		marker.setLngLat($state.snapshot(lnglat)).addTo(mapCtx.map);
+		marker.setLngLat($state.snapshot(lnglat) as maplibregl.LngLatLike).addTo(mapCtx.map);
 
 		marker.on('drag', (e) => {
 			if (marker) {
-				lnglat = marker.getLngLat();
+				lnglat = formatLngLat(lnglat, marker.getLngLat());
 			}
 			ondrag?.(e);
 		});
@@ -101,10 +100,7 @@
 
 	$effect(() => {
 		if (lnglat && !firstRun) {
-			const prevLnglat = marker?.getLngLat();
-			if (prevLnglat && (prevLnglat.lat !== lnglat.lat || prevLnglat.lng !== lnglat.lng)) {
-				marker?.setLngLat(lnglat);
-			}
+			marker?.setLngLat(lnglat);
 		}
 	});
 

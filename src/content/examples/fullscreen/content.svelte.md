@@ -4,11 +4,11 @@ description: View a fullscreen map
 ---
 
 <script lang="ts">
-  import Fullscreen from "./Fullscreen.svelte";
+  import Demo from "./Fullscreen.svelte";
+  import demoRaw from "./Fullscreen.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Fullscreen />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

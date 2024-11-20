@@ -4,11 +4,11 @@ description: Add a canvas source to the map.
 ---
 
 <script lang="ts">
-  import Canvas from "./Canvas.svelte";
+  import Demo from "./Canvas.svelte";
+  import demoRaw from "./Canvas.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Canvas />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

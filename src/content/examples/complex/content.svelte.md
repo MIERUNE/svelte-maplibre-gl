@@ -4,11 +4,11 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiu
 ---
 
 <script lang="ts">
-  import Complex from "./Complex.svelte";
+  import Demo from "./Complex.svelte";
+  import demoRaw from "./Complex.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Complex />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

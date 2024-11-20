@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '$lib/assets/prism-shades-of-purple.css';
 	import Index from '$content/examples/Index.svelte';
 
 	let { children } = $props();

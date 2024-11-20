@@ -18,7 +18,7 @@
 	class="h-[60vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 	zoom={5}
-	center={{ lng: -76, lat: 43 }}
+	center={[-76, 43]}
 >
 	<GlobeControl />
 	<ImageSource

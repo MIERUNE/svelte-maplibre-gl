@@ -4,11 +4,11 @@ description: Locate the User
 ---
 
 <script lang="ts">
-  import Geolocate from "./Geolocate.svelte";
+  import Demo from "./Geolocate.svelte";
+  import demoRaw from "./Geolocate.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Geolocate />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

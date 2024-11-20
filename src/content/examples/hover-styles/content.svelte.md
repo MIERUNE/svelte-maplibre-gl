@@ -4,11 +4,11 @@ description: Use events and feature states to create a per feature hover effect.
 ---
 
 <script lang="ts">
-  import HoverStyles from "./HoverStyles.svelte";
+  import Demo from "./HoverStyles.svelte";
+  import demoRaw from "./HoverStyles.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<HoverStyles />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

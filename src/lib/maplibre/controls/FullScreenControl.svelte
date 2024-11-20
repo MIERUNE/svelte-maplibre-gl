@@ -5,7 +5,7 @@
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
-	import type { Listener, Event } from '../common.js';
+	import type { Listener, Event } from '../types.js';
 
 	interface Props extends maplibregl.FullscreenControlOptions {
 		position?: maplibregl.ControlPosition;

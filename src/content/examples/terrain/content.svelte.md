@@ -4,11 +4,11 @@ description: 3D terrain and sky.
 ---
 
 <script lang="ts">
-  import Terrain from "./Terrain.svelte";
+  import Demo from "./Terrain.svelte";
+  import demoRaw from "./Terrain.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<Terrain />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />

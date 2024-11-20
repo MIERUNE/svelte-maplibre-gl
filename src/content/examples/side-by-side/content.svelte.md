@@ -4,11 +4,11 @@ description: Synchronize two maps.
 ---
 
 <script lang="ts">
-  import SideBySide from "./SideBySide.svelte";
+  import Demo from "./SideBySide.svelte";
+  import demoRaw from "./SideBySide.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<SideBySide />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />
