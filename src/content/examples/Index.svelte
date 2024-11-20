@@ -13,5 +13,6 @@
 	<li><a href="/examples/canvas-source">Canvas Source</a></li>
 	<li><a href="/examples/fullscreen">Fullscreen</a></li>
 	<li><a href="/examples/geolocate">Locate the User</a></li>
+	<li><a href="/examples/custom-control">Custom Control</a></li>
 	<li><a href="/examples/markdown">Markdown Test</a></li>
 </ul>
