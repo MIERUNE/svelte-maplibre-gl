@@ -43,4 +43,5 @@ export { default as FullScreenControl } from './controls/FullScreenControl.svelt
 export { default as TerrainControl } from './controls/TerrainControl.svelte';
 export { default as ScaleControl } from './controls/ScaleControl.svelte';
 export { default as LogoControl } from './controls/LogoControl.svelte';
+export { default as CustomControl } from './controls/CustomControl.svelte';
 export { default as Hash } from './controls/Hash.svelte';
