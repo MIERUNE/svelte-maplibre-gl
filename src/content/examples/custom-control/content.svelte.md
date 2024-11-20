@@ -4,11 +4,11 @@ description: How to add user defined control
 ---
 
 <script lang="ts">
-  import CustomControl from "./CustomControl.svelte";
+  import Demo from "./CustomControl.svelte";
+  import demoRaw from "./CustomControl.svelte?raw";
+  import CodeBlock from "../../CodeBlock.svelte";
 </script>
 
-<CustomControl />
+<Demo />
 
-## Code
-
-TODO
+<CodeBlock content={demoRaw} />
