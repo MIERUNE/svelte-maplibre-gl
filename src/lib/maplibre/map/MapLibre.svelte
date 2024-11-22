@@ -28,6 +28,9 @@
 		repaint?: boolean;
 		vertices?: boolean;
 
+		// for addProtocol()
+		protocols?: Record<string, maplibregl.AddProtocolAction>;
+
 		// Snippets
 		children?: Snippet;
 	}
@@ -105,6 +108,9 @@
 		repaint,
 		vertices,
 
+		// addProtocol()
+		protocols,
+
 		// Map Options (reactive)
 		bearing = $bindable(undefined),
 		bearingSnap,
@@ -146,6 +152,11 @@
 	let loaded = $state(false);
 
 	const mapCtx = prepareMapContext();
+
+	// set protocols to maplibregl
+	Object.entries(protocols ?? {}).forEach(([protocol, fn]) => {
+		maplibregl.addProtocol(protocol, fn);
+	});
 
 	$effect(() => {
 		if (map || !container) {
