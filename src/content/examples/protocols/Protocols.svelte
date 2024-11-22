@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { MapLibre, RasterTileSource, RasterLayer } from 'svelte-maplibre-gl';
+	import { MapLibre, RasterTileSource, VectorTileSource, RasterLayer, LineLayer, FillLayer } from 'svelte-maplibre-gl';
+
+	// @ts-ignore
+	import { Protocol } from 'pmtiles';
+	const pmtilesProtocol = new Protocol();
 
 	const protocols: Record<string, maplibregl.AddProtocolAction> = {
+		pmtiles: pmtilesProtocol.tile,
 		myprotocol: async (params, _) => {
 			const zxy = params.url.replace('custom://', '');
 			const [z, x, y] = zxy.split('/').map((v) => parseInt(v, 10));
@@ -30,11 +35,29 @@
 
 <MapLibre
 	class="h-[50vh] min-h-[200px]"
-	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-	zoom={12}
-	center={{ lng: 140.09085, lat: 40.3 }}
+	style={{
+		version: 8,
+		sources: {},
+		layers: []
+	}}
+	zoom={6}
+	center={{ lng: 140.09085, lat: 37.3 }}
 	{protocols}
 >
+	<VectorTileSource url="pmtiles://https://tile.openstreetmap.jp/static/planet.pmtiles">
+		<LineLayer
+			sourceLayer="transportation"
+			paint={{
+				'line-color': 'red'
+			}}
+		/>
+		<FillLayer
+			sourceLayer="water"
+			paint={{
+				'fill-color': 'blue'
+			}}
+		/>
+	</VectorTileSource>
 	<RasterTileSource tiles={['myprotocol://{z}/{x}/{y}']} tileSize={256}>
 		<RasterLayer />
 	</RasterTileSource>
