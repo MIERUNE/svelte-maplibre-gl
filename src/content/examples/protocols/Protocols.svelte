@@ -8,7 +8,7 @@
 	const protocols: Record<string, maplibregl.AddProtocolAction> = {
 		pmtiles: pmtilesProtocol.tile,
 		myprotocol: async (params, _) => {
-			const zxy = params.url.replace('custom://', '');
+			const zxy = params.url.replace('myprotocol://', '');
 			const [z, x, y] = zxy.split('/').map((v) => parseInt(v, 10));
 
 			const png = await new Promise((resolve) => {
