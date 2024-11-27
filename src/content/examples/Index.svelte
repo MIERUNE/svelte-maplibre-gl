@@ -19,6 +19,7 @@
 		'/examples/image-loader': 'Loading Images',
 		'/examples/custom-control': 'Custom Control',
 		'/examples/custom-protocol': 'Custom Protocols',
+		'/examples/deckgl-overlay': 'deck.gl Overlay',
 		'/examples/contour': 'Contour Lines'
 	};
 </script>
