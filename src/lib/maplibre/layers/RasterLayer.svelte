@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.RasterLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.RasterLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;

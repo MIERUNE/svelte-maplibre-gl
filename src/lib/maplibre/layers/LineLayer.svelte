@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.LineLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.LineLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;

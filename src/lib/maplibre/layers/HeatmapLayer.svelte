@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.HeatmapLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.HeatmapLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;

@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.HillshadeLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.HillshadeLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;

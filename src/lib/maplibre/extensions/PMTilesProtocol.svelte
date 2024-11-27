@@ -3,7 +3,6 @@
 	import { Protocol } from 'pmtiles';
 
 	let { scheme = 'pmtiles' }: { scheme?: string } = $props();
-
 	const protocol = new Protocol();
 </script>
 

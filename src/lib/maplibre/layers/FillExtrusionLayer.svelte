@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.FillExtrusionLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.FillExtrusionLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
