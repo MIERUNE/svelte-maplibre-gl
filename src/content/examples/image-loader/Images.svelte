@@ -30,7 +30,7 @@
 </script>
 
 <MapLibre
-	class="h-[60vh] min-h-[300px]"
+	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={1.5}
 	center={{ lng: -10.0, lat: -20 }}

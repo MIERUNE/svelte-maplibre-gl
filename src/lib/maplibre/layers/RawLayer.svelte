@@ -12,7 +12,7 @@
 		source?: string;
 		beforeId?: string;
 		filter?: maplibregl.FilterSpecification;
-		sourceLayer?: string;
+		'source-layer'?: string;
 		children?: Snippet;
 	}
 
@@ -24,7 +24,7 @@
 		paint,
 		layout,
 		filter,
-		sourceLayer,
+		'source-layer': sourceLayer,
 		maxzoom,
 		minzoom,
 		metadata,

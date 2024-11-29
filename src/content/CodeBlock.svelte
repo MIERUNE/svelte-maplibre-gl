@@ -1,18 +1,31 @@
 <script lang="ts" module>
-	import type { HighlighterCore } from 'shiki';
+	import {
+		createHighlighterCoreSync,
+		createOnigurumaEngine,
+		createJavaScriptRegexEngine,
+		type HighlighterCore
+	} from 'shiki';
+	import svelte from 'shiki/langs/svelte.mjs';
+	import dark from 'shiki/themes/github-dark-default.mjs';
+	import { browser } from '$app/environment';
+
+	const shiki2 = createHighlighterCoreSync({
+		themes: [dark],
+		langs: [svelte],
+		// Use the WASM version of Oniguruma on the browser, and the JS engine on the server
+		engine: browser ? await createOnigurumaEngine(import('shiki/wasm')) : createJavaScriptRegexEngine()
+	});
 </script>
 
 <script lang="ts">
 	let {
-		content,
-		shiki
+		content
 	}: {
 		content: string;
-		shiki: HighlighterCore;
 	} = $props();
 
 	const highlighted = $derived.by(() => {
-		return shiki.codeToHtml(content.trim(), { lang: 'svelte', theme: 'github-dark-default' });
+		return shiki2.codeToHtml(content.replaceAll('\t', '  ').trim(), { lang: 'svelte', theme: 'github-dark-default' });
 	});
 </script>
 
@@ -36,6 +49,6 @@
 		margin-right: 1.5rem;
 		display: inline-block;
 		text-align: right;
-		color: rgba(115, 138, 148, 0.4);
+		color: rgba(115, 138, 148, 0.5);
 	}
 </style>

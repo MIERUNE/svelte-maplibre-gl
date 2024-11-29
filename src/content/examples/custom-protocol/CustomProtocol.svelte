@@ -43,7 +43,7 @@
 <Protocol scheme="myprotocol" loadFn={myProtocolLoadFn} />
 
 <!-- Use custom protocols -->
-<MapLibre class="h-[50vh] min-h-[200px]" zoom={6} center={{ lng: 140.0, lat: 37.5 }}>
+<MapLibre class="h-[55vh] min-h-[200px]" zoom={6} center={{ lng: 140.0, lat: 37.5 }}>
 	<VectorTileSource url="pmtiles://https://tile.openstreetmap.jp/static/planet.pmtiles">
 		<LineLayer sourceLayer="transportation" paint={{ 'line-color': 'orange' }} />
 		<FillLayer sourceLayer="water" paint={{ 'fill-color': 'dodgerblue' }} />

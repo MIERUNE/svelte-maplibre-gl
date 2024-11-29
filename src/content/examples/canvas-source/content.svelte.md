@@ -7,9 +7,8 @@ description: Add a canvas source to the map.
   import Demo from "./Canvas.svelte";
   import demoRaw from "./Canvas.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
-  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} shiki={shiki} />
+<CodeBlock content={demoRaw} />

@@ -20,6 +20,7 @@ export { default as GeoJSONSource } from './sources/GeoJSONSource.svelte';
 export { default as ImageSource } from './sources/ImageSource.svelte';
 export { default as VideoSource } from './sources/VideoSource.svelte';
 export { default as CanvasSource } from './sources/CanvasSource.svelte';
+export { default as RawSource } from './sources/RawSource.svelte';
 export { default as FeatureState } from './sources/FeatureState.svelte';
 
 // layers
@@ -32,6 +33,7 @@ export { default as HeatmapLayer } from './layers/HeatmapLayer.svelte';
 export { default as RasterLayer } from './layers/RasterLayer.svelte';
 export { default as HillshadeLayer } from './layers/HillshadeLayer.svelte';
 export { default as BackgroundLayer } from './layers/BackgroundLayer.svelte';
+export { default as RawLayer } from './layers/RawLayer.svelte';
 export { default as CustomLayer } from './layers/CustomLayer.svelte';
 
 // markers

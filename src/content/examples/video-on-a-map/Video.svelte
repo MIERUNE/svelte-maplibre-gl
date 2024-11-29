@@ -14,7 +14,7 @@
 </script>
 
 <MapLibre
-	class="h-[60vh] min-h-[300px]"
+	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	minZoom={14}
 	zoom={17}

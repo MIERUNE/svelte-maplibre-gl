@@ -4,7 +4,7 @@
 </script>
 
 <MapLibre
-	class="h-[60vh] min-h-[300px]"
+	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 	zoom={2}
 	center={{ lng: -100.486052, lat: 37.830348 }}

@@ -16,9 +16,9 @@
 		children?: Snippet;
 	}
 
-	let { children, ...props }: Props = $props();
+	let { children, sourceLayer, ...props }: Props = $props();
 </script>
 
-<RawLayer type="hillshade" {...props}>
+<RawLayer type="hillshade" source-layer={sourceLayer} {...props}>
 	{@render children?.()}
 </RawLayer>

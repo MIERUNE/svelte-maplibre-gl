@@ -41,7 +41,7 @@
 	</div>
 </div>
 
-<MapLibre class="h-[60vh] min-h-[300px]" style={styleUrl} zoom={4} maxPitch={80} center={{ lng: 137, lat: 36 }}>
+<MapLibre class="h-[55vh] min-h-[300px]" style={styleUrl} zoom={4} maxPitch={80} center={{ lng: 137, lat: 36 }}>
 	<Projection type={globe ? 'globe' : undefined} />
 	<Light anchor="map" />
 	<Sky

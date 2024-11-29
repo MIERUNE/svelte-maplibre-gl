@@ -7,7 +7,7 @@
 	}
 </script>
 
-<div class="flex h-[60vh] min-h-[300px] overflow-hidden rounded-md">
+<div class="flex h-[55vh] min-h-[300px] overflow-hidden rounded-md">
 	<pre class="m-0 flex-1 rounded-none">{logString}</pre>
 	<MapLibre class="flex-1" style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json">
 		<GeolocateControl

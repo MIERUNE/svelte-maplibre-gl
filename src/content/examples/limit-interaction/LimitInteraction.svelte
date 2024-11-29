@@ -18,7 +18,7 @@
 </script>
 
 <MapLibre
-	class="relative h-[60vh] min-h-[300px]"
+	class="relative h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={5}
 	center={{ lng: 137, lat: 36 }}

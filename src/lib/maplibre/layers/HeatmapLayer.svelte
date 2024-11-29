@@ -16,9 +16,9 @@
 		children?: Snippet;
 	}
 
-	let { children, ...props }: Props = $props();
+	let { children, sourceLayer, ...props }: Props = $props();
 </script>
 
-<RawLayer type="heatmap" {...props}>
+<RawLayer type="heatmap" source-layer={sourceLayer} {...props}>
 	{@render children?.()}
 </RawLayer>

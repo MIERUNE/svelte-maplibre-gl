@@ -36,7 +36,7 @@
 <canvas bind:this={canvas} class="hidden" width={SIZE} height={SIZE}>Canvas not supported</canvas>
 
 <MapLibre
-	class="h-[60vh] min-h-[300px]"
+	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={2}
 	center={{ lng: 135, lat: 35 }}

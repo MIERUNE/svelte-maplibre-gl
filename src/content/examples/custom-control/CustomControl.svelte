@@ -26,7 +26,7 @@
 	});
 </script>
 
-<MapLibre class="h-[50vh] min-h-[200px]" style={mapStyle} zoom={12} pitch={40} maxPitch={85} bind:center>
+<MapLibre class="h-[55vh] min-h-[200px]" style={mapStyle} zoom={12} pitch={40} maxPitch={85} bind:center>
 	<!-- inject IControl (useful for plugin) -->
 	<CustomControl position="top-left" control={myControl} />
 

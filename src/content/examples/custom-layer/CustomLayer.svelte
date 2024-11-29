@@ -46,8 +46,6 @@
 			const berlin = maplibregl.MercatorCoordinate.fromLngLat({ lng: 13.403, lat: 52.562 });
 			const kyiv = maplibregl.MercatorCoordinate.fromLngLat({ lng: 30.498, lat: 50.541 });
 
-			console.log(helsinki, berlin, kyiv);
-
 			// create and initialize a WebGLBuffer to store vertex and color data
 			this.buffer = gl.createBuffer();
 			gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
@@ -79,7 +77,7 @@
 </script>
 
 <MapLibre
-	class="h-[60vh] min-h-[300px]"
+	class="h-[55vh] min-h-[300px]"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={3}
 	center={[20, 58]}

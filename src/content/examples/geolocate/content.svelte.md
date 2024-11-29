@@ -7,9 +7,8 @@ description: Locate the User
   import Demo from "./Geolocate.svelte";
   import demoRaw from "./Geolocate.svelte?raw";
   import CodeBlock from "../../CodeBlock.svelte";
-  let { shiki } = $props();
 </script>
 
 <Demo />
 
-<CodeBlock content={demoRaw} shiki={shiki} />
+<CodeBlock content={demoRaw} />
