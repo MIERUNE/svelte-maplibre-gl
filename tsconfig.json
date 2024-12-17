@@ -10,6 +10,7 @@
 		"sourceMap": true,
 		"strict": true,
 		// "module": "NodeNext",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"types": ["vite-plugin-svelte-docgen"]
 	}
 }

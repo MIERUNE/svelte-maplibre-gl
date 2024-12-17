@@ -134,6 +134,9 @@ importers:
       vite:
         specifier: ^6.0.3
         version: 6.0.3(jiti@1.21.6)(yaml@2.6.1)
+      vite-plugin-svelte-docgen:
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.9.1)(typescript@5.7.2)(vite@6.0.3(jiti@1.21.6)(yaml@2.6.1))
       vitest:
         specifier: ^2.1.8
         version: 2.1.8
@@ -919,6 +922,14 @@ packages:
 
   '@shikijs/vscode-textmate@9.3.0':
     resolution: {integrity: sha512-jn7/7ky30idSkd/O5yDBfAnVt+JJpepofP/POZ1iMOxK59cOfqIgg/Dj0eFsjOTMw+4ycJN0uhZH/Eb0bs/EUA==}
+
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03':
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -2351,6 +2362,14 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
 
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+
   svelte-eslint-parser@0.43.0:
     resolution: {integrity: sha512-GpU52uPKKcVnh8tKN5P4UZpJ/fUDndmq7wfsvoVXsyP+aY0anol7Yqo01fyrlaWGMFfm4av5DyrjlaXdLRJvGA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -2523,6 +2542,14 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  valibot@1.0.0-beta.9:
+    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   validate-npm-package-name@5.0.1:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -2540,6 +2567,15 @@ packages:
     resolution: {integrity: sha512-uPAwSr57kYjAUux+8E2j0q0Fxpn8M9VoyfGiRI8Kfktz9NcYMCenwY5RnZxnF1WTu3TGiYipirIzacLL3VVGFg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
+
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main}
+    version: 0.0.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+      vite: ^6.0.0
 
   vite@5.4.11:
     resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
@@ -3417,6 +3453,14 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@9.3.0': {}
+
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.9.1)(typescript@5.7.2)':
+    dependencies:
+      '@types/estree': 1.0.6
+      svelte: 5.9.1
+      svelte2tsx: 0.7.30(svelte@5.9.1)(typescript@5.7.2)
+      typescript: 5.7.2
+      zimmerframe: 1.1.2
 
   '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.9.1)(vite@6.0.3(jiti@1.21.6)(yaml@2.6.1)))(svelte@5.9.1)(vite@6.0.3(jiti@1.21.6)(yaml@2.6.1)))':
     dependencies:
@@ -4883,6 +4927,13 @@ snapshots:
     transitivePeerDependencies:
       - picomatch
 
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.9.1)(typescript@5.7.2):
+    dependencies:
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.9.1)(typescript@5.7.2)
+      svelte: 5.9.1
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.9(typescript@5.7.2)
+
   svelte-eslint-parser@0.43.0(svelte@5.9.1):
     dependencies:
       eslint-scope: 7.2.2
@@ -5074,6 +5125,10 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
+  valibot@1.0.0-beta.9(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
+
   validate-npm-package-name@5.0.1: {}
 
   vfile-message@2.0.4:
@@ -5108,6 +5163,15 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.9.1)(typescript@5.7.2)(vite@6.0.3(jiti@1.21.6)(yaml@2.6.1)):
+    dependencies:
+      esrap: 1.2.3
+      svelte: 5.9.1
+      svelte-docgen: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.9.1)(typescript@5.7.2)
+      typescript: 5.7.2
+      vite: 6.0.3(jiti@1.21.6)(yaml@2.6.1)
+      zimmerframe: 1.1.2
 
   vite@5.4.11:
     dependencies:
