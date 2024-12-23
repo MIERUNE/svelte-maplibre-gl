@@ -46,21 +46,19 @@
 				<MapPinned class="mr-1.5 hidden !size-6 pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
-		<nav class="ml-12 hidden gap-x-4 font-medium min-[550px]:flex">
+		<nav class="ml-12 hidden gap-x-6 font-medium min-[550px]:flex">
 			<a
 				href="/examples/"
 				data-active={page.url.pathname.startsWith('/examples/')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Examples</a
 			>
-			<!--
 			<a
 				href="/components/"
 				data-active={page.url.pathname.startsWith('/components/')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Components</a
 			>
-			-->
 		</nav>
 	</div>
 	<div class="flex items-center text-xs leading-none">

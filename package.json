@@ -89,6 +89,7 @@
 		"typescript-eslint": "^8.18.1",
 		"vite": "^6.0.5",
 		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main",
+		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main",
 		"vitest": "^2.1.8"
 	},
 	"pnpm": {

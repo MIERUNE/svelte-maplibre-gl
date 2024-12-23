@@ -1,22 +1,18 @@
 <script lang="ts">
 	const { data } = $props();
-
-	// import doc from '$lib/maplibre/markers/Marker.svelte?docgen';
-	import doc from './Hoge.svelte?docgen';
-	import Hoge from './Hoge.svelte';
-
-	let foo: undefined | string = $state('foo');
 </script>
 
 <div class="grid gap-x-8 lg:grid-cols-[1fr_160px]">
 	<div class="min-h-[calc(100vh-4rem)] w-full min-w-0 py-8">
-		<h1 class="mb-2 text-3xl font-bold">{data.meta.title}</h1>
+		<h1 class="mb-2 text-3xl font-bold">{data.title}</h1>
 
 		<p class="mb-6 text-muted-foreground">
-			{data.meta.description}
+			{data.description}
 		</p>
 
-		{#each doc.props as [name, prop]}
+		<pre>{data.doc}</pre>
+
+		{#each data.doc.props as [name, prop]}
 			<div class="mb-8">
 				<h3 class="text-xl font-semibold">
 					{name}
@@ -42,6 +38,6 @@
 </div>
 
 <svelte:head>
-	<title>{data.meta.title} - Svelte MapLibre GL</title>
-	<meta name="description" content={data.meta.description} />
+	<title>{data.title} - Svelte MapLibre GL</title>
+	<meta name="description" content={data.description} />
 </svelte:head>

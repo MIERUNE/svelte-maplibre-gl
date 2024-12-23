@@ -1,8 +1,10 @@
-export const toc = [
+import type { Toc } from '$lib/components/types';
+
+export const toc: Toc = [
 	{
-		title: 'Basic',
+		title: 'Map',
 		items: {
-			'/components/markdown': 'Markdown test'
+			'/components/MapLibre': 'MapLibre'
 		}
 	}
 ];

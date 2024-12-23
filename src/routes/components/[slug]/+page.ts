@@ -1,34 +1,27 @@
 import { error } from '@sveltejs/kit';
-import type { Component } from 'svelte';
-import { browser } from '$app/environment';
+import { parse, encode } from 'svelte-docgen';
 
-import { createHighlighter, createJavaScriptRegexEngine, createOnigurumaEngine } from 'shiki';
-import svelte from 'shiki/langs/svelte.mjs';
-import dark from 'shiki/themes/github-dark-default.mjs';
+type ParsedComponent = ReturnType<typeof parse>;
 
-const shiki = createHighlighter({
-	themes: [dark],
-	langs: [svelte],
-	engine: browser ? createOnigurumaEngine(import('shiki/wasm')) : createJavaScriptRegexEngine()
-});
+const loader: Record<string, () => Promise<ParsedComponent>> = Object.fromEntries(
+	Object.entries(import.meta.glob('$lib/maplibre/**/*.svelte', { query: '?docs' })).map(([key, value]) => {
+		const name = key.match(/\/([^/]+)\.svelte$/)?.[1];
+		return [name, value] as const;
+	})
+);
 
 export const load = async ({ params }) => {
 	const { slug } = params;
 
-	try {
-		const post = (await import(`$content/components/${slug}/content.svelte.md`)) as {
-			default: Component;
-			metadata: {
-				title: string;
-				description: string;
-			};
-		};
-		return {
-			Content: post.default,
-			meta: { ...post.metadata, slug },
-			shiki: await shiki
-		};
-	} catch {
-		error(404, `Example '${slug}' not found`);
+	const doc = await loader[slug]();
+	console.log(doc);
+	if (!doc) {
+		error(404, `Component '${slug}' not found`);
 	}
+
+	return {
+		title: slug,
+		descripiton: `API Reference for ${slug}`,
+		doc: encode(doc)
+	};
 };
