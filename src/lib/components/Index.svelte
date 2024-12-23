@@ -23,6 +23,6 @@
 
 <style>
 	nav {
-		view-transition-name: toc;
+		view-transition-name: toc-index;
 	}
 </style>

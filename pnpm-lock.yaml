@@ -113,10 +113,28 @@ importers:
         version: 5.15.0
       svelte-check:
         specifier: ^4.1.1
+<<<<<<< Updated upstream
         version: 4.1.1(picomatch@4.0.2)(svelte@5.15.0)(typescript@5.7.2)
       svelte-docgen:
         specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main
         version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)
+||||||| Stash base
+        version: 4.1.1(picomatch@4.0.2)(svelte@5.14.4)(typescript@5.7.2)
+=======
+<<<<<<< Updated upstream
+        version: 4.1.1(picomatch@4.0.2)(svelte@5.14.4)(typescript@5.7.2)
+||||||| Stash base
+        version: 4.1.1(picomatch@4.0.2)(svelte@5.15.0)(typescript@5.7.2)
+      svelte-docgen:
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)
+=======
+        version: 4.1.1(picomatch@4.0.2)(svelte@5.15.0)(typescript@5.7.2)
+      svelte-docgen:
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed(svelte@5.15.0)
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
@@ -139,11 +157,33 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2)
       vite:
+<<<<<<< Updated upstream
         specifier: ^6.0.5
         version: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
       vite-plugin-svelte-docgen:
         specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main
         version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+||||||| Stash base
+        specifier: ^6.0.3
+        version: 6.0.3(jiti@1.21.7)(yaml@2.6.1)
+=======
+<<<<<<< Updated upstream
+        specifier: ^6.0.3
+        version: 6.0.3(jiti@1.21.7)(yaml@2.6.1)
+||||||| Stash base
+        specifier: ^6.0.5
+        version: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
+      vite-plugin-svelte-docgen:
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+=======
+        specifier: ^6.0.5
+        version: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
+      vite-plugin-svelte-docgen:
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       vitest:
         specifier: ^2.1.8
         version: 2.1.8
@@ -933,6 +973,7 @@ packages:
   '@shikijs/vscode-textmate@9.3.1':
     resolution: {integrity: sha512-79QfK1393x9Ho60QFyLti+QfdJzRQCVLFb97kOIV7Eo9vQU/roINgk7m24uv0a7AUvN//RDH36FLjjK48v0s9g==}
 
+<<<<<<< Updated upstream
   '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03':
     resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
     version: 0.1.0
@@ -949,6 +990,37 @@ packages:
       svelte: ^5.3.0
       typescript: ^5.7.0
 
+||||||| Stash base
+=======
+<<<<<<< Updated upstream
+||||||| Stash base
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03':
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@c413b4887df23eff90afb3fc60ea37bcc832cb2f':
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@c413b4887df23eff90afb3fc60ea37bcc832cb2f}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+
+=======
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5':
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.14.4
+      typescript: ^5.7.0
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
     peerDependencies:
@@ -2366,6 +2438,7 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
 
+<<<<<<< Updated upstream
   svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03:
     resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
     version: 0.1.0
@@ -2382,6 +2455,43 @@ packages:
       svelte: ^5.3.0
       typescript: ^5.7.0
 
+||||||| Stash base
+=======
+<<<<<<< Updated upstream
+||||||| Stash base
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+
+=======
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.14.4
+
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5}
+    version: 0.1.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.14.4
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   svelte-eslint-parser@0.43.0:
     resolution: {integrity: sha512-GpU52uPKKcVnh8tKN5P4UZpJ/fUDndmq7wfsvoVXsyP+aY0anol7Yqo01fyrlaWGMFfm4av5DyrjlaXdLRJvGA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -2577,6 +2687,7 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
+<<<<<<< Updated upstream
   vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main:
     resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main}
     version: 0.0.0
@@ -2586,6 +2697,31 @@ packages:
       typescript: ^5.7.0
       vite: ^6.0.0
 
+||||||| Stash base
+=======
+<<<<<<< Updated upstream
+||||||| Stash base
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main}
+    version: 0.0.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.3.0
+      typescript: ^5.7.0
+      vite: ^6.0.0
+
+=======
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed}
+    version: 0.0.0
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.14.4
+      typescript: ^5.7.0
+      vite: ^6.0.5
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   vite@5.4.11:
     resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -3465,6 +3601,38 @@ snapshots:
 
   '@shikijs/vscode-textmate@9.3.1': {}
 
+<<<<<<< Updated upstream
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2)':
+||||||| Stash base
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))':
+=======
+<<<<<<< Updated upstream
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))':
+>>>>>>> Stashed changes
+    dependencies:
+<<<<<<< Updated upstream
+      '@types/estree': 1.0.6
+      svelte: 5.15.0
+      svelte2tsx: 0.7.31(svelte@5.15.0)(typescript@5.7.2)
+      typescript: 5.7.2
+      zimmerframe: 1.1.2
+
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@c413b4887df23eff90afb3fc60ea37bcc832cb2f(svelte@5.15.0)(typescript@5.7.2)':
+    dependencies:
+      '@types/estree': 1.0.6
+      svelte: 5.15.0
+      svelte2tsx: 0.7.31(svelte@5.15.0)(typescript@5.7.2)
+      typescript: 5.7.2
+      zimmerframe: 1.1.2
+
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))':
+    dependencies:
+      '@sveltejs/kit': 2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+||||||| Stash base
+      '@sveltejs/kit': 2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1))
+=======
+      '@sveltejs/kit': 2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.14.4)(vite@6.0.3(jiti@1.21.7)(yaml@2.6.1))
+||||||| Stash base
   '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2)':
     dependencies:
       '@types/estree': 1.0.6
@@ -3484,6 +3652,20 @@ snapshots:
   '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))':
     dependencies:
       '@sveltejs/kit': 2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+=======
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5(svelte@5.15.0)(typescript@5.7.2)':
+    dependencies:
+      '@types/estree': 1.0.6
+      svelte: 5.15.0
+      svelte2tsx: 0.7.31(svelte@5.15.0)(typescript@5.7.2)
+      typescript: 5.7.2
+      zimmerframe: 1.1.2
+
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))':
+    dependencies:
+      '@sveltejs/kit': 2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       import-meta-resolve: 4.1.0
 
   '@sveltejs/kit@2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1))':
@@ -4940,6 +5122,7 @@ snapshots:
     transitivePeerDependencies:
       - picomatch
 
+<<<<<<< Updated upstream
   svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2):
     dependencies:
       '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2)
@@ -4955,6 +5138,45 @@ snapshots:
       valibot: 1.0.0-beta.9(typescript@5.7.2)
 
   svelte-eslint-parser@0.43.0(svelte@5.15.0):
+||||||| Stash base
+  svelte-eslint-parser@0.43.0(svelte@5.14.4):
+=======
+<<<<<<< Updated upstream
+  svelte-eslint-parser@0.43.0(svelte@5.14.4):
+||||||| Stash base
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2):
+    dependencies:
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2)
+      svelte: 5.15.0
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.9(typescript@5.7.2)
+
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2):
+    dependencies:
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@c413b4887df23eff90afb3fc60ea37bcc832cb2f(svelte@5.15.0)(typescript@5.7.2)
+      svelte: 5.15.0
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.9(typescript@5.7.2)
+
+  svelte-eslint-parser@0.43.0(svelte@5.15.0):
+=======
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed(svelte@5.15.0):
+    dependencies:
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5(svelte@5.15.0)(typescript@5.7.2)
+      svelte: 5.15.0
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.9(typescript@5.7.2)
+
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5(svelte@5.15.0):
+    dependencies:
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5(svelte@5.15.0)(typescript@5.7.2)
+      svelte: 5.15.0
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.9(typescript@5.7.2)
+
+  svelte-eslint-parser@0.43.0(svelte@5.15.0):
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     dependencies:
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3
@@ -5183,6 +5405,7 @@ snapshots:
       - supports-color
       - terser
 
+<<<<<<< Updated upstream
   vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)):
     dependencies:
       esrap: 1.3.2
@@ -5192,6 +5415,31 @@ snapshots:
       vite: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
       zimmerframe: 1.1.2
 
+||||||| Stash base
+=======
+<<<<<<< Updated upstream
+||||||| Stash base
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)):
+    dependencies:
+      esrap: 1.3.2
+      svelte: 5.15.0
+      svelte-docgen: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@69b383a1667c1c2670bdacfff1b4d489eb9beb03(svelte@5.15.0)(typescript@5.7.2)
+      typescript: 5.7.2
+      vite: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
+      zimmerframe: 1.1.2
+
+=======
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed(svelte@5.15.0)(typescript@5.7.2)(vite@6.0.5(jiti@1.21.7)(yaml@2.6.1)):
+    dependencies:
+      esrap: 1.3.2
+      svelte: 5.15.0
+      svelte-docgen: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed6cc8eacda404eee34bc0e6541a08a1ba5(svelte@5.15.0)
+      typescript: 5.7.2
+      vite: 6.0.5(jiti@1.21.7)(yaml@2.6.1)
+      zimmerframe: 1.1.2
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   vite@5.4.11:
     dependencies:
       esbuild: 0.21.5

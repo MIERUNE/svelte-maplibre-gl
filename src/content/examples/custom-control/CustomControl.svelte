@@ -32,7 +32,7 @@
 
 	<!-- Control / Group / Icon -->
 	<CustomControl position="bottom-left">
-		<button onclick={() => (isDarkMode = !isDarkMode)} class="grid place-items-center text-gray-900">
+		<button onclick={() => (isDarkMode = !isDarkMode)} class="!flex items-center justify-center text-gray-900">
 			{#if isDarkMode}
 				<Moon class="w-5" />
 			{:else}
@@ -43,16 +43,16 @@
 
 	<!-- Group -->
 	<CustomControl position={controlPosition} class="text-gray-900">
-		<button class="place-items-center" onclick={() => (controlPosition = 'top-left')}
+		<button class="!flex items-center justify-center" onclick={() => (controlPosition = 'top-left')}
 			><ArrowUpLeft class="w-5" /></button
 		>
-		<button class="place-items-center" onclick={() => (controlPosition = 'top-right')}
+		<button class="!flex items-center justify-center" onclick={() => (controlPosition = 'top-right')}
 			><ArrowUpRight class="w-5" /></button
 		>
-		<button class="place-items-center" onclick={() => (controlPosition = 'bottom-right')}
+		<button class="!flex items-center justify-center" onclick={() => (controlPosition = 'bottom-right')}
 			><ArrowDownRight class="w-5" /></button
 		>
-		<button class="place-items-center" onclick={() => (controlPosition = 'bottom-left')}
+		<button class="!flex items-center justify-center" onclick={() => (controlPosition = 'bottom-left')}
 			><ArrowDownLeft class="w-5" /></button
 		>
 	</CustomControl>

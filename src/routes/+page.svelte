@@ -29,7 +29,7 @@
 			<li>No restrictions — You can also control maps imperatively whenever needed</li>
 		</ul>
 		<p class="font-bold">Installation:</p>
-		<pre><code>npm install --dev svelte-maplibre-gl</code></pre>
+		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>
 		<p>User documentation will be made available soon.</p>
 	</main>
 </div>

@@ -20,7 +20,7 @@ License: MIT or Apache 2.0
 ## Installation
 
 ```bash
-npm install --dev svelte-maplibre-gl
+npm install --save-dev svelte-maplibre-gl
 ```
 
 > [!NOTE]

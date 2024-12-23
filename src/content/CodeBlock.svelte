@@ -17,20 +17,20 @@
 	});
 </script>
 
-<div class="my-6 subpixel-antialiased">
+<div class="line-numbers my-6 subpixel-antialiased">
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
 </div>
 
 <style>
-	:global(.shiki code) {
+	:global(.line-numbers .shiki code) {
 		font-size: 13px;
 		tab-size: 2;
 		counter-reset: step;
 		counter-increment: step 0;
 	}
 
-	:global(.shiki code .line::before) {
+	:global(.line-numbers .shiki code .line::before) {
 		content: counter(step);
 		counter-increment: step;
 		width: 1em;

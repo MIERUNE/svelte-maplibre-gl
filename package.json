@@ -87,9 +87,25 @@
 		"three": "^0.171.0",
 		"typescript": "^5.7.2",
 		"typescript-eslint": "^8.18.1",
+<<<<<<< Updated upstream
 		"vite": "^6.0.5",
 		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main",
 		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main",
+||||||| Stash base
+		"vite": "^6.0.3",
+=======
+<<<<<<< Updated upstream
+		"vite": "^6.0.3",
+||||||| Stash base
+		"vite": "^6.0.5",
+		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main",
+		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main",
+=======
+		"vite": "^6.0.5",
+		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed",
+		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed",
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 		"vitest": "^2.1.8"
 	},
 	"pnpm": {
