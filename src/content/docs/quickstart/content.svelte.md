@@ -26,7 +26,7 @@ npm install
 npm install -D svelte-maplibre-gl
 ```
 
-Then you can make a map of MapLibre GL JS only with few lines of code.
+Then you can make a map of MapLibre GL JS only with one line of code.
 
 <CodeBlock content={maplibreRaw} {shiki} />
 <Maplibre />
