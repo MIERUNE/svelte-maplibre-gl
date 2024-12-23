@@ -14,7 +14,7 @@ description: Get started with svelte-maplibre-gl in a few minutes.
 
 ```
 npx sv create mymap
-# TailwindCSS option must be enabled, svelte-maplibre-gl uses depends on it.
+# TailwindCSS option must be enabled, svelte-maplibre-gl depends on it.
 
 cd myapp
 npm install
