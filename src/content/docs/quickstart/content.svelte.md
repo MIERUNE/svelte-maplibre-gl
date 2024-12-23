@@ -20,7 +20,7 @@ cd myapp
 npm install
 ```
 
-### Install svelte-maplibre-gl
+## Install svelte-maplibre-gl
 
 ```
 npm install -D svelte-maplibre-gl
