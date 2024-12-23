@@ -11,8 +11,8 @@
 	let offsets: maplibregl.Offset = $derived({
 		top: [0, offset],
 		bottom: [0, -offset],
-		left: [offset, 0],
-		right: [-offset, 0],
+		left: [offset + 12, 0],
+		right: [-offset - 12, 0],
 		center: [0, 0],
 		'top-left': [offset, offset],
 		'top-right': [-offset, offset],

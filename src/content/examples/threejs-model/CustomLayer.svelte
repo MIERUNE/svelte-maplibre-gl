@@ -72,7 +72,6 @@
 	zoom={18}
 	pitch={60}
 	center={[148.9819, -35.3981]}
-	antialias
 >
 	<CustomLayer implementation={customLayerImpl} />
 </MapLibre>

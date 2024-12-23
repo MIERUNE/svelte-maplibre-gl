@@ -98,9 +98,9 @@
 	let pendingChanges: MapboxOverlayProps = {};
 	let changeTrigger = $state(0);
 
-	function reactiveProp(name: keyof MapboxOverlayProps, value: unknown) {
+	function reactiveProp<K extends keyof MapboxOverlayProps>(name: K, value: MapboxOverlayProps[K]) {
 		if (!firstRun) {
-			pendingChanges[name] = $state.snapshot(value);
+			pendingChanges[name] = value;
 			untrack(() => (changeTrigger += 1));
 		}
 	}

@@ -72,8 +72,6 @@
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
 		}
 	}
-
-	const customLayerImpl = new CustomLayerImpl();
 </script>
 
 <MapLibre
@@ -81,7 +79,6 @@
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={3}
 	center={[20, 58]}
-	antialias
 >
-	<CustomLayer implementation={customLayerImpl} />
+	<CustomLayer implementation={new CustomLayerImpl()} />
 </MapLibre>

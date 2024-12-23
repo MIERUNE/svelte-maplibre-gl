@@ -3,11 +3,19 @@
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 ![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
-Simplify [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) with the full potential of [Svelte](https://svelte.dev/)'s reactivity.
+:world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte 5](https://svelte.dev/).
 
-Documentaion and Examples: https://svelte-maplibre-gl.mierune.dev/examples/
+**Features:**
+
+- The most declarative and reactive MapLibre GL JS experience with Svelte 5
+- A flexible, less opinionated API design for both beginners and experienced MapLibre users  
+- No restrictions — You can also control maps imperatively whenever needed  
+
+:point_right: **Documentaion and Live Demos:** https://svelte-maplibre-gl.mierune.dev/examples/
 
 License: MIT or Apache 2.0
+
+<img alt="hero image" src="./src/lib/assets/hero.svg" width="100%">
 
 ## Installation
 
@@ -15,7 +23,8 @@ License: MIT or Apache 2.0
 npm install --dev svelte-maplibre-gl
 ```
 
-:warning: `svelte-maplibre-gl` only works with Svelte **5** and above.
+> [!NOTE]
+> `svelte-maplibre-gl` only works with **Svelte 5** and above.
 
 ## License
 
