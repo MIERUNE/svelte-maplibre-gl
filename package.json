@@ -52,7 +52,7 @@
 		"@docsearch/js": "^3.8.2",
 		"@playwright/test": "^1.49.1",
 		"@sveltejs/adapter-auto": "^3.3.1",
-		"@sveltejs/kit": "^2.15.0",
+		"@sveltejs/kit": "^2.15.1",
 		"@sveltejs/package": "^2.3.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tailwindcss/typography": "^0.5.15",
@@ -60,14 +60,14 @@
 		"@types/geojson": "^7946.0.15",
 		"@types/three": "^0.171.0",
 		"autoprefixer": "^10.4.20",
-		"bits-ui": "1.0.0-next.72",
+		"bits-ui": "1.0.0-next.74",
 		"clsx": "^2.1.1",
 		"eslint": "^9.17.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
-		"lucide-svelte": "^0.468.0",
-		"maplibre-contour": "^0.0.8",
+		"lucide-svelte": "^0.469.0",
+		"maplibre-contour": "^0.1.0",
 		"maplibre-gl": "5.0.0-pre.10",
 		"mdsvex": "^0.12.3",
 		"mode-watcher": "^0.5.0",
@@ -78,34 +78,18 @@
 		"prettier-plugin-tailwindcss": "^0.6.9",
 		"publint": "^0.2.12",
 		"shiki": "^1.24.4",
-		"svelte": "^5.15.0",
+		"svelte": "^5.16.0",
 		"svelte-check": "^4.1.1",
-		"tailwind-merge": "^2.5.5",
+		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@864d81f",
+		"tailwind-merge": "^2.6.0",
 		"tailwind-variants": "^0.3.0",
 		"tailwindcss": "^3.4.17",
 		"tailwindcss-animate": "^1.0.7",
 		"three": "^0.171.0",
 		"typescript": "^5.7.2",
-		"typescript-eslint": "^8.18.1",
-<<<<<<< Updated upstream
-		"vite": "^6.0.5",
-		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main",
-		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main",
-||||||| Stash base
-		"vite": "^6.0.3",
-=======
-<<<<<<< Updated upstream
-		"vite": "^6.0.3",
-||||||| Stash base
-		"vite": "^6.0.5",
-		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@main",
-		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@main",
-=======
-		"vite": "^6.0.5",
-		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@e8923ed",
-		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@e8923ed",
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+		"typescript-eslint": "^8.18.2",
+		"vite": "^6.0.6",
+		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@864d81f",
 		"vitest": "^2.1.8"
 	},
 	"pnpm": {

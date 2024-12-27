@@ -4,16 +4,6 @@ export const toc: Toc = [
 	{
 		title: 'Map',
 		items: {
-<<<<<<< Updated upstream
-			'/components/MapLibre': 'MapLibre'
-||||||| Stash base
-			'/components/markdown': 'Markdown test'
-=======
-<<<<<<< Updated upstream
-			'/components/markdown': 'Markdown test'
-||||||| Stash base
-			'/components/MapLibre': 'MapLibre'
-=======
 			'/components/MapLibre': 'MapLibre',
 			'/components/Image': 'Image',
 			'/components/Light': 'Light',
@@ -89,8 +79,6 @@ export const toc: Toc = [
 			'/components/ImageLoader': 'ImageLoader',
 			'/components/QueryRenderedFeatures': 'QueryRenderedFeatures',
 			'/components/QuerySourceFeatures': 'QuerySourceFeatures'
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 		}
 	}
 ];

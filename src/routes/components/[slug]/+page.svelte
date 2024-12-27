@@ -13,60 +13,6 @@
 			{data.description}
 		</p>
 
-<<<<<<< Updated upstream
-		<pre>{data.doc}</pre>
-
-		{#each data.doc.props as [name, prop]}
-			<div class="mb-8">
-				<h3 class="text-xl font-semibold">
-					{name}
-					{#if !prop.isOptional}
-						[required]
-					{/if}
-				</h3>
-				<p class="text-muted-foreground">{prop.description}</p>
-				<div class="mt-4">
-					{#if prop.type}
-						<div class="flex items-center space-x-2">
-							<span class="text-sm font-semibold">Type:</span>
-							<span>{prop.type}</span>
-						</div>
-					{/if}
-				</div>
-			</div>
-		{/each}
-||||||| Stash base
-		<div class="prose max-w-none dark:prose-invert">
-			<data.Content shiki={data.shiki} />
-		</div>
-=======
-<<<<<<< Updated upstream
-		<div class="prose max-w-none dark:prose-invert">
-			<data.Content shiki={data.shiki} />
-		</div>
-||||||| Stash base
-		<pre>{data.doc}</pre>
-
-		{#each data.doc.props as [name, prop]}
-			<div class="mb-8">
-				<h3 class="text-xl font-semibold">
-					{name}
-					{#if !prop.isOptional}
-						[required]
-					{/if}
-				</h3>
-				<p class="text-muted-foreground">{prop.description}</p>
-				<div class="mt-4">
-					{#if prop.type}
-						<div class="flex items-center space-x-2">
-							<span class="text-sm font-semibold">Type:</span>
-							<span>{prop.type}</span>
-						</div>
-					{/if}
-				</div>
-			</div>
-		{/each}
-=======
 		{#each doc.props as [name, prop]}
 			<div class="mb-8">
 				<h3 class="text-xl font-semibold">
@@ -86,8 +32,6 @@
 				</div>
 			</div>
 		{/each}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 	</div>
 	<aside class="sticky top-24 hidden h-[calc(100vh-6rem)] lg:block">
 		<div class="font-medium">On This Page</div>
