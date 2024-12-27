@@ -34,13 +34,3 @@
 <svelte:head>
 	<title>Svelte MapLibre GL</title>
 </svelte:head>
-
-<style>
-	header {
-		view-transition-name: header;
-	}
-
-	#content {
-		view-transition-name: content;
-	}
-</style>

@@ -7,9 +7,3 @@
 <div id="toc" class="m-auto p-8 xl:container">
 	<Index name="Docs" {toc} />
 </div>
-
-<style>
-	#toc {
-		view-transition-name: toc;
-	}
-</style>

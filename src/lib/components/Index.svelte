@@ -20,9 +20,3 @@
 		</ul>
 	{/each}
 </nav>
-
-<style>
-	nav {
-		view-transition-name: toc-index;
-	}
-</style>

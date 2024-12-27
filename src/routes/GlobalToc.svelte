@@ -48,9 +48,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	#global-toc {
-		view-transition-name: global-toc;
-	}
-</style>
