@@ -24,9 +24,11 @@
 		</p>
 		<p class="font-bold">Features:</p>
 		<ul>
-			<li>The most declarative and reactive MapLibre GL JS experience with Svelte 5</li>
-			<li>A flexible, less opinionated API design for both beginners and experienced MapLibre users</li>
-			<li>No restrictions — You can also control maps imperatively whenever needed</li>
+			<li>The most declarative and reactive MapLibre GL JS experience, powered by Svelte 5</li>
+			<li>
+				A flexible, minimally opinionated API design that is suitable for both beginners and experienced MapLibre users
+			</li>
+			<li>Freedom preserved — Traditional imperative MapLibre GL JS usage remains fully supported</li>
 		</ul>
 		<p class="font-bold">Installation:</p>
 		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>

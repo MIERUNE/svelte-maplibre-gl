@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { decode } from 'svelte-docgen';
+	import Prop from './Prop.svelte';
 	const { data } = $props();
 
-	const doc = $derived(decode(data.encodedDoc));
+	const requiredProps = $derived(new Map(data.doc.props.entries().filter(([name, prop]) => !prop.isOptional)));
+	const optionalProps = $derived(new Map(data.doc.props.entries().filter(([name, prop]) => prop.isOptional)));
 </script>
 
 <div class="grid gap-x-8 lg:grid-cols-[1fr_160px]">
@@ -13,24 +14,16 @@
 			{data.description}
 		</p>
 
-		{#each doc.props as [name, prop]}
-			<div class="mb-8">
-				<h3 class="text-xl font-semibold">
-					{name}
-					{#if !prop.isOptional}
-						<sup>[required]</sup>
-					{/if}
-				</h3>
-				<p class="text-muted-foreground">{prop.description}</p>
-				<div class="mt-4">
-					{#if prop.type}
-						<div class="flex items-center space-x-2">
-							<span class="text-sm font-semibold">Type:</span>
-							<span>{prop.type}</span>
-						</div>
-					{/if}
-				</div>
-			</div>
+		{#each requiredProps as [name, prop]}
+			{#if !prop.isOptional}
+				<Prop {name} {prop} />
+			{/if}
+		{/each}
+
+		{#each optionalProps as [name, prop]}
+			{#if prop.isOptional}
+				<Prop {name} {prop} />
+			{/if}
 		{/each}
 	</div>
 	<aside class="sticky top-24 hidden h-[calc(100vh-6rem)] lg:block">

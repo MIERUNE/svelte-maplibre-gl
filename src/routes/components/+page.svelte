@@ -5,7 +5,7 @@
 </script>
 
 <div id="toc" class="m-auto p-8 xl:container">
-	<Index name="Components" {toc} />
+	<Index name="API Reference" {toc} />
 </div>
 
 <style>
