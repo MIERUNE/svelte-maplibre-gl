@@ -19,7 +19,7 @@ export const load = async ({ params }) => {
 	}
 	return {
 		title: slug,
-		description: `API Reference for ${slug}`,
+		targetComponent: slug,
 		doc
 	};
 };

@@ -1,25 +1,29 @@
 <script lang="ts">
-	import type { Prop } from 'svelte-docgen/doc';
-	const { name, prop }: { name: string; prop: Prop } = $props();
-	import SuperJSON from 'superjson';
+	import type { Prop, Types } from 'svelte-docgen/doc';
+	const { name, prop, types }: { name: string; prop: Prop; types: Types } = $props();
+	import * as Table from '$lib/components/ui/table/index.js';
+	import { formatType } from './utils.js';
 </script>
 
-<div class="mb-8">
-	<h3 class="text-lg font-semibold">
-		{name}
-		{#if prop.isOptional}
-			<sup class="text-muted-foreground">optional</sup>
+<Table.Row>
+	<Table.Cell>
+		<code class="font-bold">{name}</code>
+		<div class="text-xs">
+			{#if prop.isOptional}
+				<span class="text-muted-foreground">optional</span>
+			{:else}
+				<span class="text-red-400">required</span>
+			{/if}
+		</div>
+	</Table.Cell>
+	<Table.Cell class="text-sm text-muted-foreground">
+		{formatType(prop.type, types)}
+	</Table.Cell>
+	<Table.Cell class="text-sm text-muted-foreground">
+		{#if prop.description}
+			{prop.description}
 		{:else}
-			<sup class="text-red-400">required</sup>
+			-
 		{/if}
-	</h3>
-	<p class="text-sm text-muted-foreground">{prop.description}</p>
-	<div class="mt-2">
-		{#if prop.type}
-			<div class="flex items-center space-x-2">
-				<span class="text-sm font-semibold">Type:</span>
-				<pre class="text-xs">{SuperJSON.stringify(prop.type)}</pre>
-			</div>
-		{/if}
-	</div>
-</div>
+	</Table.Cell>
+</Table.Row>

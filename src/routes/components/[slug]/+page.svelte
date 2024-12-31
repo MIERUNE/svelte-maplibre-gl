@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Prop from './Prop.svelte';
+	import * as Table from '$lib/components/ui/table/index.js';
 	const { data } = $props();
 
 	const requiredProps = $derived(new Map(data.doc.props.entries().filter(([name, prop]) => !prop.isOptional)));
@@ -10,21 +11,30 @@
 	<div class="min-h-[calc(100vh-4rem)] w-full min-w-0 py-8">
 		<h1 class="mb-2 text-3xl font-bold">{data.title}</h1>
 
-		<p class="mb-6 text-muted-foreground">
-			{data.description}
-		</p>
+		<p class="mb-6 text-muted-foreground">API Reference for <code>{`<${data.targetComponent} />`}</code></p>
 
-		{#each requiredProps as [name, prop]}
-			{#if !prop.isOptional}
-				<Prop {name} {prop} />
-			{/if}
-		{/each}
+		<Table.Root>
+			<Table.Header>
+				<Table.Row>
+					<Table.Head class="w-[120px]">Property</Table.Head>
+					<Table.Head>Type</Table.Head>
+					<Table.Head>Description</Table.Head>
+				</Table.Row>
+			</Table.Header>
+			<Table.Body>
+				{#each requiredProps as [name, prop]}
+					{#if !prop.isOptional}
+						<Prop {name} {prop} types={data.doc.types} />
+					{/if}
+				{/each}
 
-		{#each optionalProps as [name, prop]}
-			{#if prop.isOptional}
-				<Prop {name} {prop} />
-			{/if}
-		{/each}
+				{#each optionalProps as [name, prop]}
+					{#if prop.isOptional}
+						<Prop {name} {prop} types={data.doc.types} />
+					{/if}
+				{/each}
+			</Table.Body>
+		</Table.Root>
 	</div>
 	<aside class="sticky top-24 hidden h-[calc(100vh-6rem)] lg:block">
 		<div class="font-medium">On This Page</div>
