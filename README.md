@@ -23,8 +23,7 @@ License: MIT or Apache 2.0
 npm install --save-dev svelte-maplibre-gl
 ```
 
-> [!NOTE]
-> `svelte-maplibre-gl` only works with **Svelte 5** and above.
+> [!NOTE] > `svelte-maplibre-gl` only works with **Svelte 5** and above.
 
 ## License
 
@@ -42,7 +41,7 @@ This project `svelte-maplibre-gl` is built from scratch, while drawing strong in
 Everyone is welcome to contribute to this project! There are many ways to support the project, such as:
 
 - Trying it out and reporting any issues or missing fundamental features
-- Expanding, improving, or suggesting new examples
+- Expanding, improving, or suggesting examples
 - Anything else you can think of!
 
 Your contributions are greatly appreciated.
@@ -50,6 +49,6 @@ Your contributions are greatly appreciated.
 ### Authors
 
 - Maintainers:
-    - Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
-    - Kanahiro Iguchi ([@Kanahiro](https://github.com/Kanahiro/))
+  - Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
+  - Kanahiro Iguchi ([@Kanahiro](https://github.com/Kanahiro/))
 - And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)!

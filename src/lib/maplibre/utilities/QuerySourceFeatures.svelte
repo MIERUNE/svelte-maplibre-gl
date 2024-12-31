@@ -38,7 +38,7 @@
 		let queriedFeature = map.querySourceFeatures(
 			source,
 			$state.snapshot(options) as maplibregl.QuerySourceFeatureOptions
-		);
+		) as maplibregl.MapGeoJSONFeature[];
 
 		// deduplicate
 		let closed = new Set();
