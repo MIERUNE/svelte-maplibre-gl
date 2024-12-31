@@ -4,7 +4,7 @@ export const toc: Toc = [
 	{
 		title: 'Overview',
 		items: {
-			'/docs/quickstart': 'Quickstart',
+			'/docs/quickstart': 'Quickstart'
 			// '/docs/Concept': 'Concept',
 		}
 	}
