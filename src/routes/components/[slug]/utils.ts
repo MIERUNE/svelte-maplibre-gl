@@ -35,6 +35,19 @@ function _format(type: TypeOrRef, types: Types, toplevel = false): string {
 			default:
 				return type.subkind;
 		}
+	} else if (type.kind === 'constructible') {
+		return type.name;
+	} else if (type.kind === 'function') {
+		if (type.calls.length !== 1) {
+			return 'function';
+		}
+		const call = type.calls[0];
+		const params = call.parameters
+			.map((p) => {
+				const optional = p.isOptional ? '?' : '';
+				return `${p.name}${optional}: ${_format(p.type, types, false)}`;
+			})
+			.join(', ');
 	} else if (type.kind === 'union') {
 		if (toplevel && type.nonNullable) {
 			return _format(type.nonNullable, types, true);
@@ -43,16 +56,15 @@ function _format(type: TypeOrRef, types: Types, toplevel = false): string {
 	} else if (type.kind === 'intersection') {
 		return type.types.map((t) => _format(t, types, false)).join(' | ');
 	} else if (type.kind === 'interface') {
-		// const members = type.members
-		// 	.entries()
-		// 	.map(([name, m]) => {
-		// 		const type = _format(m.type, types, false);
-		// 		const optional = m.isOptional ? '?' : '';
-		// 		return `${name}${optional}: ${type}`;
-		// 	})
-		// 	.toArray()
-		// 	.join(', ');
-		const members = '...';
+		const members = type.members
+			.entries()
+			.map(([name, m]) => {
+				const type = _format(m.type, types, false);
+				const optional = m.isOptional ? '?' : '';
+				return `${name}${optional}: ${type}`;
+			})
+			.toArray()
+			.join(', ');
 		return `{ ${members} }`;
 	}
 	return type.kind;
