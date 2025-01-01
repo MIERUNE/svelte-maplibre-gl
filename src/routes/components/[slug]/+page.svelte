@@ -11,12 +11,12 @@
 	<div class="min-h-[calc(100vh-4rem)] w-full min-w-0 py-8">
 		<h1 class="mb-2 text-3xl font-bold">{data.title}</h1>
 
-		<p class="mb-6 text-muted-foreground">API Reference for <code>{`<${data.targetComponent} />`}</code></p>
+		<p class="mb-6 text-muted-foreground">API Reference (beta) for <code>{`<${data.targetComponent} />`}</code></p>
 
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>
-					<Table.Head class="w-[120px]">Property</Table.Head>
+					<Table.Head class="min-w-[120px] max-w-[25%]">Property</Table.Head>
 					<Table.Head>Type</Table.Head>
 					<Table.Head>Description</Table.Head>
 				</Table.Row>
