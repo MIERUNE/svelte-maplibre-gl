@@ -35,7 +35,6 @@
 		...restProps
 	}: WithElementRef<HTMLAnchorAttributes> & {
 		variant?: BadgeVariant;
-		class?: string;
 	} = $props();
 </script>
 
@@ -43,7 +42,7 @@
 	this={href ? "a" : "span"}
 	bind:this={ref}
 	{href}
-	class={cn(badgeVariants({ variant, className }))}
+	class={cn(badgeVariants({ variant }), className)}
 	{...restProps}
 >
 	{@render children?.()}

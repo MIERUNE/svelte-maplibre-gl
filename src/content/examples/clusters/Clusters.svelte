@@ -5,8 +5,8 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 
 	let cluster = $state(true);
-	let clusterMaxZoom = $state([11]);
-	let clusterRadius = $state([50]);
+	let clusterMaxZoom = $state(11);
+	let clusterRadius = $state(50);
 </script>
 
 <div class="mb-4 flex items-center justify-between gap-x-10">
@@ -18,12 +18,12 @@
 		>
 	</div>
 	<div class="flex flex-1 grow flex-col gap-y-4">
-		<Label for="clusterMaxZoom">clusterMaxZoom: {clusterMaxZoom[0].toFixed(2)}</Label>
-		<Slider id="clusterMaxZoom" bind:value={clusterMaxZoom} min={0} max={22} step={1} />
+		<Label for="clusterMaxZoom">clusterMaxZoom: {clusterMaxZoom.toFixed(2)}</Label>
+		<Slider type="single" id="clusterMaxZoom" bind:value={clusterMaxZoom} min={0} max={22} step={1} />
 	</div>
 	<div class="flex flex-1 grow flex-col gap-y-4">
-		<Label for="clusterRadius">clusterRadius: {clusterRadius[0].toFixed(2)}</Label>
-		<Slider id="clusterRadius" bind:value={clusterRadius} min={0} max={100} step={1} />
+		<Label for="clusterRadius">clusterRadius: {clusterRadius.toFixed(2)}</Label>
+		<Slider type="single" id="clusterRadius" bind:value={clusterRadius} min={0} max={100} step={1} />
 	</div>
 </div>
 
@@ -37,8 +37,8 @@
 	<GeoJSONSource
 		data="https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson"
 		{cluster}
-		clusterMaxZoom={cluster ? clusterMaxZoom[0] : undefined}
-		clusterRadius={cluster ? clusterRadius[0] : undefined}
+		clusterMaxZoom={cluster ? clusterMaxZoom : undefined}
+		clusterRadius={cluster ? clusterRadius : undefined}
 	>
 		<CircleLayer
 			filter={['has', 'point_count']}

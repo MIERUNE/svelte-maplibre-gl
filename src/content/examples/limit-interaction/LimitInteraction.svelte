@@ -38,11 +38,11 @@
 	<div class="absolute right-3 top-3 z-10 flex flex-col gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur">
 		<div class="mb-3 flex flex-col items-center space-y-2.5 px-2">
 			<Label for="zoom" class="leading-none">Zoom Range ({zoomRange})</Label>
-			<Slider id="zoom" bind:value={zoomRange} min={0} max={22} />
+			<Slider type="multiple" id="zoom" bind:value={zoomRange} min={0} max={22} />
 		</div>
 		<div class="mb-3 flex flex-col items-center space-y-2.5 px-2">
 			<Label for="pitch" class="leading-none">Pitch Range ({pitchRange})</Label>
-			<Slider id="pitch" bind:value={pitchRange} min={0} max={90} />
+			<Slider type="multiple" id="pitch" bind:value={pitchRange} min={0} max={90} />
 		</div>
 		<div class="flex items-center space-x-2">
 			<Checkbox id="scrollZoom" bind:checked={scrollZoom} />
