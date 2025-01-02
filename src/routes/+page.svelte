@@ -2,7 +2,7 @@
 	import heroImage from '$lib/assets/hero.svg';
 </script>
 
-<div class="container mx-auto w-full px-4 py-8 md:py-12">
+<div class="container mx-auto w-full px-4 py-10 md:py-12">
 	<main class="prose mx-auto dark:prose-invert">
 		<h1 class="mb-0">Svelte MapLibre GL</h1>
 		<p>

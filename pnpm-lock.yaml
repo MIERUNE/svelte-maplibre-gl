@@ -55,8 +55,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
       bits-ui:
-        specifier: 1.0.0-next.74
-        version: 1.0.0-next.74(svelte@5.16.0)
+        specifier: 1.0.0-next.76
+        version: 1.0.0-next.76(svelte@5.16.0)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -109,8 +109,8 @@ importers:
         specifier: ^0.2.12
         version: 0.2.12
       shiki:
-        specifier: ^1.24.4
-        version: 1.24.4
+        specifier: ^1.25.1
+        version: 1.25.1
       superjson:
         specifier: ^2.2.2
         version: 2.2.2
@@ -121,8 +121,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1(picomatch@4.0.2)(svelte@5.16.0)(typescript@5.7.2)
       svelte-docgen:
-        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d98
-        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d98(svelte@5.16.0)
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d02519
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d02519(svelte@5.16.0)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -136,8 +136,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       three:
-        specifier: ^0.171.0
-        version: 0.171.0
+        specifier: ^0.172.0
+        version: 0.172.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -148,8 +148,8 @@ importers:
         specifier: ^6.0.6
         version: 6.0.6(jiti@1.21.7)(yaml@2.7.0)
       vite-plugin-svelte-docgen:
-        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@ddc0d98
-        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@ddc0d98(svelte@5.16.0)(typescript@5.7.2)(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0))
+        specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@7d02519
+        version: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@7d02519(svelte@5.16.0)(typescript@5.7.2)(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0))
       vitest:
         specifier: ^2.1.8
         version: 2.1.8
@@ -930,23 +930,29 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@1.24.4':
-    resolution: {integrity: sha512-jjLsld+xEEGYlxAXDyGwWsKJ1sw5Pc1pnp4ai2ORpjx2UX08YYTC0NNqQYO1PaghYaR+PvgMOGuvzw2he9sk0Q==}
+  '@shikijs/core@1.25.1':
+    resolution: {integrity: sha512-0j5k3ZkLTQViOuNzPVyWGoW1zgH3kiFdUT/JOCkTm7TU74mz+dF+NID+YoiCBzHQxgsDpcGYPjKDJRcuVLSt4A==}
 
-  '@shikijs/engine-javascript@1.24.4':
-    resolution: {integrity: sha512-TClaQOLvo9WEMJv6GoUsykQ6QdynuKszuORFWCke8qvi6PeLm7FcD9+7y45UenysxEWYpDL5KJaVXTngTE+2BA==}
+  '@shikijs/engine-javascript@1.25.1':
+    resolution: {integrity: sha512-zQ7UWKnRCfD/Q1M+XOSyjsbhpE0qv8LUnmn82HYCeOsgAHgUZGEDIQ63bbuK3kU5sQg+2CtI+dPfOqD/mjSY9w==}
 
-  '@shikijs/engine-oniguruma@1.24.4':
-    resolution: {integrity: sha512-Do2ry6flp2HWdvpj2XOwwa0ljZBRy15HKZITzPcNIBOGSeprnA8gOooA/bLsSPuy8aJBa+Q/r34dMmC3KNL/zw==}
+  '@shikijs/engine-oniguruma@1.25.1':
+    resolution: {integrity: sha512-iKPMh3H+0USHtWfZ1irfMTH6tGmIUFSnqt3E2K8BgI1VEsqiPh0RYkG2WTwzNiM1/WHN4FzYx/nrKR7PDHiRyw==}
 
-  '@shikijs/types@1.24.4':
-    resolution: {integrity: sha512-0r0XU7Eaow0PuDxuWC1bVqmWCgm3XqizIaT7SM42K03vc69LGooT0U8ccSR44xP/hGlNx4FKhtYpV+BU6aaKAA==}
+  '@shikijs/langs@1.25.1':
+    resolution: {integrity: sha512-hdYjq9aRJplAzGe2qF51PR9IDgEoyGb4IkXvr3Ts6lEdg4Z8M/kdknKRo2EIuv3IR/aKkJXTlBQRM+wr3t20Ew==}
+
+  '@shikijs/themes@1.25.1':
+    resolution: {integrity: sha512-JO0lDn4LgGqg5QKvgich5ScUmC2okK+LxM9a3iLUH7YMeI2c8UGXThuJv6sZduS7pdJbYQHPrvWq9t/V4GhpbQ==}
+
+  '@shikijs/types@1.25.1':
+    resolution: {integrity: sha512-dceqFUoO95eY4tpOj3OGq8wE8EgJ4ey6Me1HQEu5UbwIYszFndEll/bjlB8Kp9wl4fx3uM7n4+y9XCYuDBmcXA==}
 
   '@shikijs/vscode-textmate@9.3.1':
     resolution: {integrity: sha512-79QfK1393x9Ho60QFyLti+QfdJzRQCVLFb97kOIV7Eo9vQU/roINgk7m24uv0a7AUvN//RDH36FLjjK48v0s9g==}
 
-  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@ddc0d985939ab1752fb8e487c959a9bcdf9f931a':
-    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@ddc0d985939ab1752fb8e487c959a9bcdf9f931a}
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@7d025197c045c4a707482ddf0e6217e8ed5fbe17':
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@7d025197c045c4a707482ddf0e6217e8ed5fbe17}
     version: 0.1.0
     engines: {node: '>=18'}
     peerDependencies:
@@ -1219,11 +1225,11 @@ packages:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
-  bits-ui@1.0.0-next.74:
-    resolution: {integrity: sha512-cazru5+NBKBCeK9KCV/OFy5I/B1zxOJGl5WpInzPTEPla5G9qZK9nrnXr6BbExKdhgusTiMm3h4Yvq4E5WHGJA==}
+  bits-ui@1.0.0-next.76:
+    resolution: {integrity: sha512-BtTBlAQgdtA7l1V2EarM2QJlD8pkH4DAKACjCy4KMIVWMXdg15BGwALoXw1IWk4Xe4nCXI5Bz+lIB6nSgrzo6Q==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
-      svelte: ^5.0.0
+      svelte: ^5.11.0
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -1943,8 +1949,8 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
-  oniguruma-to-es@0.8.1:
-    resolution: {integrity: sha512-dekySTEvCxCj0IgKcA2uUCO/e4ArsqpucDPcX26w9ajx+DvMWLc5eZeJaRQkd7oC/+rwif5gnT900tA34uN9Zw==}
+  oniguruma-to-es@0.10.0:
+    resolution: {integrity: sha512-zapyOUOCJxt+xhiNRPPMtfJkHGsZ98HHB9qJEkdT8BGytO/+kpe4m1Ngf0MzbzTmhacn11w9yGeDP6tzDhnCdg==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -2262,10 +2268,15 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runed@0.15.4:
-    resolution: {integrity: sha512-kmbpstUd7v2FdlBM+MT78IyuOVd38tq/e7MHvVb0fnVCsPSPMD/m2Xh+wUhzg9qCJgxRjBbIKu68DlH/x5VXJA==}
+  runed@0.20.0:
+    resolution: {integrity: sha512-YqPxaUdWL5nUXuSF+/v8a+NkVN8TGyEGbQwTA25fLY35MR/2bvZ1c6sCbudoo1kT4CAJPh4kUkcgGVxW127WKw==}
     peerDependencies:
-      svelte: ^5.0.0-next.1
+      svelte: ^5.7.0
+
+  runed@0.22.0:
+    resolution: {integrity: sha512-ZWVXWhOr0P5xdNgtviz6D1ivLUDWKLCbeC5SUEJ3zBkqLReVqWHenFxMNFeFaiC5bfxhFxyxzyzB+98uYFtwdA==}
+    peerDependencies:
+      svelte: ^5.7.0
 
   rw@1.3.3:
     resolution: {integrity: sha512-PdhdWy89SiZogBLaw42zdeqtRJ//zFd2PgQavcICDUgJT5oW10QCRKbJ6bg4r0/UY2M6BWd5tkxuGFRvCkgfHQ==}
@@ -2293,8 +2304,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shiki@1.24.4:
-    resolution: {integrity: sha512-aVGSFAOAr1v26Hh/+GBIsRVDWJ583XYV7CuNURKRWh9gpGv4OdbisZGq96B9arMYTZhTQkmRF5BrShOSTvNqhw==}
+  shiki@1.25.1:
+    resolution: {integrity: sha512-/1boRvNYwRW3GLG9Y6dXdnZ/Ha+J5T/5y3hV7TGQUcDSBM185D3FCbXlz2eTGNKG2iWCbWqo+P0yhGKZ4/CUrw==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -2382,15 +2393,15 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
 
-  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d98:
-    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d98}
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d02519:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d02519}
     version: 0.1.0
     engines: {node: '>=18'}
     peerDependencies:
       svelte: ^5.16.0
 
-  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d985939ab1752fb8e487c959a9bcdf9f931a:
-    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d985939ab1752fb8e487c959a9bcdf9f931a}
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d025197c045c4a707482ddf0e6217e8ed5fbe17:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d025197c045c4a707482ddf0e6217e8ed5fbe17}
     version: 0.1.0
     engines: {node: '>=18'}
     peerDependencies:
@@ -2405,11 +2416,11 @@ packages:
       svelte:
         optional: true
 
-  svelte-toolbelt@0.4.6:
-    resolution: {integrity: sha512-k8OUvXBUifHZcAlWeY/HLg/4J0v5m2iOfOhn8fDmjt4AP8ZluaDh9eBFus9lFiLX6O5l6vKqI1dKL5wy7090NQ==}
+  svelte-toolbelt@0.7.0:
+    resolution: {integrity: sha512-i/Tv4NwAWWqJnK5H0F8y/ubDnogDYlwwyzKhrspTUFzrFuGnYshqd2g4/R43ds841wmaFiSW/HsdsdWhPOlrAA==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
-      svelte: ^5.0.0-next.126
+      svelte: ^5.0.0
 
   svelte2tsx@0.7.31:
     resolution: {integrity: sha512-exrN1o9mdCLAA7hTCudz731FIxomH/0SN9ZIX+WrY/XnlLuno/NNC1PF6JXPZVqp/4sMMDKteqyKoG44hliljQ==}
@@ -2447,8 +2458,8 @@ packages:
   thenify@3.3.1:
     resolution: {integrity: sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==}
 
-  three@0.171.0:
-    resolution: {integrity: sha512-Y/lAXPaKZPcEdkKjh0JOAHVv8OOnv/NDJqm0wjfCzyQmfKxV7zvkwsnBgPBKTzJHToSOhRGQAGbPJObT59B/PQ==}
+  three@0.172.0:
+    resolution: {integrity: sha512-6HMgMlzU97MsV7D/tY8Va38b83kz8YJX+BefKjspMNAv0Vx6dxMogHOrnRl/sbMIs3BPUKijPqDqJ/+UwJbIow==}
 
   tiny-glob@0.2.9:
     resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
@@ -2591,8 +2602,8 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@ddc0d98:
-    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@ddc0d98}
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@7d02519:
+    resolution: {tarball: https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@7d02519}
     version: 0.0.0
     engines: {node: '>=18'}
     peerDependencies:
@@ -2671,8 +2682,8 @@ packages:
       yaml:
         optional: true
 
-  vitefu@1.0.4:
-    resolution: {integrity: sha512-y6zEE3PQf6uu/Mt6DTJ9ih+kyJLr4XcSgHR2zUkM8SWDhuixEJxfJ6CZGMHh1Ec3vPLoEA0IHU5oWzVqw8ulow==}
+  vitefu@1.0.5:
+    resolution: {integrity: sha512-h4Vflt9gxODPFNGPwp4zAMZRpZR7eslzwH2c5hn5kNZ5rhnKyRJ50U+yGCdc2IRaBs8O4haIgLNGrV5CrpMsCA==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
     peerDependenciesMeta:
@@ -3455,34 +3466,42 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.29.1':
     optional: true
 
-  '@shikijs/core@1.24.4':
+  '@shikijs/core@1.25.1':
     dependencies:
-      '@shikijs/engine-javascript': 1.24.4
-      '@shikijs/engine-oniguruma': 1.24.4
-      '@shikijs/types': 1.24.4
+      '@shikijs/engine-javascript': 1.25.1
+      '@shikijs/engine-oniguruma': 1.25.1
+      '@shikijs/types': 1.25.1
       '@shikijs/vscode-textmate': 9.3.1
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.4
 
-  '@shikijs/engine-javascript@1.24.4':
+  '@shikijs/engine-javascript@1.25.1':
     dependencies:
-      '@shikijs/types': 1.24.4
+      '@shikijs/types': 1.25.1
       '@shikijs/vscode-textmate': 9.3.1
-      oniguruma-to-es: 0.8.1
+      oniguruma-to-es: 0.10.0
 
-  '@shikijs/engine-oniguruma@1.24.4':
+  '@shikijs/engine-oniguruma@1.25.1':
     dependencies:
-      '@shikijs/types': 1.24.4
+      '@shikijs/types': 1.25.1
       '@shikijs/vscode-textmate': 9.3.1
 
-  '@shikijs/types@1.24.4':
+  '@shikijs/langs@1.25.1':
+    dependencies:
+      '@shikijs/types': 1.25.1
+
+  '@shikijs/themes@1.25.1':
+    dependencies:
+      '@shikijs/types': 1.25.1
+
+  '@shikijs/types@1.25.1':
     dependencies:
       '@shikijs/vscode-textmate': 9.3.1
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@9.3.1': {}
 
-  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@ddc0d985939ab1752fb8e487c959a9bcdf9f931a(svelte@5.16.0)(typescript@5.7.2)':
+  '@svelte-docgen/extractor@https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@7d025197c045c4a707482ddf0e6217e8ed5fbe17(svelte@5.16.0)(typescript@5.7.2)':
     dependencies:
       '@types/estree': 1.0.6
       svelte: 5.16.0
@@ -3542,7 +3561,7 @@ snapshots:
       magic-string: 0.30.17
       svelte: 5.16.0
       vite: 6.0.6(jiti@1.21.7)(yaml@2.7.0)
-      vitefu: 1.0.4(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0))
+      vitefu: 1.0.5(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -3817,15 +3836,15 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  bits-ui@1.0.0-next.74(svelte@5.16.0):
+  bits-ui@1.0.0-next.76(svelte@5.16.0):
     dependencies:
       '@floating-ui/core': 1.6.8
       '@floating-ui/dom': 1.6.12
       '@internationalized/date': 3.6.0
       esm-env: 1.2.1
-      runed: 0.15.4(svelte@5.16.0)
+      runed: 0.22.0(svelte@5.16.0)
       svelte: 5.16.0
-      svelte-toolbelt: 0.4.6(svelte@5.16.0)
+      svelte-toolbelt: 0.7.0(svelte@5.16.0)
 
   brace-expansion@1.1.11:
     dependencies:
@@ -4571,7 +4590,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  oniguruma-to-es@0.8.1:
+  oniguruma-to-es@0.10.0:
     dependencies:
       emoji-regex-xs: 1.0.0
       regex: 5.1.1
@@ -4840,7 +4859,12 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runed@0.15.4(svelte@5.16.0):
+  runed@0.20.0(svelte@5.16.0):
+    dependencies:
+      esm-env: 1.2.1
+      svelte: 5.16.0
+
+  runed@0.22.0(svelte@5.16.0):
     dependencies:
       esm-env: 1.2.1
       svelte: 5.16.0
@@ -4863,12 +4887,14 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shiki@1.24.4:
+  shiki@1.25.1:
     dependencies:
-      '@shikijs/core': 1.24.4
-      '@shikijs/engine-javascript': 1.24.4
-      '@shikijs/engine-oniguruma': 1.24.4
-      '@shikijs/types': 1.24.4
+      '@shikijs/core': 1.25.1
+      '@shikijs/engine-javascript': 1.25.1
+      '@shikijs/engine-oniguruma': 1.25.1
+      '@shikijs/langs': 1.25.1
+      '@shikijs/themes': 1.25.1
+      '@shikijs/types': 1.25.1
       '@shikijs/vscode-textmate': 9.3.1
       '@types/hast': 3.0.4
 
@@ -4961,16 +4987,16 @@ snapshots:
     transitivePeerDependencies:
       - picomatch
 
-  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d98(svelte@5.16.0):
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d02519(svelte@5.16.0):
     dependencies:
-      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@ddc0d985939ab1752fb8e487c959a9bcdf9f931a(svelte@5.16.0)(typescript@5.7.2)
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@7d025197c045c4a707482ddf0e6217e8ed5fbe17(svelte@5.16.0)(typescript@5.7.2)
       svelte: 5.16.0
       typescript: 5.7.2
       valibot: 1.0.0-beta.9(typescript@5.7.2)
 
-  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d985939ab1752fb8e487c959a9bcdf9f931a(svelte@5.16.0):
+  svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d025197c045c4a707482ddf0e6217e8ed5fbe17(svelte@5.16.0):
     dependencies:
-      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@ddc0d985939ab1752fb8e487c959a9bcdf9f931a(svelte@5.16.0)(typescript@5.7.2)
+      '@svelte-docgen/extractor': https://pkg.pr.new/svelte-docgen/svelte-docgen/@svelte-docgen/extractor@7d025197c045c4a707482ddf0e6217e8ed5fbe17(svelte@5.16.0)(typescript@5.7.2)
       svelte: 5.16.0
       typescript: 5.7.2
       valibot: 1.0.0-beta.9(typescript@5.7.2)
@@ -4985,9 +5011,10 @@ snapshots:
     optionalDependencies:
       svelte: 5.16.0
 
-  svelte-toolbelt@0.4.6(svelte@5.16.0):
+  svelte-toolbelt@0.7.0(svelte@5.16.0):
     dependencies:
       clsx: 2.1.1
+      runed: 0.20.0(svelte@5.16.0)
       style-to-object: 1.0.8
       svelte: 5.16.0
 
@@ -5061,7 +5088,7 @@ snapshots:
     dependencies:
       any-promise: 1.3.0
 
-  three@0.171.0: {}
+  three@0.172.0: {}
 
   tiny-glob@0.2.9:
     dependencies:
@@ -5205,11 +5232,11 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@ddc0d98(svelte@5.16.0)(typescript@5.7.2)(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0)):
+  vite-plugin-svelte-docgen@https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@7d02519(svelte@5.16.0)(typescript@5.7.2)(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0)):
     dependencies:
       esrap: 1.3.2
       svelte: 5.16.0
-      svelte-docgen: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@ddc0d985939ab1752fb8e487c959a9bcdf9f931a(svelte@5.16.0)
+      svelte-docgen: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@7d025197c045c4a707482ddf0e6217e8ed5fbe17(svelte@5.16.0)
       typescript: 5.7.2
       vite: 6.0.6(jiti@1.21.7)(yaml@2.7.0)
       zimmerframe: 1.1.2
@@ -5232,7 +5259,7 @@ snapshots:
       jiti: 1.21.7
       yaml: 2.7.0
 
-  vitefu@1.0.4(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0)):
+  vitefu@1.0.5(vite@6.0.6(jiti@1.21.7)(yaml@2.7.0)):
     optionalDependencies:
       vite: 6.0.6(jiti@1.21.7)(yaml@2.7.0)
 

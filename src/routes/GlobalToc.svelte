@@ -35,7 +35,7 @@
 			open ? 'translate-x-0 shadow-lg' : '-translate-x-full shadow-none'
 		)}
 	>
-		<div class="sticky top-0 z-50 flex h-16 items-center justify-between bg-background px-4 leading-none">
+		<div class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-background px-4 leading-none">
 			<h1 class="ml-3 text-lg font-bold">
 				<span>Svelte MapLibre GL</span>
 			</h1>

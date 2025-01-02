@@ -4,81 +4,81 @@ export const toc: Toc = [
 	{
 		title: 'Map',
 		items: {
-			'/components/MapLibre': 'MapLibre',
-			'/components/Image': 'Image',
-			'/components/Light': 'Light',
-			'/components/Projection': 'Projection',
-			'/components/Sky': 'Sky',
-			'/components/Sprite': 'Sprite',
-			'/components/Terrain': 'Terrain'
+			'/docs/components/MapLibre': 'MapLibre',
+			'/docs/components/Image': 'Image',
+			'/docs/components/Light': 'Light',
+			'/docs/components/Projection': 'Projection',
+			'/docs/components/Sky': 'Sky',
+			'/docs/components/Sprite': 'Sprite',
+			'/docs/components/Terrain': 'Terrain'
 		}
 	},
 	{
 		title: 'Sources',
 		items: {
-			'/components/CanvasSource': 'CanvasSource',
-			'/components/FeatureState': 'FeatureState',
-			'/components/GeoJSONSource': 'GeoJSONSource',
-			'/components/ImageSource': 'ImageSource',
-			'/components/RasterDEMTileSource': 'RasterDEMTileSource',
-			'/components/RasterTileSource': 'RasterTileSource',
-			'/components/RawSource': 'RawSource',
-			'/components/VectorTileSource': 'VectorTileSource',
-			'/components/VideoSource': 'VideoSource',
-			'/components/MapLibreContourSource': 'MapLibreContourSource (ext)'
+			'/docs/components/CanvasSource': 'CanvasSource',
+			'/docs/components/FeatureState': 'FeatureState',
+			'/docs/components/GeoJSONSource': 'GeoJSONSource',
+			'/docs/components/ImageSource': 'ImageSource',
+			'/docs/components/RasterDEMTileSource': 'RasterDEMTileSource',
+			'/docs/components/RasterTileSource': 'RasterTileSource',
+			'/docs/components/RawSource': 'RawSource',
+			'/docs/components/VectorTileSource': 'VectorTileSource',
+			'/docs/components/VideoSource': 'VideoSource',
+			'/docs/components/MapLibreContourSource': 'MapLibreContourSource (ext)'
 		}
 	},
 	{
 		title: 'Layers',
 		items: {
-			'/components/BackgroundLayer': 'BackgroundLayer',
-			'/components/CircleLayer': 'CircleLayer',
-			'/components/CustomLayer': 'CustomLayer',
-			'/components/FillExtrusionLayer': 'FillExtrusionLayer',
-			'/components/HeatmapLayer': 'HeatmapLayer',
-			'/components/HillshadeLayer': 'HillshadeLayer',
-			'/components/LineLayer': 'LineLayer',
-			'/components/RasterLayer': 'RasterLayer',
-			'/components/RawLayer': 'RawLayer',
-			'/components/SymbolLayer': 'SymbolLayer'
+			'/docs/components/BackgroundLayer': 'BackgroundLayer',
+			'/docs/components/CircleLayer': 'CircleLayer',
+			'/docs/components/CustomLayer': 'CustomLayer',
+			'/docs/components/FillExtrusionLayer': 'FillExtrusionLayer',
+			'/docs/components/HeatmapLayer': 'HeatmapLayer',
+			'/docs/components/HillshadeLayer': 'HillshadeLayer',
+			'/docs/components/LineLayer': 'LineLayer',
+			'/docs/components/RasterLayer': 'RasterLayer',
+			'/docs/components/RawLayer': 'RawLayer',
+			'/docs/components/SymbolLayer': 'SymbolLayer'
 		}
 	},
 	{
 		title: 'Global',
 		items: {
-			'/components/Protocol': 'Protocol',
-			'/components/PMTilesProtocol': 'PMTilesProtocol (ext)'
+			'/docs/components/Protocol': 'Protocol',
+			'/docs/components/PMTilesProtocol': 'PMTilesProtocol (ext)'
 		}
 	},
 	{
 		title: 'Marker',
 		items: {
-			'/components/Marker': 'Marker',
-			'/components/Popup': 'Popup'
+			'/docs/components/Marker': 'Marker',
+			'/docs/components/Popup': 'Popup'
 		}
 	},
 	{
 		title: 'Controls',
 		items: {
-			'/components/AttributionControl': 'AttributionControl',
-			'/components/CustomControl': 'CustomControl',
-			'/components/FullScreenControl': 'FullScreenControl',
-			'/components/GeolocateControl': 'GeolocateControl',
-			'/components/GlobeControl': 'GlobeControl',
-			'/components/Hash': 'Hash',
-			'/components/LogoControl': 'LogoControl',
-			'/components/NavigationControl': 'NavigationControl',
-			'/components/ScaleControl': 'ScaleControl',
-			'/components/TerrainControl': 'TerrainControl',
-			'/components/DeckGLOverlay': 'DeckGLOverlay (ext)'
+			'/docs/components/AttributionControl': 'AttributionControl',
+			'/docs/components/CustomControl': 'CustomControl',
+			'/docs/components/FullScreenControl': 'FullScreenControl',
+			'/docs/components/GeolocateControl': 'GeolocateControl',
+			'/docs/components/GlobeControl': 'GlobeControl',
+			'/docs/components/Hash': 'Hash',
+			'/docs/components/LogoControl': 'LogoControl',
+			'/docs/components/NavigationControl': 'NavigationControl',
+			'/docs/components/ScaleControl': 'ScaleControl',
+			'/docs/components/TerrainControl': 'TerrainControl',
+			'/docs/components/DeckGLOverlay': 'DeckGLOverlay (ext)'
 		}
 	},
 	{
 		title: 'Utilities',
 		items: {
-			'/components/ImageLoader': 'ImageLoader',
-			'/components/QueryRenderedFeatures': 'QueryRenderedFeatures',
-			'/components/QuerySourceFeatures': 'QuerySourceFeatures'
+			'/docs/components/ImageLoader': 'ImageLoader',
+			'/docs/components/QueryRenderedFeatures': 'QueryRenderedFeatures',
+			'/docs/components/QuerySourceFeatures': 'QuerySourceFeatures'
 		}
 	}
 ];

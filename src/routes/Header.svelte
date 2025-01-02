@@ -34,7 +34,7 @@
 	}
 </script>
 
-<div class="flex h-16 w-full shrink-0 items-center justify-between leading-none">
+<div class="flex h-[72px] w-full shrink-0 items-center justify-between leading-none">
 	<div class="flex h-full w-full items-center">
 		<div class="mr-3 md:hidden">
 			<Button variant="outline" size="icon" title="Menu" onclick={() => (globalTocOpen = !globalTocOpen)}>
@@ -49,19 +49,19 @@
 		<nav class="ml-12 hidden gap-x-6 font-medium min-[550px]:flex">
 			<a
 				href="/docs/"
-				data-active={page.url.pathname.startsWith('/docs/')}
+				data-active={page.url.pathname.startsWith('/docs') && !page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Docs
 			</a>
 			<a
 				href="/examples/"
-				data-active={page.url.pathname.startsWith('/examples/')}
+				data-active={page.url.pathname.startsWith('/examples')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Examples</a
 			>
 			<a
-				href="/components/"
-				data-active={page.url.pathname.startsWith('/components/')}
+				href="/docs/components/"
+				data-active={page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>API Reference</a
 			>
