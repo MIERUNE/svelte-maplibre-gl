@@ -5,6 +5,7 @@ export { default as Protocol } from './global/Protocol.svelte';
 
 // map
 export { default as MapLibre } from './map/MapLibre.svelte';
+export { default as Map } from './map/MapLibre.svelte'; // alias
 export { default as Sky } from './map/Sky.svelte';
 export { default as Light } from './map/Light.svelte';
 export { default as Projection } from './map/Projection.svelte';

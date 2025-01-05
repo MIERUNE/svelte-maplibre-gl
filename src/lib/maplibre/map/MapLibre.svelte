@@ -3,7 +3,6 @@
 
 	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl, { type LngLatLike } from 'maplibre-gl';
-	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { prepareMapContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
 
@@ -14,11 +13,15 @@
 	interface Props extends Omit<maplibregl.MapOptions, 'container'>, MapEventProps {
 		map?: maplibregl.Map;
 		class?: string;
+		/** Inline CSS `style` for the map container HTML element. Not to be confused with the map's style settings. */
 		inlineStyle?: string;
 		center?: LngLatLike;
 		padding?: maplibregl.PaddingOptions;
+		/** Vertical field of view in degrees */
 		fov?: number;
 		cursor?: string;
+		/** Loads and applies maplibre-gl.css from a CDN. Set to false if you want to include it manually. */
+		autoloadGlobalCss?: boolean;
 
 		// Accessors
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#accessors
@@ -38,6 +41,7 @@
 		class: className = '',
 		inlineStyle = '',
 		children,
+		autoloadGlobalCss: autoloadGlobalCss = true,
 
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapEventType/
@@ -143,6 +147,13 @@
 		// Map Options (others)
 		...restOptions
 	}: Props = $props();
+
+	if (autoloadGlobalCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
+		const link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = `https://unpkg.com/maplibre-gl@${maplibregl.getVersion()}/dist/maplibre-gl.css`;
+		document.head.appendChild(link);
+	}
 
 	let container: HTMLElement | undefined = $state();
 
