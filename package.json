@@ -48,18 +48,17 @@
 		}
 	},
 	"peerDependencies": {
-		"@deck.gl/core": "^9.1.0 || 9.1.0-beta.1 || <=9.0.37",
-		"@deck.gl/layers": "^9.1.0 || ^9.1.0-beta.1 || <=9.0.37",
-		"@deck.gl/mapbox": "^9.1.0 || 9.1.0-beta.1 || <=9.0.37",
+		"@deck.gl/layers": "^9.1.0 || <= 9.0.37",
+		"@deck.gl/mapbox": "^9.1.0 || <= 9.0.37",
 		"maplibre-contour": ">=0.1.0",
 		"maplibre-gl": "^4.0.0 || ^5.0.0 || ^5.0.0-pre",
 		"pmtiles": ">=3.0.0",
 		"svelte": ">=5.0.0"
 	},
 	"devDependencies": {
-		"@deck.gl/core": "9.1.0-beta.1",
-		"@deck.gl/layers": "9.1.0-beta.1",
-		"@deck.gl/mapbox": "9.1.0-beta.1",
+		"@deck.gl/core": "^9.1.0-beta.1",
+		"@deck.gl/layers": "^9.1.0-beta.1",
+		"@deck.gl/mapbox": "^9.1.0-beta.1",
 		"@docsearch/css": "^3.8.2",
 		"@docsearch/js": "^3.8.2",
 		"@playwright/test": "^1.49.1",
@@ -94,7 +93,7 @@
 		"superjson": "^2.2.2",
 		"svelte": "^5.16.1",
 		"svelte-check": "^4.1.1",
-		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@764f688",
+		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@fe8b641",
 		"tailwind-merge": "^2.6.0",
 		"tailwind-variants": "^0.3.0",
 		"tailwindcss": "^3.4.17",
@@ -103,7 +102,7 @@
 		"typescript": "^5.7.2",
 		"typescript-eslint": "^8.19.0",
 		"vite": "^6.0.7",
-		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@764f688",
+		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@fe8b641",
 		"vitest": "3.0.0-beta.3"
 	},
 	"packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
