@@ -58,10 +58,5 @@ export { default as ImageLoader } from './utilities/ImageLoader.svelte';
 export { default as QuerySourceFeatures } from './utilities/QuerySourceFeatures.svelte';
 export { default as QueryRenderedFeatures } from './utilities/QueryRenderedFeatures.svelte';
 
-// extensions
-export { default as PMTilesProtocol } from './extensions/PMTilesProtocol.svelte';
-export { default as MapLibreContourSource } from './extensions/MapLibreContourSource.svelte';
-export { default as DeckGLOverlay } from './extensions/DeckGLOverlay.svelte';
-
 // contexts
 export { getMapContext, getSourceContext, getMarkerContext } from './contexts.svelte.js';

@@ -5,9 +5,9 @@
 		RasterDEMTileSource,
 		LineLayer,
 		SymbolLayer,
-		MapLibreContourSource,
 		TerrainControl
 	} from 'svelte-maplibre-gl';
+	import { MapLibreContourSource } from 'svelte-maplibre-gl/contour';
 </script>
 
 <MapLibre

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { MapLibre, DeckGLOverlay, FillExtrusionLayer } from 'svelte-maplibre-gl';
+	import { MapLibre, FillExtrusionLayer } from 'svelte-maplibre-gl';
+	import { DeckGLOverlay } from 'svelte-maplibre-gl/deckgl';
 	import { ArcLayer } from '@deck.gl/layers';
 
 	const NUM = 30;

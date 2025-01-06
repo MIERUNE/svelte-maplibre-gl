@@ -1,6 +1,6 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.0.23",
+	"version": "0.1.0",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 	"repository": {
@@ -45,6 +45,18 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
+		},
+		"./contour": {
+			"types": "./dist/ext/contour/index.d.ts",
+			"svelte": "./dist/ext/contour/index.js"
+		},
+		"./deckgl": {
+			"types": "./dist/ext/deckgl/index.d.ts",
+			"svelte": "./dist/ext/deckgl/index.js"
+		},
+		"./pmtiles": {
+			"types": "./dist/ext/pmtiles/index.d.ts",
+			"svelte": "./dist/ext/pmtiles/index.js"
 		}
 	},
 	"peerDependencies": {

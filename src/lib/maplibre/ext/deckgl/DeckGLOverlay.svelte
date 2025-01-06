@@ -2,7 +2,7 @@
 	import { onDestroy, onMount, untrack } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
-	import { getMapContext } from '../contexts.svelte.js';
+	import { getMapContext } from '../../contexts.svelte.js';
 
 	type Props = MapboxOverlayProps;
 

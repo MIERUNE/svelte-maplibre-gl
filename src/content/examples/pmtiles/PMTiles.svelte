@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { MapLibre, PMTilesProtocol } from 'svelte-maplibre-gl';
+	import { MapLibre } from 'svelte-maplibre-gl';
+	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
 	import type { LayerSpecification } from 'maplibre-gl';
 
 	// Get the layers spec from the OSM style
