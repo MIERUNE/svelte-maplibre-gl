@@ -1,6 +1,6 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.0.21",
+	"version": "0.0.22",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 	"repository": {
