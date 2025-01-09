@@ -16,9 +16,9 @@ function _formatWrapper(
 		return ['...', false];
 	}
 	visited.add(type);
-	const formatted = _format(type, types, visited, ignoreUndefined);
+	const [formatted, needParens] = _format(type, types, visited, ignoreUndefined);
 	visited.delete(type);
-	return formatted;
+	return [formatted, needParens];
 }
 
 function _format(type: TypeOrRef, types: Types, visited: Set<TypeOrRef>, ignoreUndefined = false): [string, boolean] {
@@ -26,17 +26,23 @@ function _format(type: TypeOrRef, types: Types, visited: Set<TypeOrRef>, ignoreU
 		return _formatWrapper(types.get(type)!, types, visited, ignoreUndefined);
 	}
 	if ('alias' in type && type.alias) {
-		const name = formatQualifiedName(type.alias);
+		let name = formatQualifiedName(type.alias);
 		if (
 			!type.alias.endsWith('Like') &&
 			(type.kind !== 'union' || type.types.some((t) => typeof t === 'string' || t.kind !== 'literal'))
 		) {
+			if (type.aliasTypeArgs?.length) {
+				name += formatTypeArgs(type.aliasTypeArgs, types, visited);
+			}
+			if (type.kind === 'function') {
+				name += '()';
+			}
 			return [name, false];
 		}
 	}
 	if (type.kind === 'array') {
 		const [res, needParens] = _formatWrapper(type.element, types, visited);
-		return needParens ? [`${res}[]`, false] : [`(${res})[]`, false];
+		return needParens ? [`(${res})[]`, false] : [`${res}[]`, false];
 	} else if (type.kind === 'tuple') {
 		const elements = type.elements.map((t) => _formatWrapper(t, types, visited)[0]).join(', ');
 		return [`[${elements}]`, false];
@@ -52,8 +58,19 @@ function _format(type: TypeOrRef, types: Types, visited: Set<TypeOrRef>, ignoreU
 				return [type.subkind, false];
 		}
 	} else if (type.kind === 'constructible') {
-		return [formatQualifiedName(type.name), false];
+		let name = formatQualifiedName(type.name, 'classes');
+		if (type.typeArgs?.length) {
+			name += formatTypeArgs(type.typeArgs, types, visited);
+		}
+		return [name, false];
 	} else if (type.kind === 'function') {
+		if (type.name === '"svelte".Snippet') {
+			let name = '<a target="_blank" href="https://svelte.dev/docs/svelte/snippet">Snippet</a>';
+			if (type.typeArgs?.length) {
+				name += formatTypeArgs(type.typeArgs, types, visited);
+			}
+			return [name, false];
+		}
 		if (type.calls.length !== 1) {
 			return ['function', false];
 		}
@@ -75,23 +92,51 @@ function _format(type: TypeOrRef, types: Types, visited: Set<TypeOrRef>, ignoreU
 		const res = type.types.map((t) => _formatWrapper(t, types, visited)[0]).join(' | ');
 		return [res, true];
 	} else if (type.kind === 'interface') {
+		if (type.members.size === 0) {
+			return ['{}', false];
+		}
 		const members = type.members
 			.entries()
 			.map(([name, m]) => {
 				const type = _formatWrapper(m.type, types, visited, m.isOptional)[0];
 				const optional = m.isOptional ? '?' : '';
-				return `${name}${optional}: ${type}`;
+				return `  ${name}${optional}: ${type}`;
 			})
 			.toArray()
-			.join(', ');
-		return [`{ ${members} }`, false];
+			.join(',\n');
+		return [`{\n${members}\n}`, false];
 	} else if (type.kind === 'type-parameter') {
 		return [formatQualifiedName(type.name), false];
 	}
 	return [type.kind, false];
 }
 
-function formatQualifiedName(name: string): string {
+function formatTypeArgs(typeArgs: TypeOrRef[], types: Types, visited: Set<TypeOrRef>): string {
+	const args = typeArgs.map((t) => _formatWrapper(t, types, visited)[0]).join(', ');
+	return `&lt;${args}&gt;`;
+}
+
+const MDN_API = new Set([
+	'CSSStyleDeclaration',
+	'GeolocateEvent',
+	'GeolocationPosition',
+	'GeolocationPositionError',
+	'HTMLCanvasElement',
+	'HTMLDivElement',
+	'HTMLElement',
+	'HTMLImageElement',
+	'ImageBitmap',
+	'ImageData',
+	'MouseEvent',
+	'TouchEvent',
+	'WebGLRenderingContext',
+	'WebGL2RenderingContext',
+	'WheelEvent'
+]);
+
+const MDN_OBJECTS = new Set(['SharedArrayBuffer', 'ArrayBuffer', 'Uint8Array', 'Uint8ClampedArray']);
+
+function formatQualifiedName(name: string, link: string = 'type-aliases'): string {
 	let alias = name;
 	const lastDotIndex = name.lastIndexOf('.');
 	let prefix = '';
@@ -99,8 +144,17 @@ function formatQualifiedName(name: string): string {
 		prefix = name.slice(0, lastDotIndex);
 		alias = name.slice(lastDotIndex + 1);
 	}
+	if (MDN_API.has(alias)) {
+		return `<a target="_blank" href="https://developer.mozilla.org/docs/Web/API/${alias}">${alias}</a>`;
+	}
+	if (MDN_OBJECTS.has(alias)) {
+		return `<a target="_blank" href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/${alias}">${alias}</a>`;
+	}
+	if (alias === 'Map$1') {
+		return `<a target="_blank" href="https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/">Map</a>`;
+	}
 	if (prefix.includes('/maplibre-gl"')) {
-		return `<a target="_blank" href="https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/${alias}/">${alias}</a>`;
+		return `<a target="_blank" href="https://maplibre.org/maplibre-gl-js/docs/API/${link}/${alias}/">${alias}</a>`;
 	}
 	return alias;
 }

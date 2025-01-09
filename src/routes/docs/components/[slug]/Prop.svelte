@@ -6,9 +6,9 @@
 </script>
 
 <Table.Row>
-	<Table.Cell>
+	<Table.Cell class="">
 		<code class="break-all font-bold">{name}</code>
-		<div class="mt-0.5 text-xs font-semibold">
+		<div class="text-xs font-semibold">
 			{#if prop.isOptional}
 				<span class="text-muted-foreground">optional</span>
 			{:else}
@@ -21,7 +21,7 @@
 	</Table.Cell>
 	<Table.Cell class="text-sm">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html formatType(prop.type, types)}
+		<pre class="whitespace-pre-wrap">{@html formatType(prop.type, types)}</pre>
 	</Table.Cell>
 	<Table.Cell>
 		<div class="text-sm text-muted-foreground">
@@ -40,3 +40,9 @@
 		{/if}
 	</Table.Cell>
 </Table.Row>
+
+<style>
+	pre :global(a) {
+		text-decoration: underline !important;
+	}
+</style>
