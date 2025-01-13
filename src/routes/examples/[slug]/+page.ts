@@ -20,7 +20,8 @@ export const load = async ({ params }) => {
 			default: Component;
 			metadata: {
 				title: string;
-				description: string;
+				description?: string;
+				original?: string;
 			};
 		};
 		return {

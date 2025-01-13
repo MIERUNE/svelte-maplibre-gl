@@ -1,6 +1,7 @@
 ---
 title: Canvas Source
 description: Add a canvas source to the map.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/canvas-source/
 ---
 
 <script lang="ts">

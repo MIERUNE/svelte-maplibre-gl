@@ -17,9 +17,15 @@
 	});
 </script>
 
-<div class="line-numbers my-6 subpixel-antialiased">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
+<div class="my-6">
+	<div class="line-numbers subpixel-antialiased">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html shiki.codeToHtml(_content, { lang: 'svelte', theme: 'github-dark-default' })}
+	</div>
+	<div class="-mt-3 text-right text-sm">
+		Our examples use <a href="https://tailwindcss.com/">Tailwind CSS</a> and
+		<a href="https://next.shadcn-svelte.com/">shadcn-svelte</a>.
+	</div>
 </div>
 
 <style>

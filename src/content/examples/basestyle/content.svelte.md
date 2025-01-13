@@ -1,6 +1,6 @@
 ---
 title: Change Base Style
-description: Dynamic contents must be preserved when the base style is changed.
+description: This library efficiently preserves dynamic user contents even when the base style changes.
 ---
 
 <script lang="ts">

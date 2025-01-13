@@ -1,6 +1,6 @@
 ---
 title: Custom Protocols
-description: How to add custom protocols.
+description: Add a custom resource loading function to handle a custom URL scheme.
 ---
 
 <script lang="ts">

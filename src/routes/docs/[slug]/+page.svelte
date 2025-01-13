@@ -26,7 +26,7 @@
 			<data.Content shiki={data.shiki} />
 		</div>
 	</div>
-	<aside class="sticky top-24 hidden h-[calc(100vh-6rem)] lg:block">
+	<aside class="sticky top-28 hidden h-[calc(100vh-7rem)] lg:block">
 		<div class="font-medium">On This Page</div>
 	</aside>
 </div>

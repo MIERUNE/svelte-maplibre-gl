@@ -1,6 +1,7 @@
 ---
 title: deck.gl Overlay
 description: Interleaving deck.gl with MapLibre layers
+original: https://deck.gl/gallery/maplibre-overlay
 ---
 
 <script lang="ts">

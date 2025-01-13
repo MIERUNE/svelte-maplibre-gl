@@ -1,6 +1,7 @@
 ---
 title: Side by Side
 description: Synchronize two maps.
+original: https://visgl.github.io/react-map-gl/examples/side-by-side
 ---
 
 <script lang="ts">

@@ -15,7 +15,8 @@ export const toc: Toc = [
 			'/examples/animate-images': 'Animate a Series of Images',
 			'/examples/video-on-a-map': 'Video on a Map',
 			'/examples/fullscreen': 'Fullscreen',
-			'/examples/geolocate': 'Locate the User'
+			'/examples/geolocate': 'Locate the User',
+			'/examples/cursor': 'Change Cursor'
 		}
 	},
 	{

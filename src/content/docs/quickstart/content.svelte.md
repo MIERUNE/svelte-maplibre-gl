@@ -40,7 +40,7 @@ Now you can add the simplest MapLibre GL JS map to your `+page.svelte` file with
 
 ## 4. Put a Marker on the Map
 
-Let’s set an initial zoomand put a marker pin on the map.
+Let’s set an initial zoom and put a marker pin on the map.
 
 <CodeBlock content={markerRaw} {shiki} />
 <Marker />

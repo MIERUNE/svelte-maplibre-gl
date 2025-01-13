@@ -1,6 +1,7 @@
 ---
 title: Hover Styles
 description: Use events and feature states to create a per feature hover effect.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/hover-styles/
 ---
 
 <script lang="ts">

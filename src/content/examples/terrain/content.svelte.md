@@ -1,6 +1,7 @@
 ---
 title: 3D Terrain
 description: 3D terrain and the sky.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/3d-terrain/
 ---
 
 <script lang="ts">

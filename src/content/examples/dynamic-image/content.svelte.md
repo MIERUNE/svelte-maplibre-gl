@@ -1,6 +1,7 @@
 ---
 title: Dynamic Image
 description: Add an icon to the map that was generated at runtime.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/add-image-generated/
 ---
 
 <script lang="ts">

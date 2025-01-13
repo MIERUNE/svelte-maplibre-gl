@@ -17,16 +17,24 @@
 			</Breadcrumb.List>
 		</Breadcrumb.Root>
 
-		<h1 class="mb-2 text-4xl font-bold">{data.meta.title}</h1>
-		<p class="mb-6 text-muted-foreground">
-			{data.meta.description}
-		</p>
+		<h1 class="mb-1 text-4xl font-bold">{data.meta.title}</h1>
+		<div class="mb-6">
+			<p class="text-lg text-muted-foreground">
+				{data.meta.description}
+			</p>
+			{#if data.meta.original}
+				<p class="mt-1.5 text-xs text-muted-foreground">
+					<strong>Based on:</strong>
+					<a class="underline" target="_blank" href={data.meta.original}>{data.meta.original}</a>
+				</p>
+			{/if}
+		</div>
 
 		<div class="prose max-w-none dark:prose-invert">
 			<data.Content shiki={data.shiki} />
 		</div>
 	</div>
-	<aside class="sticky top-28 hidden h-[calc(100vh-6rem)] lg:block">
+	<aside class="sticky top-28 hidden h-[calc(100vh-7rem)] lg:block">
 		<div class="font-medium">On This Page</div>
 	</aside>
 </div>

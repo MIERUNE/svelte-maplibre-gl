@@ -1,6 +1,7 @@
 ---
 title: Locate the User
 description: Locate the User
+original: https://maplibre.org/maplibre-gl-js/docs/examples/locate-user/
 ---
 
 <script lang="ts">

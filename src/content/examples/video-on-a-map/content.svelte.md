@@ -1,6 +1,7 @@
 ---
 title: Video on a map
 description: Display a video.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/video-on-a-map/
 ---
 
 <script lang="ts">
