@@ -1,7 +1,7 @@
 ---
-title: Custom style layer
-description: Use a custom style layer to render custom WebGL content.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/custom-style-layer/
+title: Custom Layer
+description: Use a custom layer to draw simple WebGL content.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/globe-custom-simple/
 ---
 
 <script lang="ts">

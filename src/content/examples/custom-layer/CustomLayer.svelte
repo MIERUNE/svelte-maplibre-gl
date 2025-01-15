@@ -1,69 +1,139 @@
 <script lang="ts">
-	import { MapLibre, CustomLayer } from 'svelte-maplibre-gl';
+	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
 	import maplibregl from 'maplibre-gl';
 
+	// define vertices of the triangle to be rendered in the custom style layer
+	const helsinki = maplibregl.MercatorCoordinate.fromLngLat({ lng: 25.004, lat: 60.239 });
+	const berlin = maplibregl.MercatorCoordinate.fromLngLat({ lng: 13.403, lat: 52.562 });
+	const kyiv = maplibregl.MercatorCoordinate.fromLngLat({ lng: 30.498, lat: 50.541 });
+
 	class CustomLayerImpl implements Omit<maplibregl.CustomLayerInterface, 'id' | 'type'> {
-		program: WebGLProgram | null = null;
-		aPos: number = 0;
-		buffer: WebGLBuffer | null = null;
+		private shaderMap: Map<string, WebGLProgram> = new Map();
+		private aPos: number = 0;
+		private buffer: WebGLBuffer | null = null;
 
-		onAdd(_map: maplibregl.Map, gl: WebGL2RenderingContext) {
-			//create GLSL source for vertex shader
-			const vertexSource = `#version 300 es
-			uniform mat4 u_matrix;
-			in vec2 a_pos;
-			void main() {
-					gl_Position = u_matrix * vec4(a_pos, 0.0, 1.0);
-			}`;
+		private getShader(
+			gl: WebGL2RenderingContext | WebGLRenderingContext,
+			shaderDescription: maplibregl.CustomRenderMethodInput['shaderData']
+		) {
+			// Pick a shader based on the current projection, defined by `variantName`.
+			if (this.shaderMap.has(shaderDescription.variantName)) {
+				return this.shaderMap.get(shaderDescription.variantName)!;
+			}
 
-			// create GLSL source for fragment shader
-			const fragmentSource = `#version 300 es
-			out highp vec4 fragColor;
-			void main() {
-					fragColor = vec4(1.0, 0.0, 0.0, 0.5);
-			}`;
-
-			// create a vertex shader
+			// Create vertex shader
+			//
+			// Note that we need to use a complex function to project from the source mercator
+			// coordinates to the globe. Internal shaders in MapLibre need to do this too.
+			// This is done using the `projectTile` function.
+			// In MapLibre, this function accepts vertex coordinates local to the current tile,
+			// in range 0..EXTENT (8192), but for custom layers MapLibre supplies uniforms such that
+			// the function accepts mercator coordinates of the whole world in range 0..1.
+			// This is controlled by the `u_projection_tile_mercator_coords` uniform.
+			//
+			// The `projectTile` function can also handle mercator to globe transitions and can
+			// handle the mercator projection - different code is supplied based on what projection is used,
+			// and for this reason we use different shaders based on what shader projection variant is currently used.
+			// See `variantName` usage earlier in this file.
+			//
+			// The code for the projection function and uniforms is also supplied by MapLibre
+			// and must be injected into custom layer shaders in order to draw on a globe.
+			// We simply use string interpolation for that here.
+			//
+			// See MapLibre source code for more details, especially src/shaders/_projection_globe.vertex.glsl
+			//
 			const vertexShader = gl.createShader(gl.VERTEX_SHADER)!;
+			const vertexSource = `#version 300 es
+				// Inject MapLibre projection code
+				${shaderDescription.vertexShaderPrelude}
+				${shaderDescription.define}
+
+				in vec2 a_pos;
+				void main() {
+						gl_Position = projectTile(a_pos);
+				}`;
 			gl.shaderSource(vertexShader, vertexSource);
 			gl.compileShader(vertexShader);
 
-			// create a fragment shader
+			// Create fragment shader
 			const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)!;
+			const fragmentSource = `#version 300 es
+				out highp vec4 fragColor;
+				void main() {
+						fragColor = vec4(1.0, 0.0, 1.0, 0.75);
+				}`;
 			gl.shaderSource(fragmentShader, fragmentSource);
 			gl.compileShader(fragmentShader);
 
-			// link the two shaders into a WebGL program
-			this.program = gl.createProgram()!;
-			gl.attachShader(this.program, vertexShader);
-			gl.attachShader(this.program, fragmentShader);
-			gl.linkProgram(this.program);
+			// Link the two shaders into a WebGL program
+			const program = gl.createProgram();
+			gl.attachShader(program, vertexShader);
+			gl.attachShader(program, fragmentShader);
+			gl.linkProgram(program);
 
-			this.aPos = gl.getAttribLocation(this.program, 'a_pos');
+			this.aPos = gl.getAttribLocation(program, 'a_pos');
+			this.shaderMap.set(shaderDescription.variantName, program);
+			return program;
+		}
 
-			// define vertices of the triangle to be rendered in the custom style layer
-			const helsinki = maplibregl.MercatorCoordinate.fromLngLat({ lng: 25.004, lat: 60.239 });
-			const berlin = maplibregl.MercatorCoordinate.fromLngLat({ lng: 13.403, lat: 52.562 });
-			const kyiv = maplibregl.MercatorCoordinate.fromLngLat({ lng: 30.498, lat: 50.541 });
-
+		// Method called when the layer is added to the map
+		onAdd(_map: maplibregl.Map, gl: WebGL2RenderingContext) {
 			// create and initialize a WebGLBuffer to store vertex and color data
 			this.buffer = gl.createBuffer();
 			gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
 			gl.bufferData(
 				gl.ARRAY_BUFFER,
-				new Float32Array([helsinki.x, helsinki.y, berlin.x, berlin.y, kyiv.x, kyiv.y]),
+				new Float32Array([helsinki.x, helsinki.y, kyiv.x, kyiv.y, berlin.x, berlin.y]),
 				gl.STATIC_DRAW
 			);
+			// Explanation of horizon clipping in MapLibre globe projection:
+			//
+			// When zooming in, the triangle will eventually start doing what at first glance
+			// appears to be clipping the underlying map.
+			//
+			// Instead it is being clipped by the "horizon" plane, which the globe uses to
+			// clip any geometry behind horizon (regular face culling isn't enough).
+			// The horizon plane is not necessarily aligned with the near/far planes.
+			// The clipping is done by assigning a custom value to `gl_Position.z` in the `projectTile`
+			// MapLibre uses a constant z value per layer, so `gl_Position.z` can be anything,
+			// since it later gets overwritten by `glDepthRange`.
+			//
+			// At high zooms, the triangle's three vertices can end up beyond the horizon plane,
+			// resulting in the triangle getting clipped.
+			//
+			// This can be fixed by subdividing the triangle's geometry.
+			// This is in general advisable to do, since without subdivision
+			// geometry would not project to a curved shape under globe projection.
+			// MapLibre also internally subdivides all geometry when globe projection is used.
 		}
 
-		// method fired on each animation frame
-		render(gl: WebGL2RenderingContext | WebGLRenderingContext, options: maplibregl.CustomRenderMethodInput) {
-			gl.useProgram(this.program);
+		// Method fired on each animation frame
+		render(gl: WebGL2RenderingContext | WebGLRenderingContext, args: maplibregl.CustomRenderMethodInput) {
+			const program = this.getShader(gl, args.shaderData);
+			gl.useProgram(program);
 			gl.uniformMatrix4fv(
-				gl.getUniformLocation(this.program!, 'u_matrix'),
+				gl.getUniformLocation(program, 'u_projection_matrix'),
 				false,
-				options.defaultProjectionData.mainMatrix
+				args.defaultProjectionData.mainMatrix // convert mat4 from gl-matrix to a plain array
 			);
+			gl.uniformMatrix4fv(
+				gl.getUniformLocation(program, 'u_projection_fallback_matrix'),
+				false,
+				args.defaultProjectionData.fallbackMatrix // convert mat4 from gl-matrix to a plain array
+			);
+			gl.uniform1f(
+				gl.getUniformLocation(program, 'u_projection_transition'),
+				args.defaultProjectionData.projectionTransition
+			);
+			gl.uniform4f(
+				gl.getUniformLocation(program, 'u_projection_tile_mercator_coords'),
+				...args.defaultProjectionData.tileMercatorCoords
+			);
+			gl.uniform4f(
+				gl.getUniformLocation(program, 'u_projection_clipping_plane'),
+				...args.defaultProjectionData.clippingPlane
+			);
+
 			gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
 			gl.enableVertexAttribArray(this.aPos);
 			gl.vertexAttribPointer(this.aPos, 2, gl.FLOAT, false, 0, 0);
@@ -81,4 +151,6 @@
 	center={[20, 58]}
 >
 	<CustomLayer implementation={new CustomLayerImpl()} />
+	<Projection type="globe" />
+	<GlobeControl />
 </MapLibre>
