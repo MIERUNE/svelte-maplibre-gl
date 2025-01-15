@@ -9,7 +9,6 @@ export const toc: Toc = [
 			'/examples/marker-popup': 'Marker and Popup',
 			'/examples/basestyle': 'Change Base Style',
 			'/examples/hover-styles': 'Hover Styles',
-			'/examples/terrain': '3D Terrain and Sky',
 			'/examples/clusters': 'Clusters',
 			'/examples/limit-interaction': 'Limit Map Interactions',
 			'/examples/animate-images': 'Animate a Series of Images',
@@ -17,6 +16,13 @@ export const toc: Toc = [
 			'/examples/fullscreen': 'Fullscreen',
 			'/examples/geolocate': 'Locate the User',
 			'/examples/cursor': 'Change Cursor'
+		}
+	},
+	{
+		title: 'Styles',
+		items: {
+			'/examples/terrain': '3D Terrain and Sky',
+			'/examples/globe-atmosphere': 'Globe with an Atmosphere'
 		}
 	},
 	{

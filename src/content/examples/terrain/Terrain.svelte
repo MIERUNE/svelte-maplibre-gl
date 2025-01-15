@@ -1,12 +1,13 @@
 <script lang="ts">
 	import {
+		HillshadeLayer,
 		MapLibre,
+		RasterDEMTileSource,
+		Sky,
 		Terrain,
 		TerrainControl,
 		GlobeControl,
-		Sky,
-		HillshadeLayer,
-		RasterDEMTileSource
+		Light
 	} from 'svelte-maplibre-gl';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -29,18 +30,18 @@
 	let skyHorizonBlend = $state(0.5);
 	let horizonFogBlend = $state(0.7);
 	let fogGroundBlend = $state(0.5);
-	let atmosphereBlend = $state(0.3);
 </script>
 
 <MapLibre
 	class="h-[55vh] min-h-[300px]"
-	style="https://demotiles.maplibre.org/styles/osm-bright-gl-style/style.json"
+	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={12}
 	pitch={72}
 	maxPitch={85}
 	center={{ lng: 11.39085, lat: 47.3 }}
 >
 	<GlobeControl />
+	<Light anchor="map" />
 	{#if skyEnabled}
 		<Sky
 			sky-color={skyColor}
@@ -49,7 +50,7 @@
 			sky-horizon-blend={skyHorizonBlend}
 			horizon-fog-blend={horizonFogBlend}
 			fog-ground-blend={fogGroundBlend}
-			atmosphere-blend={atmosphereBlend}
+			atmosphere-blend={0.5}
 		/>
 	{/if}
 	<!-- Terrain -->

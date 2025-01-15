@@ -147,12 +147,6 @@
 	maxPitch={85}
 	attributionControl={false}
 >
-	<!--
-	maxBounds={[
-		{ lng: 120, lat: 20 },
-		{ lng: 150, lat: 50 }
-	]}
-	-->
 	{#if hash}
 		<Hash />
 	{/if}
