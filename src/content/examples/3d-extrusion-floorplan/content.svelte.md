@@ -1,5 +1,5 @@
 ---
-title: 3D Floorplan
+title: 3D Floor Plan
 description: Create a 3D indoor map with the fill-extrude-height paint property.
 original: https://maplibre.org/maplibre-gl-js/docs/examples/3d-extrusion-floorplan/
 ---

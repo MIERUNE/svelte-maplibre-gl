@@ -36,7 +36,7 @@ export const toc: Toc = [
 		title: 'Techniques',
 		items: {
 			'/examples/side-by-side': 'Side by Side',
-			'/examples/3d-extrusion-floorplan': '3D Floorplan'
+			'/examples/3d-extrusion-floorplan': '3D Floor Plan'
 		}
 	},
 	{
