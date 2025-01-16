@@ -1,7 +1,7 @@
 ---
 title: 3D model with three.js
 description: Use a custom style layer with three.js to add a 3D model to the map.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/add-3d-model/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/globe-3d-model/
 ---
 
 <script lang="ts">
