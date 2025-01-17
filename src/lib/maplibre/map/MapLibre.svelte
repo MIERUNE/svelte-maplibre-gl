@@ -489,7 +489,8 @@
 		}
 	});
 	$effect(() => {
-		if (style && !firstRun) {
+		style;
+		if (!firstRun) {
 			mapCtx.setStyle(style);
 		}
 	});

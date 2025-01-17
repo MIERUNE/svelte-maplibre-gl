@@ -121,7 +121,7 @@ class MapContext {
 			return;
 		}
 
-		this.map?.setStyle(style, {
+		this.map?.setStyle($state.snapshot(style) as string | StyleSpecification, {
 			// Preserves user styles when the base style changes
 			transformStyle: (previous, next) => {
 				this.baseLight = next.light;
