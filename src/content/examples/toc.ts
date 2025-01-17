@@ -15,7 +15,8 @@ export const toc: Toc = [
 			'/examples/video-on-a-map': 'Video on a Map',
 			'/examples/fullscreen': 'Fullscreen',
 			'/examples/geolocate': 'Locate the User',
-			'/examples/cursor': 'Change Cursor'
+			'/examples/cursor': 'Change Cursor',
+			'/examples/3d-buildings': '3D Buildings'
 		}
 	},
 	{
