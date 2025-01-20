@@ -22,7 +22,8 @@
 		<p>
 			<img src={heroImage} alt="hero" />
 		</p>
-		<p class="font-bold">Features:</p>
+
+		<h3 class="font-bold">Features:</h3>
 		<ul>
 			<li>The most declarative and reactive MapLibre GL JS experience, powered by Svelte 5</li>
 			<li>
@@ -30,8 +31,16 @@
 			</li>
 			<li>Freedom preserved — Traditional imperative MapLibre GL JS usage remains fully supported</li>
 		</ul>
-		<p class="font-bold">Installation:</p>
+
+		<h3 class="font-bold">Installation:</h3>
 		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>
+
+		<h3 class="font-bold">Contents:</h3>
+		<ul>
+			<li><a href="/docs/quickstart">Quickstart</a></li>
+			<li><a href="/examples">Examples</a></li>
+			<li><a href="/docs/components">API Reference</a></li>
+		</ul>
 	</main>
 </div>
 

@@ -5,10 +5,19 @@
 	import Header from './Header.svelte';
 	import GlobalToc from './GlobalToc.svelte';
 	import ViewTransition from './ViewTransition.svelte';
+	import { page } from '$app/state';
 
 	let { children } = $props();
 
 	let globalTocOpen = $state(false);
+
+	let canonicalUrl = $derived.by(() => {
+		const url = page.url;
+		url.protocol = 'https:';
+		url.hostname = 'svelte-maplibre-gl.mierune.dev';
+		url.port = '';
+		return url.toString();
+	});
 </script>
 
 <ModeWatcher />
@@ -33,4 +42,5 @@
 
 <svelte:head>
 	<title>Svelte MapLibre GL</title>
+	<link rel="canonical" href={canonicalUrl} />
 </svelte:head>
