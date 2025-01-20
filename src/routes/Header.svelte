@@ -37,7 +37,15 @@
 <div class="flex h-[72px] w-full shrink-0 items-center justify-between leading-none">
 	<div class="flex h-full w-full items-center">
 		<div class="mr-3 md:hidden">
-			<Button variant="outline" size="icon" title="Menu" onclick={() => (globalTocOpen = !globalTocOpen)}>
+			<Button
+				variant="outline"
+				size="icon"
+				title="Toggle Menu"
+				aria-haspopup="dialog"
+				aria-expanded={globalTocOpen}
+				aria-label="Toggle Menu"
+				onclick={() => (globalTocOpen = !globalTocOpen)}
+			>
 				<Menu class="!size-6" />
 			</Button>
 		</div>
@@ -46,7 +54,7 @@
 				<MapPinned class="mr-1.5 hidden !size-6 pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
-		<nav class="ml-12 hidden gap-x-6 font-medium min-[550px]:flex">
+		<nav class="ml-12 hidden gap-x-6 font-medium min-[640px]:flex">
 			<a
 				href="/docs/quickstart"
 				data-active={page.url.pathname.startsWith('/docs') && !page.url.pathname.startsWith('/docs/components')}

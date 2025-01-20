@@ -20,26 +20,26 @@
 			>
 		</p>
 		<p>
-			<img src={heroImage} alt="hero" />
+			<img alt="hero" width="300" height="150" class="w-full" src={heroImage} loading="lazy" decoding="async" />
 		</p>
 
-		<h3 class="font-bold">Features:</h3>
+		<h2 class="font-bold">Installation:</h2>
+		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>
+
+		<h2 class="font-bold">Contents:</h2>
+		<ul>
+			<li><a href="/docs/quickstart">Quickstart</a></li>
+			<li><a href="/examples">Examples</a></li>
+			<li><a href="/docs/components">API Reference</a></li>
+		</ul>
+
+		<h2 class="font-bold">Features:</h2>
 		<ul>
 			<li>The most declarative and reactive MapLibre GL JS experience, powered by Svelte 5</li>
 			<li>
 				A flexible, minimally opinionated API design that is suitable for both beginners and experienced MapLibre users
 			</li>
 			<li>Freedom preserved — Traditional imperative MapLibre GL JS usage remains fully supported</li>
-		</ul>
-
-		<h3 class="font-bold">Installation:</h3>
-		<pre><code>npm install --save-dev svelte-maplibre-gl</code></pre>
-
-		<h3 class="font-bold">Contents:</h3>
-		<ul>
-			<li><a href="/docs/quickstart">Quickstart</a></li>
-			<li><a href="/examples">Examples</a></li>
-			<li><a href="/docs/components">API Reference</a></li>
 		</ul>
 	</main>
 </div>
