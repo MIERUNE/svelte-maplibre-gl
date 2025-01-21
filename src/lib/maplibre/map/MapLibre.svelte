@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl, { type LngLatLike } from 'maplibre-gl';
+	import maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
 

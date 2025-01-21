@@ -14,6 +14,7 @@
 		VectorTileSource
 	} from 'svelte-maplibre-gl';
 
+	import maplibregl from 'maplibre-gl';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
@@ -79,7 +80,7 @@
 
 <div class="mb-3 flex items-center justify-between">
 	<RadioGroup.Root bind:value={name} class="flex flex-row gap-x-3">
-		{#each STYLES as [name, _]}
+		{#each STYLES as [name]}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={name} id={name} />
 				<Label class="cursor-pointer" for={name}>{name}</Label>

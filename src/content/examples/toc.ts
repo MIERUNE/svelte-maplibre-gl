@@ -56,7 +56,8 @@ export const toc: Toc = [
 		items: {
 			'/examples/pmtiles': 'PMTiles Protocol',
 			'/examples/deckgl-overlay': 'deck.gl Overlay',
-			'/examples/contour': 'Contour Lines'
+			'/examples/contour': 'Contour Lines',
+			'/examples/terradraw': 'Terra Draw'
 		}
 	}
 ];

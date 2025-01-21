@@ -39,6 +39,7 @@ const config = {
 			'svelte-maplibre-gl/contour': 'src/lib/maplibre/ext/contour/index.js',
 			'svelte-maplibre-gl/deckgl': 'src/lib/maplibre/ext/deckgl/index.js',
 			'svelte-maplibre-gl/pmtiles': 'src/lib/maplibre/ext/pmtiles/index.js',
+			'svelte-maplibre-gl/terradraw': 'src/lib/maplibre/ext/terradraw/index.js',
 			'svelte-maplibre-gl': 'src/lib/maplibre/index.js'
 		}
 	},
