@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import { TerraDraw } from 'terra-draw';
+	import { TerraDraw as Draw } from 'terra-draw';
 	import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 	import { getMapContext } from 'svelte-maplibre-gl';
 
@@ -32,11 +32,11 @@
 		ondeselect
 	}: {
 		mode: string;
-		modes: ConstructorParameters<typeof TerraDraw>[0]['modes'];
+		modes: ConstructorParameters<typeof Draw>[0]['modes'];
 		idStrategy?: IdStrategy<FeatureId>;
 		tracked?: boolean;
 		/** Terra Draw instance */
-		draw?: TerraDraw;
+		draw?: Draw;
 		onready?: () => void;
 		onfinish?: FinishListener;
 		onchange?: ChangeListener;
@@ -44,7 +44,7 @@
 		ondeselect?: DeselectListener;
 	} = $props();
 
-	draw = new TerraDraw({
+	draw = new Draw({
 		adapter: new TerraDrawMapLibreGLAdapter({ map: mapCtx.map }),
 		modes,
 		idStrategy,
