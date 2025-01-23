@@ -14,6 +14,7 @@
 			position="top-left"
 			positionOptions={{ enableHighAccuracy: true }}
 			trackUserLocation={true}
+			showAccuracyCircle={true}
 			ontrackuserlocationstart={() => log('trackuserlocationstart')}
 			ontrackuserlocationend={() => log('trackuserlocationend')}
 			ongeolocate={(ev) => log(`geolocate ${JSON.stringify(ev.coords, null, 2)}`)}
