@@ -62,7 +62,7 @@
 		<Projection type={globe ? 'globe' : undefined} />
 	</MapLibre>
 	<MapLibre
-		class={splitMode === 'Scope' ? '!absolute inset-0' : 'flex-1'}
+		class={splitMode === 'Scope' ? 'absolute! inset-0' : 'flex-1'}
 		style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 		inlineStyle={splitMode === 'Scope' ? `clip-path: circle(15% at ${point.x}px ${point.y}px);` : undefined}
 		bind:center

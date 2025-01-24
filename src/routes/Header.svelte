@@ -46,12 +46,12 @@
 				aria-label="Toggle Menu"
 				onclick={() => (globalTocOpen = !globalTocOpen)}
 			>
-				<Menu class="!size-6" />
+				<Menu class="size-6!" />
 			</Button>
 		</div>
 		<h1 class="text-lg font-bold md:text-xl">
 			<a href="/" class="">
-				<MapPinned class="mr-1.5 hidden !size-6 pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
+				<MapPinned class="mr-1.5 hidden size-6! pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
 		<nav class="ml-12 hidden gap-x-6 font-medium min-[640px]:flex">
@@ -87,7 +87,7 @@
 			target="_blank"
 			title="GitHub repository"
 		>
-			<GitHub class="!size-5 md:!size-6" />
+			<GitHub class="size-5! md:size-6!" />
 		</Button>
 		<div class="-ml-1 -mr-1 md:ml-1">
 			<DarkModeSelector />

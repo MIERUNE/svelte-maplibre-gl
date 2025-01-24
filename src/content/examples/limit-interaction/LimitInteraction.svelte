@@ -35,7 +35,7 @@
 	minPitch={pitchRange[0]}
 	maxPitch={pitchRange[1]}
 >
-	<div class="absolute right-3 top-3 z-10 flex flex-col gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur">
+	<div class="absolute right-3 top-3 z-10 flex flex-col gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm">
 		<div class="mb-3 flex flex-col items-center space-y-2.5 px-2">
 			<Label for="zoom" class="leading-none">Zoom Range ({zoomRange})</Label>
 			<Slider type="multiple" id="zoom" bind:value={zoomRange} min={0} max={22} />

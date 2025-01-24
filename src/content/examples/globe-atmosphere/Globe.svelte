@@ -29,7 +29,7 @@
 
 	<!-- Control -->
 	<div
-		class="absolute left-3 top-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur"
+		class="absolute left-3 top-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<div class="mb-4 flex flex-col items-center space-y-2 px-2">
 			<label for="theta" class="leading-none">Theta ({thetaDeg})</label>

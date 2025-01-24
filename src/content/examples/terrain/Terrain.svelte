@@ -84,7 +84,7 @@
 	</RasterDEMTileSource>
 
 	<div
-		class="absolute left-3 top-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur"
+		class="absolute left-3 top-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<Tabs.Root bind:value={mode} class="flex h-full flex-col">
 			<Tabs.List class="grid w-full grid-cols-2">
@@ -101,8 +101,8 @@
 					<Slider type="single" id="hillshade" bind:value={hillshade} min={0} max={1} step={0.01} />
 				</div>
 				<div class="mb-1 flex items-center justify-between space-x-2">
-					<Label for="shadow" class="leading-none">Shadow</Label>
-					<input type="color" id="shadow" bind:value={shadowColor} />
+					<Label for="shadow-sm" class="leading-none">Shadow</Label>
+					<input type="color" id="shadow-sm" bind:value={shadowColor} />
 				</div>
 				<div class="mb-1 flex items-center justify-between space-x-2">
 					<Label for="accent" class="leading-none">Accent</Label>

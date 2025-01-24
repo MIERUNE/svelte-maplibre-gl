@@ -23,7 +23,7 @@
 <ModeWatcher />
 <ViewTransition />
 
-<header class="sticky top-0 z-40 border-b bg-background bg-opacity-85 backdrop-blur">
+<header class="sticky top-0 z-40 border-b bg-background bg-opacity-85 backdrop-blur-sm">
 	<div class="mx-auto px-4 xl:container md:px-8">
 		<Header bind:globalTocOpen />
 	</div>

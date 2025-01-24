@@ -38,7 +38,7 @@
 		{#snippet content()}
 			<div class="text-center leading-none">
 				<div class="text-3xl">🐶</div>
-				<div class="font-bold text-white drop-shadow-sm">{lngLatText}</div>
+				<div class="font-bold text-white drop-shadow-xs">{lngLatText}</div>
 			</div>
 		{/snippet}
 		<Popup class="text-black" bind:open={popupOpen} offset={offsets}>
