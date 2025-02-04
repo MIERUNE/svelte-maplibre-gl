@@ -49,12 +49,14 @@
 	});
 
 	$effect(() => {
-		if (mapCtx.map?.loaded()) {
-			control?.trigger();
-		} else {
-			mapCtx.map?.once('load', () => {
+		if (autoTrigger) {
+			if (mapCtx.map?.loaded()) {
 				control?.trigger();
-			});
+			} else {
+				mapCtx.map?.once('load', () => {
+					control?.trigger();
+				});
+			}
 		}
 	});
 

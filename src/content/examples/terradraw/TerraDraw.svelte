@@ -73,7 +73,7 @@
 
 	<!-- Draw controls -->
 	<div
-		class="absolute left-3 top-3 z-10 flex flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
+		class="absolute top-3 left-3 z-10 flex flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		{#each modeNames as modeName}
 			<label><input type="radio" bind:group={mode} value={modeName} class="mr-1" /> {modeName}</label>

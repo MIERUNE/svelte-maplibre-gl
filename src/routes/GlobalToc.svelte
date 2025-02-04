@@ -26,14 +26,14 @@
 <div
 	id="global-toc"
 	class={cn(
-		`ease duration-400 fixed inset-0 z-50 bg-background/40 transition-all md:hidden`,
-		open ? 'opacity-100 backdrop-blur-xs' : 'pointer-events-none opacity-0 backdrop-blur-0'
+		`ease fixed inset-0 z-50 bg-background/40 transition-all duration-400 md:hidden`,
+		open ? 'opacity-100 backdrop-blur-xs' : 'backdrop-blur-0 pointer-events-none opacity-0'
 	)}
 >
 	<div class="absolute inset-0" aria-hidden="true" onmousedown={() => (open = false)}></div>
 	<div
 		class={cn(
-			`ease duration-400 absolute inset-0 z-50 w-72 overflow-scroll bg-muted/90 transition-all md:hidden`,
+			`ease absolute inset-0 z-50 w-72 overflow-scroll bg-muted/90 transition-all duration-400 md:hidden`,
 			open ? 'translate-x-0 shadow-lg' : '-translate-x-full shadow-none'
 		)}
 	>

@@ -16,7 +16,7 @@
 		demSource?: DemSource;
 		tileOptions: GlobalContourTileOptions;
 		attribution?: string;
-		manager?: LocalDemManager;
+		getTile?: LocalDemManager['getTile'];
 	}
 
 	let {
@@ -32,11 +32,12 @@
 		actor,
 		tileOptions,
 		attribution,
-		manager
+		/** Custom getTile function for LocalDemManager (experimental) */
+		getTile
 	}: Props = $props();
 
 	$effect(() => {
-		if (manager) {
+		if (getTile) {
 			worker = false;
 		}
 		(async () => {
@@ -50,8 +51,8 @@
 				worker, // offload isoline computation to a web worker to reduce jank
 				actor
 			});
-			if (manager) {
-				demSource.manager = manager;
+			if (getTile && 'getTile' in demSource.manager) {
+				demSource.manager.getTile = getTile;
 			}
 			demSource.setupMaplibre(maplibregl);
 		})();

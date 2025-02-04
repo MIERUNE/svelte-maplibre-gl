@@ -14,7 +14,7 @@
 		<Checkbox id="cluster" bind:checked={cluster} />
 		<Label
 			for="cluster"
-			class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Cluster</Label
+			class="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Cluster</Label
 		>
 	</div>
 	<div class="flex flex-1 grow flex-col gap-y-4">

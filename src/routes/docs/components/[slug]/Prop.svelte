@@ -7,7 +7,7 @@
 
 <Table.Row>
 	<Table.Cell class="">
-		<code class="break-all font-bold">{name}</code>
+		<code class="font-bold break-all">{name}</code>
 		<div class="text-xs font-semibold">
 			{#if prop.isOptional}
 				<span class="text-muted-foreground">optional</span>

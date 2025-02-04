@@ -81,8 +81,8 @@
 		"@docsearch/js": "^3.8.3",
 		"@playwright/test": "^1.50.1",
 		"@sveltejs/adapter-auto": "^4.0.0",
-		"@sveltejs/kit": "^2.16.1",
-		"@sveltejs/package": "^2.3.9",
+		"@sveltejs/kit": "^2.17.1",
+		"@sveltejs/package": "^2.3.10",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.0.3",
@@ -112,7 +112,7 @@
 		"publint": "^0.3.2",
 		"shiki": "^2.2.0",
 		"superjson": "^2.2.2",
-		"svelte": "^5.19.6",
+		"svelte": "^5.19.7",
 		"svelte-check": "^4.1.4",
 		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@146593b",
 		"tailwind-merge": "^2.6.0",
@@ -121,10 +121,10 @@
 		"tailwindcss-animate": "^1.0.7",
 		"three": "^0.173.0",
 		"typescript": "^5.7.3",
-		"typescript-eslint": "^8.22.0",
+		"typescript-eslint": "^8.23.0",
 		"vite": "^6.0.11",
 		"vite-plugin-svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/vite-plugin-svelte-docgen@146593b",
-		"vitest": "^3.0.4"
+		"vitest": "^3.0.5"
 	},
 	"packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
 }

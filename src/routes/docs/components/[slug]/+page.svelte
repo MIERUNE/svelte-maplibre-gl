@@ -28,7 +28,7 @@
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>
-					<Table.Head class="min-w-[120px] max-w-[25%]">Property</Table.Head>
+					<Table.Head class="max-w-[25%] min-w-[120px]">Property</Table.Head>
 					<Table.Head>Type</Table.Head>
 					<Table.Head>Description</Table.Head>
 				</Table.Row>

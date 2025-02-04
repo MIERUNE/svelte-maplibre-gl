@@ -1,6 +1,6 @@
 ---
 title: Terra Draw
-description: Use Terra Draw to draw a geometry in various forms such as point, line or polygon on your map. 
+description: Use Terra Draw to draw a geometry in various forms such as point, line or polygon on your map.
 ---
 
 <script lang="ts">

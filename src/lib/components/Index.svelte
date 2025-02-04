@@ -5,7 +5,7 @@
 </script>
 
 <nav>
-	<h2 class="mb-4 text-lg font-bold leading-none">{name}</h2>
+	<h2 class="mb-4 text-lg leading-none font-bold">{name}</h2>
 	{#each toc as subtoc}
 		<h3 class="my-3">{subtoc.title}</h3>
 		<ul class="flex flex-col text-sm">

@@ -89,7 +89,7 @@
 		>
 			<GitHub class="size-5! md:size-6!" />
 		</Button>
-		<div class="-ml-1 -mr-1 md:ml-1">
+		<div class="-mr-1 -ml-1 md:ml-1">
 			<DarkModeSelector />
 		</div>
 	</div>
