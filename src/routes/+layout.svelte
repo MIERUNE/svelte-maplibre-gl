@@ -18,6 +18,8 @@
 		url.port = '';
 		return url.toString();
 	});
+
+	let currentYear = new Date().getFullYear();
 </script>
 
 <ModeWatcher />
@@ -34,7 +36,7 @@
 
 <footer class="font-zinc-500 border-t p-6 px-4 text-sm">
 	<div class="xl:container">
-		<p>&copy; 2024 Svelte Maplibre GL contributors</p>
+		<p>&copy; {currentYear} Svelte Maplibre GL contributors</p>
 	</div>
 </footer>
 
