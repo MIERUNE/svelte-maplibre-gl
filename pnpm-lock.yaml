@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.0
         version: 1.2.0
       terra-draw-maplibre-gl-adapter:
-        specifier: ^1.0.1
-        version: 1.0.1(maplibre-gl@5.2.0)(terra-draw@1.2.0)
+        specifier: ^1.0.3
+        version: 1.0.3(maplibre-gl@5.2.0)(terra-draw@1.2.0)
     devDependencies:
       '@deck.gl/layers':
         specifier: ^9.1.4
@@ -2851,8 +2851,8 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
-  terra-draw-maplibre-gl-adapter@1.0.1:
-    resolution: {integrity: sha512-B5zM6OhOEwcYegNLP2HybOc+V0ZaQNYuSkOiAcGABV6ZVd5zZCX51GIXcAgOL07okcs1D+7a+4zCgqtD/fLgTg==}
+  terra-draw-maplibre-gl-adapter@1.0.3:
+    resolution: {integrity: sha512-Qd9xtV5Fa7JSJsKA5vJwvJZ40waiI9neDDvKUqCTcEjsrZCLVZQuiabcDhOO/Xv/vONk7io5MSPnlF6Mp1dwEA==}
     peerDependencies:
       maplibre-gl: '>=4'
       terra-draw: ^1.0.0
@@ -5679,7 +5679,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terra-draw-maplibre-gl-adapter@1.0.1(maplibre-gl@5.2.0)(terra-draw@1.2.0):
+  terra-draw-maplibre-gl-adapter@1.0.3(maplibre-gl@5.2.0)(terra-draw@1.2.0):
     dependencies:
       maplibre-gl: 5.2.0
       terra-draw: 1.2.0
