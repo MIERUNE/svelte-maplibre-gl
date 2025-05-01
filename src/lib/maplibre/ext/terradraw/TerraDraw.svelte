@@ -53,6 +53,19 @@
 		});
 	});
 
+	$effect.pre(() => {
+		if (!draw) {
+			const isLoaded = mapCtx.map?.isStyleLoaded();
+			if (!isLoaded) return;
+			draw = new Draw({
+				adapter: new TerraDrawMapLibreGLAdapter({ map: mapCtx.map }),
+				modes,
+				idStrategy,
+				tracked
+			});
+		}
+	});
+
 	$effect(() => {
 		draw?.start();
 		return () => draw?.stop();
