@@ -14,6 +14,10 @@
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
+	// 'hillshade-method' option is available since Maplibre GL JS v5.5.0
+	// Note that 'multidirectional' method doesn't work as intended in this
+	// example because it requires multiple directions and colors. For the
+	// details, please refer to the spec: https://maplibre.org/maplibre-style-spec/layers/#hillshade-method
 	const HILLSHADE_METHODS = ['standard', 'basic', 'combined', 'igor', 'multidirectional'] as const;
 	type HillshadeMethod = (typeof HILLSHADE_METHODS)[number];
 
@@ -77,7 +81,7 @@
 	>
 		<HillshadeLayer
 			paint={{
-				'hillshade-method': hillshadeMethod, // available since Maplibre GL JS v5.5.0
+				'hillshade-method': hillshadeMethod,
 				'hillshade-exaggeration': hillshade,
 				'hillshade-shadow-color': shadowColor,
 				'hillshade-accent-color': accentColor,
