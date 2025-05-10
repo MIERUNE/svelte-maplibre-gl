@@ -14,9 +14,13 @@
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
+	const HILLSHADE_METHODS = ['standard', 'basic', 'combined', 'igor', 'multidirectional'] as const;
+	type HillshadeMethod = (typeof HILLSHADE_METHODS)[number];
+
 	let mode: 'terrain' | 'sky' = $state('terrain');
 	// Terrain
 	let exaggeration = $state(1.0);
+	let hillshadeMethod: HillshadeMethod = $state(HILLSHADE_METHODS[0]);
 	let hillshade = $state(0.7);
 	let shadowColor = $state('#004050');
 	let accentColor = $state('#aaff00');
@@ -73,6 +77,7 @@
 	>
 		<HillshadeLayer
 			paint={{
+				'hillshade-method': hillshadeMethod, // available since Maplibre GL JS v5.5.0
 				'hillshade-exaggeration': hillshade,
 				'hillshade-shadow-color': shadowColor,
 				'hillshade-accent-color': accentColor,
@@ -95,6 +100,14 @@
 				<div class="mb-4 flex flex-col items-center space-y-2 px-2">
 					<Label for="pitch" class="leading-none">Exaggeration ({exaggeration.toFixed(2)})</Label>
 					<Slider type="single" id="pitch" bind:value={exaggeration} min={0} max={2} step={0.01} />
+				</div>
+				<div class="my-5 flex items-center justify-between space-x-2">
+					<Label for="shadow-method" class="leading-none">Method</Label>
+					<select bind:value={hillshadeMethod} id="hillshade-method" class="text-center">
+						{#each HILLSHADE_METHODS as method}
+							<option value={method}>{method}</option>
+						{/each}
+					</select>
 				</div>
 				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
 					<Label for="hillshade" class="leading-none">Hillshade ({hillshade.toFixed(2)})</Label>
