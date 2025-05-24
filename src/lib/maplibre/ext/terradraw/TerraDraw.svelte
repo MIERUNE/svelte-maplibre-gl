@@ -44,26 +44,13 @@
 		ondeselect?: DeselectListener;
 	} = $props();
 
-	mapCtx.map?.once('style.load', () => {
+	mapCtx.waitForStyleLoaded((map) => {
 		draw = new Draw({
-			adapter: new TerraDrawMapLibreGLAdapter({ map: mapCtx.map }),
+			adapter: new TerraDrawMapLibreGLAdapter({ map }),
 			modes,
 			idStrategy,
 			tracked
 		});
-	});
-
-	$effect.pre(() => {
-		if (!draw) {
-			const isLoaded = mapCtx.map?.isStyleLoaded();
-			if (!isLoaded) return;
-			draw = new Draw({
-				adapter: new TerraDrawMapLibreGLAdapter({ map: mapCtx.map }),
-				modes,
-				idStrategy,
-				tracked
-			});
-		}
 	});
 
 	$effect(() => {
