@@ -1,6 +1,6 @@
 <script lang="ts">
-	import MapPinned from 'lucide-svelte/icons/map-pinned';
-	import Menu from 'lucide-svelte/icons/menu';
+	import MapPinned from '@lucide/svelte/icons/map-pinned';
+	import Menu from '@lucide/svelte/icons/menu';
 	import GitHub from '$lib/assets/icons/GitHub.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import DarkModeSelector from './DarkModeSelector.svelte';

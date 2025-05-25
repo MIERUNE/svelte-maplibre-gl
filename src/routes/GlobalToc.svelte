@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Index from '$lib/components/Index.svelte';
-	import CloseIcon from 'lucide-svelte/icons/x';
+	import CloseIcon from '@lucide/svelte/icons/x';
 	import { cn } from '$lib/utils';
 
 	import { toc as docsToc } from '$content/docs/toc';
