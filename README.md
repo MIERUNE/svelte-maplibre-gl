@@ -3,7 +3,7 @@
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 ![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
-:world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte 5](https://svelte.dev/).
+:world_map: Build interactive web maps effortlessly with [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) and [Svelte](https://svelte.dev/).
 
 :point_right: **Documentaion and Live Demos:** https://svelte-maplibre-gl.mierune.dev/examples/
 
@@ -23,8 +23,7 @@ License: MIT or Apache 2.0
 npm install --save-dev svelte-maplibre-gl
 ```
 
-> [!NOTE]
-> `svelte-maplibre-gl` only works with **Svelte 5** and above.
+`svelte-maplibre-gl` only works with **Svelte 5** and above.
 
 ## License
 
@@ -39,17 +38,16 @@ This project `svelte-maplibre-gl` is built from scratch, while drawing strong in
 
 ## Contributing
 
-Everyone is welcome to contribute to this project! There are many ways to support the project, such as:
+Everyone is welcome to contribute to this project! There are many ways to support it, such as:
 
-- Trying it out and reporting any issues or missing fundamental features
-- Expanding, improving, or suggesting examples
-- Anything else you can think of!
+- Trying it out and reporting any issues or missing features
+- Expanding, improving, or suggesting new examples
+- Any other ideas you might have!
 
 Your contributions are greatly appreciated.
 
 ### Authors
 
-- Maintainers:
-  - Taku Fukada ([@ciscorn](https://github.com/ciscorn/)) - Original Author
-  - Kanahiro Iguchi ([@Kanahiro](https://github.com/Kanahiro/))
-- And [all contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)!
+[All contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)!
+
+Supported by MIERUNE Inc.

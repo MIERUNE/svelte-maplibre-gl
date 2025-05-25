@@ -1,6 +1,6 @@
 {
 	"name": "svelte-maplibre-gl",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 	"repository": {
@@ -90,13 +90,12 @@
 		"@types/eslint": "^9.6.1",
 		"@types/geojson": "^7946.0.16",
 		"@types/three": "^0.176.0",
-		"bits-ui": "1.0.0-next.78",
+		"bits-ui": "^1.8.0",
 		"clsx": "^2.1.1",
 		"eslint": "^9.27.0",
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-svelte": "^3.9.0",
-		"fast-png": "^6.3.0",
-		"globals": "^16.1.0",
+		"globals": "^16.2.0",
 		"install": "^0.13.0",
 		"lucide-svelte": "^0.511.0",
 		"maplibre-contour": "^0.1.0",
