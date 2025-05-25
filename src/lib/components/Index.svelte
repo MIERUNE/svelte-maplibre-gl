@@ -6,10 +6,10 @@
 
 <nav>
 	<h2 class="mb-4 text-lg leading-none font-bold">{name}</h2>
-	{#each toc as subtoc}
+	{#each toc as subtoc (subtoc.title)}
 		<h3 class="my-3">{subtoc.title}</h3>
 		<ul class="flex flex-col text-sm">
-			{#each Object.entries(subtoc.items) as [path, title]}
+			{#each Object.entries(subtoc.items) as [path, title] (path)}
 				<li
 					class="border-l border-foreground/10 py-1 pl-4 data-[active=true]:border-foreground"
 					data-active={page.url.pathname === path}

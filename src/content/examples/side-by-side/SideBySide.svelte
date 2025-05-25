@@ -29,7 +29,7 @@
 
 <div class="mb-3 flex items-center justify-between">
 	<RadioGroup.Root bind:value={splitMode} class="flex flex-row gap-x-3">
-		{#each MODES as mode}
+		{#each MODES as mode (mode)}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={mode} id={mode} />
 				<Label for={mode}>{mode}</Label>
