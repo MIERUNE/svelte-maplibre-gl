@@ -116,6 +116,7 @@
 		"svelte": "^5.33.1",
 		"svelte-check": "^4.2.1",
 		"svelte-docgen": "https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@146593b",
+		"svelte2tsx": "0.7.34",
 		"tailwind-merge": "^3.3.0",
 		"tailwind-variants": "^1.0.0",
 		"tailwindcss": "^4.1.7",

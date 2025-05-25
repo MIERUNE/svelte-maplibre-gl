@@ -138,6 +138,9 @@ importers:
       svelte-docgen:
         specifier: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@146593b
         version: https://pkg.pr.new/svelte-docgen/svelte-docgen/svelte-docgen@146593b(svelte@5.33.1)
+      svelte2tsx:
+        specifier: 0.7.34
+        version: 0.7.34(svelte@5.33.1)(typescript@5.8.3)
       tailwind-merge:
         specifier: ^3.3.0
         version: 3.3.0
@@ -2538,8 +2541,8 @@ packages:
     peerDependencies:
       svelte: ^5.0.0
 
-  svelte2tsx@0.7.39:
-    resolution: {integrity: sha512-NX8a7eSqF1hr6WKArvXr7TV7DeE+y0kDFD7L5JP7TWqlwFidzGKaG415p992MHREiiEWOv2xIWXJ+mlONofs0A==}
+  svelte2tsx@0.7.34:
+    resolution: {integrity: sha512-WTMhpNhFf8/h3SMtR5dkdSy2qfveomkhYei/QW9gSPccb0/b82tjHvLop6vT303ZkGswU/da1s6XvrLgthQPCw==}
     peerDependencies:
       svelte: ^3.55 || ^4.0.0-next.0 || ^4.0 || ^5.0.0-next.0
       typescript: ^4.9.4 || ^5.0.0
@@ -3690,7 +3693,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.7
       svelte: 5.33.1
-      svelte2tsx: 0.7.39(svelte@5.33.1)(typescript@5.8.3)
+      svelte2tsx: 0.7.34(svelte@5.33.1)(typescript@5.8.3)
       typescript: 5.8.3
       zimmerframe: 1.1.2
 
@@ -3730,7 +3733,7 @@ snapshots:
       sade: 1.8.1
       semver: 7.7.2
       svelte: 5.33.1
-      svelte2tsx: 0.7.39(svelte@5.33.1)(typescript@5.8.3)
+      svelte2tsx: 0.7.34(svelte@5.33.1)(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
 
@@ -5172,7 +5175,7 @@ snapshots:
       style-to-object: 1.0.8
       svelte: 5.33.1
 
-  svelte2tsx@0.7.39(svelte@5.33.1)(typescript@5.8.3):
+  svelte2tsx@0.7.34(svelte@5.33.1)(typescript@5.8.3):
     dependencies:
       dedent-js: 1.0.1
       pascal-case: 3.1.2
