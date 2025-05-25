@@ -30,12 +30,15 @@ importers:
       '@docsearch/js':
         specifier: ^3.9.0
         version: 3.9.0(@algolia/client-search@5.25.0)(search-insights@2.17.3)
+      '@lucide/svelte':
+        specifier: ^0.511.0
+        version: 0.511.0(svelte@5.33.1)
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.0.3
-        version: 7.0.3(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(wrangler@4.16.1(@cloudflare/workers-types@4.20250524.0))
+        version: 7.0.3(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(wrangler@4.16.1(@cloudflare/workers-types@4.20250525.0))
       '@sveltejs/kit':
         specifier: ^2.21.1
         version: 2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0))
@@ -61,8 +64,8 @@ importers:
         specifier: ^0.176.0
         version: 0.176.0
       bits-ui:
-        specifier: 1.0.0-next.78
-        version: 1.0.0-next.78(svelte@5.33.1)
+        specifier: 1.8.0
+        version: 1.8.0(svelte@5.33.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -79,14 +82,11 @@ importers:
         specifier: ^6.3.0
         version: 6.3.0
       globals:
-        specifier: ^16.1.0
-        version: 16.1.0
+        specifier: ^16.2.0
+        version: 16.2.0
       install:
         specifier: ^0.13.0
         version: 0.13.0
-      lucide-svelte:
-        specifier: ^0.511.0
-        version: 0.511.0(svelte@5.33.1)
       maplibre-contour:
         specifier: ^0.1.0
         version: 0.1.0
@@ -145,8 +145,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       tailwind-variants:
-        specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.7)
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@4.1.7)
       tailwindcss:
         specifier: ^4.1.7
         version: 4.1.7
@@ -293,8 +293,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cloudflare/workers-types@4.20250524.0':
-    resolution: {integrity: sha512-Tc/N/5nn3Jq+w7s+QPEgiyBZ0F0ebH9XWQ6YiUZTue79E7nybYDGh4lBCr2y4bC+RYiOP8KZPYWr811Hd3Oh2A==}
+  '@cloudflare/workers-types@4.20250525.0':
+    resolution: {integrity: sha512-3loeNVJkcDLb9giarUIHmDgvh+/4RtH+R/rHn4BCmME1qKdu73n/hvECYhH8BabCZplF8zQy1wok1MKwXEWC/A==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -726,6 +726,11 @@ packages:
     resolution: {integrity: sha512-eg45Ux6xqsAfqPUqJkhmbFZh9qfmYuPfA+34VcLtfeXIwAngeP6o4SrTmm9LWLGUKiSh47anCEV1p7borDgvGQ==}
     peerDependencies:
       '@loaders.gl/core': ^4.3.0
+
+  '@lucide/svelte@0.511.0':
+    resolution: {integrity: sha512-aLCSPMUJmHlCuLXzXENXa4Z1NV2mN1iAZAFKk4bEbey+/MdsNlu+/DqwVkgW3Yvj6p8y8Vn5xZ2v9CLmPlA6Vw==}
+    peerDependencies:
+      svelte: ^5
 
   '@luma.gl/constants@9.1.9':
     resolution: {integrity: sha512-yc9fml04OeTTcwK+7gmDMxoLQ67j4ZiAFXjmYvPomYyBVzS0NZxTDuwcCBmnxjLOiroOZW8FRRrVc/yOiFug2w==}
@@ -1346,8 +1351,8 @@ packages:
   before-after-hook@2.2.3:
     resolution: {integrity: sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ==}
 
-  bits-ui@1.0.0-next.78:
-    resolution: {integrity: sha512-jZjG2ObZ/CNyCNaXecpItC7hRXqJAgEfMhr06/eNrf3wHiiPyhdcy4OkzLcJyxeOrDyj+xma8cZTd3JRWqJdAw==}
+  bits-ui@1.8.0:
+    resolution: {integrity: sha512-CXD6Orp7l8QevNDcRPLXc/b8iMVgxDWT2LyTwsdLzJKh9CxesOmPuNePSPqAxKoT59FIdU4aFPS1k7eBdbaCxg==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
       svelte: ^5.11.0
@@ -1447,6 +1452,9 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
+
+  css.escape@1.5.1:
+    resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1698,8 +1706,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@16.1.0:
-    resolution: {integrity: sha512-aibexHNbb/jiUSObBgpHLj+sIuUmJnYcgXBlrfsiDZ9rt4aF2TFRbyLgZ2iFQuVZ1K5Mx3FVkbKRSgKrbK3K2g==}
+  globals@16.2.0:
+    resolution: {integrity: sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg==}
     engines: {node: '>=18'}
 
   graceful-fs@4.2.11:
@@ -1917,11 +1925,6 @@ packages:
 
   lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
-
-  lucide-svelte@0.511.0:
-    resolution: {integrity: sha512-cSBj1UPKt1EXnj3VBUidBqwHyFQ83pLYiTaQ/67Q5thnaP9IPohL2UXjqEzgSXXklYPYQKaAv+kmVdliDWFjWQ==}
-    peerDependencies:
-      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -2393,11 +2396,6 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runed@0.22.0:
-    resolution: {integrity: sha512-ZWVXWhOr0P5xdNgtviz6D1ivLUDWKLCbeC5SUEJ3zBkqLReVqWHenFxMNFeFaiC5bfxhFxyxzyzB+98uYFtwdA==}
-    peerDependencies:
-      svelte: ^5.7.0
-
   runed@0.23.4:
     resolution: {integrity: sha512-9q8oUiBYeXIDLWNK5DfCWlkL0EW3oGbk845VdKlPeia28l751VpfesaB/+7pI6rnbx1I6rqoZ2fZxptOJLxILA==}
     peerDependencies:
@@ -2551,14 +2549,17 @@ packages:
     resolution: {integrity: sha512-7znzaaQALL62NBzkdKV04tmYIVla8qjrW+k6GdgFZcKcj8XOb8iEjmfRPo40iaWZlKv3+uiuc0h4iaGgwoORtA==}
     engines: {node: '>=18'}
 
-  tailwind-merge@3.0.2:
-    resolution: {integrity: sha512-l7z+OYZ7mu3DTqrL88RiKrKIqO3NcpEO8V/Od04bNpvk0kiIFndGEoqfuzvj4yuhRkHKjRkII2z+KS2HfPcSxw==}
+  tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+
+  tailwind-merge@2.6.0:
+    resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
   tailwind-merge@3.3.0:
     resolution: {integrity: sha512-fyW/pEfcQSiigd5SNn0nApUOxx0zB/dm6UDU/rEwc2c3sX2smWUNbapHv+QRqLGVp9GWX3THIa7MUGPo+YkDzQ==}
 
-  tailwind-variants@1.0.0:
-    resolution: {integrity: sha512-2WSbv4ulEEyuBKomOunut65D8UZwxrHoRfYnxGcQNnHqlSCp2+B7Yz2W+yrNDrxRodOXtGD/1oCcKGNBnUqMqA==}
+  tailwind-variants@0.2.1:
+    resolution: {integrity: sha512-2xmhAf4UIc3PijOUcJPA1LP4AbxhpcHuHM2C26xM0k81r0maAO6uoUSHl3APmvHZcY5cZCY/bYuJdfFa4eGoaw==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
@@ -3053,7 +3054,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20250508.0':
     optional: true
 
-  '@cloudflare/workers-types@4.20250524.0': {}
+  '@cloudflare/workers-types@4.20250525.0': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -3418,6 +3419,10 @@ snapshots:
     dependencies:
       '@loaders.gl/core': 4.3.3
 
+  '@lucide/svelte@0.511.0(svelte@5.33.1)':
+    dependencies:
+      svelte: 5.33.1
+
   '@luma.gl/constants@9.1.9': {}
 
   '@luma.gl/core@9.1.9':
@@ -3701,12 +3706,12 @@ snapshots:
     dependencies:
       acorn: 8.14.1
 
-  '@sveltejs/adapter-cloudflare@7.0.3(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(wrangler@4.16.1(@cloudflare/workers-types@4.20250524.0))':
+  '@sveltejs/adapter-cloudflare@7.0.3(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(wrangler@4.16.1(@cloudflare/workers-types@4.20250525.0))':
     dependencies:
-      '@cloudflare/workers-types': 4.20250524.0
+      '@cloudflare/workers-types': 4.20250525.0
       '@sveltejs/kit': 2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0))
       worktop: 0.8.0-next.18
-      wrangler: 4.16.1(@cloudflare/workers-types@4.20250524.0)
+      wrangler: 4.16.1(@cloudflare/workers-types@4.20250525.0)
 
   '@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0)))(svelte@5.33.1)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.7.0))':
     dependencies:
@@ -4079,15 +4084,17 @@ snapshots:
 
   before-after-hook@2.2.3: {}
 
-  bits-ui@1.0.0-next.78(svelte@5.33.1):
+  bits-ui@1.8.0(svelte@5.33.1):
     dependencies:
       '@floating-ui/core': 1.7.0
       '@floating-ui/dom': 1.7.0
       '@internationalized/date': 3.8.1
+      css.escape: 1.5.1
       esm-env: 1.2.2
-      runed: 0.22.0(svelte@5.33.1)
+      runed: 0.23.4(svelte@5.33.1)
       svelte: 5.33.1
       svelte-toolbelt: 0.7.1(svelte@5.33.1)
+      tabbable: 6.2.0
 
   blake3-wasm@2.1.5: {}
 
@@ -4175,6 +4182,8 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  css.escape@1.5.1: {}
+
   cssesc@3.0.0: {}
 
   data-uri-to-buffer@2.0.2: {}
@@ -4258,7 +4267,7 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
       eslint: 9.27.0(jiti@2.4.2)
       esutils: 2.0.3
-      globals: 16.1.0
+      globals: 16.2.0
       known-css-properties: 0.36.0
       postcss: 8.5.3
       postcss-load-config: 3.1.4(postcss@8.5.3)
@@ -4442,7 +4451,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@16.1.0: {}
+  globals@16.2.0: {}
 
   graceful-fs@4.2.11: {}
 
@@ -4608,10 +4617,6 @@ snapshots:
   lower-case@2.0.2:
     dependencies:
       tslib: 2.8.1
-
-  lucide-svelte@0.511.0(svelte@5.33.1):
-    dependencies:
-      svelte: 5.33.1
 
   magic-string@0.30.17:
     dependencies:
@@ -5005,11 +5010,6 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runed@0.22.0(svelte@5.33.1):
-    dependencies:
-      esm-env: 1.2.2
-      svelte: 5.33.1
-
   runed@0.23.4(svelte@5.33.1):
     dependencies:
       esm-env: 1.2.2
@@ -5199,13 +5199,15 @@ snapshots:
       magic-string: 0.30.17
       zimmerframe: 1.1.2
 
-  tailwind-merge@3.0.2: {}
+  tabbable@6.2.0: {}
+
+  tailwind-merge@2.6.0: {}
 
   tailwind-merge@3.3.0: {}
 
-  tailwind-variants@1.0.0(tailwindcss@4.1.7):
+  tailwind-variants@0.2.1(tailwindcss@4.1.7):
     dependencies:
-      tailwind-merge: 3.0.2
+      tailwind-merge: 2.6.0
       tailwindcss: 4.1.7
 
   tailwindcss-animate@1.0.7(tailwindcss@4.1.7):
@@ -5491,7 +5493,7 @@ snapshots:
       mrmime: 2.0.1
       regexparam: 3.0.0
 
-  wrangler@4.16.1(@cloudflare/workers-types@4.20250524.0):
+  wrangler@4.16.1(@cloudflare/workers-types@4.20250525.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.3.2(unenv@2.0.0-rc.17)(workerd@1.20250508.0)
@@ -5502,7 +5504,7 @@ snapshots:
       unenv: 2.0.0-rc.17
       workerd: 1.20250508.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20250524.0
+      '@cloudflare/workers-types': 4.20250525.0
       fsevents: 2.3.3
       sharp: 0.33.5
     transitivePeerDependencies:

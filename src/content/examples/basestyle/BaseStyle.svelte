@@ -45,7 +45,7 @@
 
 <div class="mb-3 flex items-center justify-between">
 	<RadioGroup.Root bind:value={name} class="flex flex-row gap-x-3">
-		{#each STYLES as [name]}
+		{#each STYLES as [name] (name)}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={name} id={name} />
 				<Label class="cursor-pointer" for={name}>{name}</Label>

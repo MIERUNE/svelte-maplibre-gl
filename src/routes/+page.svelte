@@ -10,7 +10,7 @@
 			<a href="https://maplibre.org/maplibre-gl-js/docs/">MapLibre GL JS</a> &mdash; Build interactive web maps
 			effortlessly with <a href="https://svelte.dev/">Svelte</a>’s reactive and declarative power 🚀
 		</p>
-		<p class="!my-10">
+		<p class="my-10!">
 			<a
 				href="/examples/"
 				class="rounded-full bg-[#2A5DAA] px-8 py-4 font-bold text-white no-underline transition-colors duration-300 hover:bg-[#FE3000]"

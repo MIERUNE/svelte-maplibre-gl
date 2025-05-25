@@ -114,7 +114,7 @@
 				<div class="mb-2 flex items-center justify-between space-x-2">
 					<Label for="shadow-method" class="leading-none">Method</Label>
 					<select bind:value={hillshadeMethod} id="hillshade-method" class="text-center">
-						{#each HILLSHADE_METHODS as method}
+						{#each HILLSHADE_METHODS as method (method)}
 							<option value={method}>{method}</option>
 						{/each}
 					</select>

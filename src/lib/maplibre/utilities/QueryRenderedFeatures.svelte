@@ -56,4 +56,4 @@
 	});
 </script>
 
-{#if children}{#each features as feature}{@render children(feature)}{/each}{/if}
+{#if children}{#each features as feature (feature.id)}{@render children(feature)}{/each}{/if}
