@@ -14,14 +14,23 @@
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
+	// 'hillshade-method' option is available since Maplibre GL JS v5.5.0
+	// Note that 'multidirectional' method doesn't work as intended in this
+	// example because it requires multiple directions and colors. For the
+	// details, please refer to the spec: https://maplibre.org/maplibre-style-spec/layers/#hillshade-method
+	const HILLSHADE_METHODS = ['standard', 'basic', 'combined', 'igor', 'multidirectional'] as const;
+	type HillshadeMethod = (typeof HILLSHADE_METHODS)[number];
+
 	let mode: 'terrain' | 'sky' = $state('terrain');
 	// Terrain
 	let exaggeration = $state(1.0);
 	let hillshade = $state(0.7);
+	let hillshadeMethod: HillshadeMethod = $state(HILLSHADE_METHODS[0]);
 	let shadowColor = $state('#004050');
 	let accentColor = $state('#aaff00');
 	let highlightColor = $state('#ffffff');
 	let direction = $state(0.0);
+	let altitude = $state(45.0);
 	// Sky
 	let skyEnabled = $state(true);
 	let skyColor = $state('#001560');
@@ -73,11 +82,13 @@
 	>
 		<HillshadeLayer
 			paint={{
+				'hillshade-method': hillshadeMethod,
 				'hillshade-exaggeration': hillshade,
 				'hillshade-shadow-color': shadowColor,
 				'hillshade-accent-color': accentColor,
 				'hillshade-highlight-color': highlightColor,
 				'hillshade-illumination-anchor': 'map',
+				'hillshade-illumination-altitude': altitude,
 				'hillshade-illumination-direction': direction
 			}}
 		/>
@@ -100,14 +111,24 @@
 					<Label for="hillshade" class="leading-none">Hillshade ({hillshade.toFixed(2)})</Label>
 					<Slider type="single" id="hillshade" bind:value={hillshade} min={0} max={1} step={0.01} />
 				</div>
+				<div class="mb-2 flex items-center justify-between space-x-2">
+					<Label for="shadow-method" class="leading-none">Method</Label>
+					<select bind:value={hillshadeMethod} id="hillshade-method" class="text-center">
+						{#each HILLSHADE_METHODS as method}
+							<option value={method}>{method}</option>
+						{/each}
+					</select>
+				</div>
 				<div class="mb-1 flex items-center justify-between space-x-2">
 					<Label for="shadow-sm" class="leading-none">Shadow</Label>
 					<input type="color" id="shadow-sm" bind:value={shadowColor} />
 				</div>
-				<div class="mb-1 flex items-center justify-between space-x-2">
-					<Label for="accent" class="leading-none">Accent</Label>
-					<input type="color" id="accent" bind:value={accentColor} />
-				</div>
+				{#if hillshadeMethod === 'standard'}
+					<div class="mb-1 flex items-center justify-between space-x-2">
+						<Label for="accent" class="leading-none">Accent</Label>
+						<input type="color" id="accent" bind:value={accentColor} />
+					</div>
+				{/if}
 				<div class="mb-2 flex items-center justify-between space-x-2">
 					<Label for="highlight" class="leading-none">Highlight</Label>
 					<input type="color" id="highlight" bind:value={highlightColor} />
@@ -116,6 +137,12 @@
 					<Label for="direction" class="leading-none">Direction ({direction})</Label>
 					<Slider type="single" id="direction" bind:value={direction} min={0} max={360} />
 				</div>
+				{#if !['standard', 'igor'].includes(hillshadeMethod)}
+					<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+						<Label for="altitude" class="leading-none">Altitude ({altitude.toFixed(2)})</Label>
+						<Slider type="single" id="altitude" bind:value={altitude} min={0} max={90} step={0.01} />
+					</div>
+				{/if}
 			</Tabs.Content>
 			<Tabs.Content value="sky" class="min-h-0 shrink overflow-scroll pt-1">
 				<div class="mb-2 flex items-center space-x-2 self-center justify-self-center">
