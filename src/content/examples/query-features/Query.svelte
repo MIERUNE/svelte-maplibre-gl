@@ -25,7 +25,7 @@
 		<GlobeControl />
 		<GeoJSONSource
 			id="earthquakes"
-			data={'https://maplibre.org/maplibre-gl-js/docs/assets/significant-earthquakes-2015.geojson'}
+			data="https://maplibre.org/maplibre-gl-js/docs/assets/significant-earthquakes-2015.geojson"
 			promoteId="ids"
 		>
 			{#if mode == 'source'}

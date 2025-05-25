@@ -212,7 +212,7 @@
 		url="pmtiles://https://jma-assets.mierune.dev/pmtiles/mete.pmtiles"
 		minzoom={0}
 		maxzoom={13}
-		attribution={'<a href="https://www.data.jma.go.jp/developer/gis.html">気象庁</a>'}
+		attribution="<a href='https://www.data.jma.go.jp/developer/gis.html'>気象庁</a>"
 	>
 		{#if showCities}
 			<LineLayer

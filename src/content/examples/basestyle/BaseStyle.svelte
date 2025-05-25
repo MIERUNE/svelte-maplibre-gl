@@ -76,7 +76,7 @@
 		tiles={['https://jma-assets.mierune.dev/tiles/mete/{z}/{x}/{y}.pbf']}
 		minzoom={0}
 		maxzoom={13}
-		attribution={'<a href="https://www.data.jma.go.jp/developer/gis.html">JMA</a>'}
+		attribution="<a href='https://www.data.jma.go.jp/developer/gis.html'>JMA</a>"
 	>
 		<LineLayer
 			sourceLayer="city"
