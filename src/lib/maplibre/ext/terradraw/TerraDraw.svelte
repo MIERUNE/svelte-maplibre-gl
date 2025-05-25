@@ -1,21 +1,10 @@
-<script module>
-	// TODO: Request terra-draw to export these types
-	type FeatureId = string | number;
-	type OnFinishContext = { mode: string; action: string };
-	type IdStrategy<Id extends FeatureId> = {
-		isValidId: (id: Id) => boolean;
-		getId: () => Id;
-	};
-	type FinishListener = (id: FeatureId, context: OnFinishContext) => void;
-	type ChangeListener = (ids: FeatureId[], type: string) => void;
-	type SelectListener = (id: FeatureId) => void;
-	type DeselectListener = () => void;
-</script>
-
 <script lang="ts">
 	import { TerraDraw as Draw } from 'terra-draw';
+	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
 	import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 	import { getMapContext } from 'svelte-maplibre-gl';
+
+	type FeatureId = string | number;
 
 	const mapCtx = getMapContext();
 
@@ -37,11 +26,11 @@
 		tracked?: boolean;
 		/** Terra Draw instance */
 		draw?: Draw;
-		onready?: () => void;
-		onfinish?: FinishListener;
-		onchange?: ChangeListener;
-		onselect?: SelectListener;
-		ondeselect?: DeselectListener;
+		onchange?: TerraDrawEventListeners['change'];
+		onfinish?: TerraDrawEventListeners['finish'];
+		onready?: TerraDrawEventListeners['ready'];
+		onselect?: TerraDrawEventListeners['select'];
+		ondeselect?: TerraDrawEventListeners['deselect'];
 	} = $props();
 
 	mapCtx.waitForStyleLoaded((map) => {
