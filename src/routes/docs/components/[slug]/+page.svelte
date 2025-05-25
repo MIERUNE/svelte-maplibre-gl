@@ -34,13 +34,13 @@
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{#each requiredProps as [name, prop]}
+				{#each requiredProps as [name, prop] (name)}
 					{#if !prop.isOptional}
 						<Prop {name} {prop} types={data.doc.types} />
 					{/if}
 				{/each}
 
-				{#each optionalProps as [name, prop]}
+				{#each optionalProps as [name, prop] (name)}
 					{#if prop.isOptional}
 						<Prop {name} {prop} types={data.doc.types} />
 					{/if}

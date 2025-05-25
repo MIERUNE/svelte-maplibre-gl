@@ -7,14 +7,14 @@
 		class: className,
 		children,
 		...restProps
-	}: WithElementRef<HTMLAttributes<HTMLTableSectionElement>> = $props();
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {} = $props();
 </script>
 
-<tbody
+<div
 	bind:this={ref}
-	data-slot="table-body"
-	class={cn("[&_tr:last-child]:border-0", className)}
+	data-slot="select-label"
+	class={cn("text-muted-foreground px-2 py-1.5 text-xs", className)}
 	{...restProps}
 >
 	{@render children?.()}
-</tbody>
+</div>

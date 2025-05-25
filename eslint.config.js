@@ -19,10 +19,11 @@ export default ts.config(
 		}
 	},
 	{
-		files: ['**/*.svelte'],
+		files: ['**/*.svelte', '**/*.svelte.ts'],
 		rules: {
 			// surpress "Expected an assignment or function call and instead saw an expression"
 			'@typescript-eslint/no-unused-expressions': 'off'
+			// 'svelte/require-each-key': 'off'
 		},
 		languageOptions: {
 			parserOptions: {

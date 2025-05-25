@@ -25,7 +25,7 @@
 		<GlobeControl />
 		<GeoJSONSource
 			id="earthquakes"
-			data={'https://maplibre.org/maplibre-gl-js/docs/assets/significant-earthquakes-2015.geojson'}
+			data="https://maplibre.org/maplibre-gl-js/docs/assets/significant-earthquakes-2015.geojson"
 			promoteId="ids"
 		>
 			{#if mode == 'source'}
@@ -62,14 +62,14 @@
 			</Tabs.List>
 			<Tabs.Content value="source" class="min-h-0 shrink overflow-scroll">
 				<ul class="m-0 ml-2 overflow-scroll px-3 text-xs">
-					{#each features as feature}
+					{#each features as feature (feature.id)}
 						<li>{feature.properties.title}</li>
 					{/each}
 				</ul>
 			</Tabs.Content>
 			<Tabs.Content value="rendered" class="min-h-0 shrink overflow-scroll">
 				<ul class="m-0 ml-4 overflow-scroll px-3 text-xs">
-					{#each features as feature}
+					{#each features as feature (feature.id)}
 						<li>{feature.properties.title}</li>
 					{/each}
 				</ul>

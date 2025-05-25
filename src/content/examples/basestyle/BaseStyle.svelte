@@ -45,7 +45,7 @@
 
 <div class="mb-3 flex items-center justify-between">
 	<RadioGroup.Root bind:value={name} class="flex flex-row gap-x-3">
-		{#each STYLES as [name]}
+		{#each STYLES as [name] (name)}
 			<div class="flex items-center space-x-1">
 				<RadioGroup.Item value={name} id={name} />
 				<Label class="cursor-pointer" for={name}>{name}</Label>
@@ -76,7 +76,7 @@
 		tiles={['https://jma-assets.mierune.dev/tiles/mete/{z}/{x}/{y}.pbf']}
 		minzoom={0}
 		maxzoom={13}
-		attribution={'<a href="https://www.data.jma.go.jp/developer/gis.html">JMA</a>'}
+		attribution="<a href='https://www.data.jma.go.jp/developer/gis.html'>JMA</a>"
 	>
 		<LineLayer
 			sourceLayer="city"
