@@ -44,45 +44,47 @@
 		ondeselect?: DeselectListener;
 	} = $props();
 
-	draw = new Draw({
-		adapter: new TerraDrawMapLibreGLAdapter({ map: mapCtx.map }),
-		modes,
-		idStrategy,
-		tracked
+	mapCtx.waitForStyleLoaded((map) => {
+		draw = new Draw({
+			adapter: new TerraDrawMapLibreGLAdapter({ map }),
+			modes,
+			idStrategy,
+			tracked
+		});
 	});
 
 	$effect(() => {
-		draw.start();
-		return () => draw.stop();
+		draw?.start();
+		return () => draw?.stop();
 	});
 	$effect(() => {
-		draw.setMode(mode);
+		draw?.setMode(mode);
 	});
 
 	// Event listeners
 	$effect(() => {
 		if (!onready) return;
-		draw.on('ready', onready);
-		return () => draw.off('ready', onready);
+		draw?.on('ready', onready);
+		return () => draw?.off('ready', onready);
 	});
 	$effect(() => {
 		if (!onfinish) return;
-		draw.on('finish', onfinish);
-		return () => draw.off('finish', onfinish);
+		draw?.on('finish', onfinish);
+		return () => draw?.off('finish', onfinish);
 	});
 	$effect(() => {
 		if (!onchange) return;
-		draw.on('change', onchange);
-		return () => draw.off('change', onchange);
+		draw?.on('change', onchange);
+		return () => draw?.off('change', onchange);
 	});
 	$effect(() => {
 		if (!onselect) return;
-		draw.on('select', onselect);
-		return () => draw.off('select', onselect);
+		draw?.on('select', onselect);
+		return () => draw?.off('select', onselect);
 	});
 	$effect(() => {
 		if (!ondeselect) return;
-		draw.on('deselect', ondeselect);
-		return () => draw.off('deselect', ondeselect);
+		draw?.on('deselect', ondeselect);
+		return () => draw?.off('deselect', ondeselect);
 	});
 </script>
