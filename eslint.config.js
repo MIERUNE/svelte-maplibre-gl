@@ -23,7 +23,7 @@ export default ts.config(
 		rules: {
 			// surpress "Expected an assignment or function call and instead saw an expression"
 			'@typescript-eslint/no-unused-expressions': 'off',
-			'svelte/require-each-key': 'off',
+			'svelte/require-each-key': 'off'
 		},
 		languageOptions: {
 			parserOptions: {
