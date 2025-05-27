@@ -16,9 +16,6 @@
 		onopen?: maplibregl.Listener;
 		onclose?: maplibregl.Listener;
 	}
-
-	let container = $state<HTMLElement | null>(null);
-
 	let {
 		// reactive
 		lnglat,
@@ -39,6 +36,8 @@
 		children,
 		...restOptions
 	}: Props = $props();
+
+	let container = $state<HTMLElement | null>(null);
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
