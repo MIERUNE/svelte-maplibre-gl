@@ -220,6 +220,9 @@
 		map = new maplibregl.Map(options);
 		mapCtx.map = map ?? null;
 
+		if (padding !== undefined) {
+			map.setPadding(padding);
+		}
 		if (cursor) {
 			map.getCanvas().style.cursor = cursor ?? '';
 		}
