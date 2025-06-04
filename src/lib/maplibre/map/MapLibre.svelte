@@ -44,7 +44,7 @@
 		vertices?: boolean;
 
 		// Global state
-		globalState?: Record<string, any>;
+		globalState?: Record<string, unknown>;
 
 		// Snippets
 		children?: Snippet<[maplibregl.Map]>;
