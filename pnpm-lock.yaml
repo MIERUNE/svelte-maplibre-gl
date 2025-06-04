@@ -67,8 +67,8 @@ importers:
         specifier: ^0.177.0
         version: 0.177.0
       bits-ui:
-        specifier: 2.3.0
-        version: 2.3.0(@internationalized/date@3.8.1)(svelte@5.33.14)
+        specifier: 2.4.1
+        version: 2.4.1(@internationalized/date@3.8.1)(svelte@5.33.14)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1522,8 +1522,8 @@ packages:
   before-after-hook@2.2.3:
     resolution: {integrity: sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ==}
 
-  bits-ui@2.3.0:
-    resolution: {integrity: sha512-PgDcs49PdHGRC7T1tTNqWhMrTHgOVE0q/q03K7n64V5MxeB2aMrbAqoW9Wg+43P4u2vMzUn8ifhLBPSfZDNceg==}
+  bits-ui@2.4.1:
+    resolution: {integrity: sha512-Z0qZkPgtxP5dkEOyZqCK2PQ1oFXsD0AlfFMtsrMLJqaYtjUBoQGosHVKEH03M9q4G8kxVnG74Zb0F9pS0X4+6w==}
     engines: {node: '>=20', pnpm: '>=8.7.0'}
     peerDependencies:
       '@internationalized/date': ^3.8.1
@@ -4369,7 +4369,7 @@ snapshots:
 
   before-after-hook@2.2.3: {}
 
-  bits-ui@2.3.0(@internationalized/date@3.8.1)(svelte@5.33.14):
+  bits-ui@2.4.1(@internationalized/date@3.8.1)(svelte@5.33.14):
     dependencies:
       '@floating-ui/core': 1.7.1
       '@floating-ui/dom': 1.7.1

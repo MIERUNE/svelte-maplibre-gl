@@ -92,7 +92,7 @@
 		"@types/eslint": "^9.6.1",
 		"@types/geojson": "^7946.0.16",
 		"@types/three": "^0.177.0",
-		"bits-ui": "2.3.0",
+		"bits-ui": "2.4.1",
 		"clsx": "^2.1.1",
 		"eslint": "^9.28.0",
 		"eslint-config-prettier": "^10.1.5",
