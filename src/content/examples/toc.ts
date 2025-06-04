@@ -23,6 +23,7 @@ export const toc: Toc = [
 		title: 'Styles',
 		items: {
 			'/examples/terrain': '3D Terrain and Sky',
+			'/examples/color-relief': 'Color Relief',
 			'/examples/globe-atmosphere': 'Globe with an Atmosphere'
 		}
 	},
