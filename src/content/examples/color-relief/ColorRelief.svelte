@@ -8,11 +8,12 @@
 		Light,
 		ColorReliefLayer
 	} from 'svelte-maplibre-gl';
+	import type { ExpressionSpecification } from 'maplibre-gl';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Slider } from '$lib/components/ui/slider/index.js';
 
 	// https://nathanmolson.github.io/color_relief
-	const COLOR_RAMPS = {
+	const COLOR_RAMPS: Record<string, ExpressionSpecification> = {
 		LINZ: [
 			'interpolate',
 			['linear'],
@@ -232,7 +233,7 @@
 		],
 		monochrome: ['interpolate', ['linear'], ['elevation'], 0.1, '#111', 0.2, 'black', 3724, 'white'],
 		rgbk: ['interpolate', ['linear'], ['elevation'], 0, '#f00', 800, '#0f0', 1600, '#00f', 2400, '#fff', 3724, 'black']
-	} as const;
+	};
 	type ColorRamp = keyof typeof COLOR_RAMPS;
 
 	let colorRamp: ColorRamp = $state('LINZ');
@@ -264,7 +265,7 @@
 		<ColorReliefLayer
 			paint={{
 				'color-relief-opacity': 1,
-				'color-relief-color': COLOR_RAMPS[colorRamp] as any
+				'color-relief-color': COLOR_RAMPS[colorRamp]
 			}}
 		/>
 		<HillshadeLayer
