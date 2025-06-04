@@ -33,6 +33,7 @@ export { default as SymbolLayer } from './layers/SymbolLayer.svelte';
 export { default as HeatmapLayer } from './layers/HeatmapLayer.svelte';
 export { default as RasterLayer } from './layers/RasterLayer.svelte';
 export { default as HillshadeLayer } from './layers/HillshadeLayer.svelte';
+export { default as ColorReliefLayer } from './layers/ColorReliefLayer.svelte';
 export { default as BackgroundLayer } from './layers/BackgroundLayer.svelte';
 export { default as RawLayer } from './layers/RawLayer.svelte';
 export { default as CustomLayer } from './layers/CustomLayer.svelte';
