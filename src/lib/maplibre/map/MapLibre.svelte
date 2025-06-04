@@ -43,6 +43,9 @@
 		repaint?: boolean;
 		vertices?: boolean;
 
+		// Global state
+		globalState?: Record<string, unknown>;
+
 		// Snippets
 		children?: Snippet<[maplibregl.Map]>;
 	}
@@ -155,6 +158,9 @@
 		touchZoomRotate,
 		transformCameraUpdate,
 
+		// Global state
+		globalState = {},
+
 		// Map Options (others)
 		...restOptions
 	}: Props = $props();
@@ -256,6 +262,25 @@
 				elevation = tr.elevation;
 			}
 		});
+	});
+
+	let prevGlobalStateKeys: string[] = [];
+	$effect(() => {
+		if (!mapCtx.map) {
+			return;
+		}
+		const newKeys = new Set(Object.keys(globalState));
+		mapCtx.waitForStyleLoaded((map) => {
+			for (const key of prevGlobalStateKeys) {
+				if (!newKeys.has(key)) {
+					map.setGlobalStateProperty(key, null);
+				}
+			}
+			for (const key of newKeys) {
+				map.setGlobalStateProperty(key, globalState![key]);
+			}
+		});
+		prevGlobalStateKeys = Array.from(newKeys);
 	});
 
 	// Events
