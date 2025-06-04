@@ -15,8 +15,7 @@ export const toc: Toc = [
 			'/examples/video-on-a-map': 'Video on a Map',
 			'/examples/fullscreen': 'Fullscreen',
 			'/examples/geolocate': 'Locate the User',
-			'/examples/cursor': 'Change Cursor',
-			'/examples/3d-buildings': '3D Buildings'
+			'/examples/cursor': 'Change Cursor'
 		}
 	},
 	{
@@ -24,7 +23,9 @@ export const toc: Toc = [
 		items: {
 			'/examples/terrain': '3D Terrain and Sky',
 			'/examples/color-relief': 'Color Relief',
-			'/examples/globe-atmosphere': 'Globe with an Atmosphere'
+			'/examples/globe-atmosphere': 'Globe with an Atmosphere',
+			'/examples/3d-buildings': '3D Buildings',
+			'/examples/global-state': 'Global State'
 		}
 	},
 	{

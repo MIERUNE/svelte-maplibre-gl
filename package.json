@@ -112,7 +112,7 @@
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.6.12",
 		"publint": "^0.3.12",
-		"shiki": "^3.4.2",
+		"shiki": "^3.5.0",
 		"superjson": "^2.2.2",
 		"svelte": "^5.33.14",
 		"svelte-check": "^4.2.1",
