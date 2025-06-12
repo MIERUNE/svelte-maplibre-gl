@@ -4,7 +4,7 @@
 	import type { Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { default as mlcontour } from 'maplibre-contour';
-	import VectorTileSource from '$lib/maplibre/sources/VectorTileSource.svelte';
+	import { VectorTileSource } from 'svelte-maplibre-gl';
 
 	type LocalDemManager = typeof mlcontour.LocalDemManager.prototype;
 	type DemSource = typeof mlcontour.DemSource.prototype;

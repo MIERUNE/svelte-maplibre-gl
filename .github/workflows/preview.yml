@@ -1,9 +1,6 @@
 name: Preview Release
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
@@ -23,8 +20,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
-        run: pnpm build
+      - name: Build packages
+        run: pnpm build:packages
 
       - name: Publish packages preview with pkg-pr-new CLI
-        run: pnpx pkg-pr-new publish
+        run: |
+          pnpx pkg-pr-new publish \
+            ./svelte-maplibre-gl \
+            ./extensions/contour \
+            ./extensions/deckgl \
+            ./extensions/pmtiles \
+            ./extensions/terradraw

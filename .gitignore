@@ -4,9 +4,10 @@ node_modules
 # Output
 .output
 .vercel
-/.svelte-kit
+**/.svelte-kit/
+**/dist/
 /build
-/dist
+.turbo
 
 # OS
 .DS_Store
@@ -24,3 +25,5 @@ vite.config.ts.timestamp-*
 
 # ignore npm lockfile
 package-lock.json
+
+.wrangler
