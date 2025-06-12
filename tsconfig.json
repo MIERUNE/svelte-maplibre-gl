@@ -13,11 +13,5 @@
 		"moduleResolution": "bundler",
 		"types": ["vite-plugin-svelte-docgen"]
 	},
-	"exclude": [
-		"node_modules",
-		"dist",
-		"**/dist",
-		"extensions/*/dist",
-		"svelte-maplibre-gl/dist"
-	]
+	"exclude": ["node_modules", "dist", "**/dist", "extensions/*/dist", "svelte-maplibre-gl/dist"]
 }
