@@ -33,6 +33,7 @@ export const toc: Toc = [
 		items: {
 			'/docs/components/BackgroundLayer': 'BackgroundLayer',
 			'/docs/components/CircleLayer': 'CircleLayer',
+			'/docs/components/ColorReliefLayer': 'ColorReliefLayer',
 			'/docs/components/CustomLayer': 'CustomLayer',
 			'/docs/components/FillExtrusionLayer': 'FillExtrusionLayer',
 			'/docs/components/HeatmapLayer': 'HeatmapLayer',

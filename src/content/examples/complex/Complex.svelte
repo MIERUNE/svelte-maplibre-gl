@@ -30,7 +30,7 @@
 		Popup,
 		GlobeControl
 	} from 'svelte-maplibre-gl';
-	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
+	import { PMTilesProtocol } from '@svelte-maplibre-gl/pmtiles';
 
 	let map: maplibregl.Map | undefined = $state.raw();
 	let hash = $state(true);

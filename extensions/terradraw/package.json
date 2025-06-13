@@ -1,0 +1,62 @@
+{
+	"name": "@svelte-maplibre-gl/terradraw",
+	"version": "0.1.10",
+	"license": "(MIT OR Apache-2.0)",
+	"description": "TerraDraw extension for svelte-maplibre-gl",
+	"repository": {
+		"url": "https://github.com/MIERUNE/svelte-maplibre-gl"
+	},
+	"homepage": "https://svelte-maplibre-gl.mierune.dev/",
+	"keywords": [
+		"map",
+		"svelte",
+		"maplibre",
+		"maplibre-gl",
+		"terradraw"
+	],
+	"scripts": {
+		"build": "vite build && npm run prepack",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"prepack": "svelte-kit sync && svelte-package && publint",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check ."
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": false,
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	},
+	"peerDependencies": {
+		"terra-draw": "^1.0.0",
+		"terra-draw-maplibre-gl-adapter": "^1.0.3",
+		"maplibre-gl": "^5.0.0 || ^4.0.0",
+		"svelte": ">=5.0.0",
+		"svelte-maplibre-gl": "workspace:*"
+	},
+	"devDependencies": {
+		"@sveltejs/kit": "catalog:",
+		"@sveltejs/package": "catalog:",
+		"@sveltejs/vite-plugin-svelte": "catalog:",
+		"maplibre-gl": "catalog:",
+		"publint": "catalog:",
+		"svelte": "catalog:",
+		"svelte-check": "catalog:",
+		"svelte-maplibre-gl": "workspace:*",
+		"terra-draw": "catalog:",
+		"terra-draw-maplibre-gl-adapter": "catalog:",
+		"typescript": "catalog:",
+		"vite": "catalog:"
+	}
+}
