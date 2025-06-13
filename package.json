@@ -11,9 +11,9 @@
 	"homepage": "https://svelte-maplibre-gl.mierune.dev/",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "turbo run build",
+		"build": "vite build",
+		"build:all": "turbo run build",
 		"build:packages": "turbo run build --filter='./svelte-maplibre-gl' --filter='./extensions/*'",
-		"build:docs": "turbo run build --filter='@svelte-maplibre-gl/docs'",
 		"preview": "turbo run preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:all": "turbo run check",
