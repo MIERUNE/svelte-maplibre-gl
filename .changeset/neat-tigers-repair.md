@@ -6,4 +6,4 @@
 'svelte-maplibre-gl': minor
 ---
 
-Package structure hoverhaul
+Package structure overhaul
