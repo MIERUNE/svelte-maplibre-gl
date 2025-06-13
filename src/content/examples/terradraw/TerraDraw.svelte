@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, GlobeControl } from 'svelte-maplibre-gl';
-	import { TerraDraw } from 'svelte-maplibre-gl/terradraw';
+	import { TerraDraw } from '@svelte-maplibre-gl/terradraw';
 	import type { TerraDraw as Draw } from 'terra-draw';
 	import {
 		TerraDrawCircleMode,

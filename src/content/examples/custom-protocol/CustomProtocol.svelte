@@ -8,7 +8,7 @@
 		FillLayer,
 		Protocol
 	} from 'svelte-maplibre-gl';
-	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
+	import { PMTilesProtocol } from '@svelte-maplibre-gl/pmtiles';
 	import maplibregl from 'maplibre-gl';
 
 	const myProtocolLoadFn: maplibregl.AddProtocolAction = async (params) => {

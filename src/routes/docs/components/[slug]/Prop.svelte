@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Prop, Types } from 'svelte-docgen/doc';
-	const { name, prop, types }: { name: string; prop: Prop; types: Types } = $props();
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { formatType, formatDescription } from './utils.js';
+
+	const { name, prop, types }: { name: string; prop: Prop; types: Types } = $props();
 </script>
 
 <Table.Row>

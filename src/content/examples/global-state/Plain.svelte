@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label';
-	import SymbolLayer from '$lib/maplibre/layers/SymbolLayer.svelte';
-	import { MapLibre, GeoJSONSource, CircleLayer } from 'svelte-maplibre-gl';
+	import { MapLibre, GeoJSONSource, CircleLayer, SymbolLayer } from 'svelte-maplibre-gl';
 
 	let type = $state('');
 </script>
