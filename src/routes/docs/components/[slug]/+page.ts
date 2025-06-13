@@ -3,12 +3,16 @@ import { parse } from 'svelte-docgen';
 
 type ParsedComponent = ReturnType<typeof parse>;
 
-const loaders: Record<string, () => Promise<{ default: ParsedComponent }>> = Object.fromEntries(
-	Object.entries(import.meta.glob('$lib/maplibre/**/*.svelte', { query: '?docgen' })).map(([key, value]) => {
+const loaders: Record<string, () => Promise<{ default: ParsedComponent }>> = Object.fromEntries([
+	...Object.entries(import.meta.glob('$svmlgl/**/*.svelte', { query: '?docgen' })).map(([key, value]) => {
+		const name = key.match(/\/([^/]+)\.svelte$/)?.[1];
+		return [name, value] as const;
+	}),
+	...Object.entries(import.meta.glob('$svmlglext/**/*.svelte', { query: '?docgen' })).map(([key, value]) => {
 		const name = key.match(/\/([^/]+)\.svelte$/)?.[1];
 		return [name, value] as const;
 	})
-);
+]);
 
 export const load = async ({ params }) => {
 	const { slug } = params;
