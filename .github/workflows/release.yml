@@ -1,26 +1,54 @@
-name: Publish Package to npm
+name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  build:
-    # environment: npm
+  release:
+    name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - run: npm i -g --force corepack@latest && corepack enable
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup pnpm
+        run: npm i -g --force corepack@latest && corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
           cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org'
-      - run: pnpm install
-      - run: pnpm publish --provenance --access public --no-git-checks
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm run release
+          version: pnpm run version
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Generate preview releases for PRs
+      - name: Publish Preview Packages
+        if: steps.changesets.outputs.published != 'true'
+        run: |
+          pnpm build:packages
+          pnpx pkg-pr-new publish \
+            ./svelte-maplibre-gl \
+            ./extensions/contour \
+            ./extensions/deckgl \
+            ./extensions/pmtiles \
+            ./extensions/terradraw

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"extends": ["//"],
+	"ui": "tui",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".svelte-kit/**"],
+			"cache": true
+		},
+		"prepack": {
+			"dependsOn": ["^prepack"],
+			"outputs": ["dist/**"],
+			"cache": true
+		},
+		"check": {
+			"dependsOn": ["^build", "^check"]
+		},
+		"check:watch": {},
+		"lint": {},
+		"test": {},
+		"test:e2e": {},
+		"preview": {}
+	}
+}

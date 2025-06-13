@@ -7,7 +7,7 @@
 		SymbolLayer,
 		TerrainControl
 	} from 'svelte-maplibre-gl';
-	import { MapLibreContourSource } from 'svelte-maplibre-gl/contour';
+	import { MapLibreContourSource } from '@svelte-maplibre-gl/contour';
 </script>
 
 <MapLibre
