@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/contour",
-	"version": "0.1.10",
+	"version": "1.0.0",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "maplibre-contour extension for svelte-maplibre-gl",
 	"repository": {
