@@ -18,13 +18,13 @@ catalog:
   'terra-draw-maplibre-gl-adapter': '^1.0.3'
 
   # Build tools
-  '@sveltejs/kit': '^2.21.2'
-  '@sveltejs/package': '^2.3.11'
+  '@sveltejs/kit': '^2.22.2'
+  '@sveltejs/package': '^2.3.12'
   '@sveltejs/vite-plugin-svelte': '^5.1.0'
   'publint': '^0.3.12'
   'svelte-check': '^4.2.1'
   'typescript': '^5.8.3'
-  'vite': '^6.3.5'
+  'vite': '^7.0.2'
 
   # Types
   '@types/geojson': '^7946.0.16'
