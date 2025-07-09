@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/terradraw",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "TerraDraw extension for svelte-maplibre-gl",
 	"repository": {
