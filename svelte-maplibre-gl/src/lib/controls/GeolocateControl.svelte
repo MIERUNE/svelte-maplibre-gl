@@ -1,7 +1,7 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/GeolocateControl/
 
-	import { onDestroy } from 'svelte';
+	import { onDestroy, untrack } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
@@ -43,9 +43,12 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
-		control && mapCtx.map?.removeControl(control);
+		untrack(() => control && mapCtx.map?.removeControl(control));
 		control = new maplibregl.GeolocateControl(options);
-		mapCtx.map?.addControl(control, position);
+		mapCtx.map?.addControl(
+			untrack(() => control!),
+			position
+		);
 	});
 
 	$effect(() => {

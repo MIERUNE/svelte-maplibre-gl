@@ -54,7 +54,7 @@
 		"@types/eslint": "^9.6.1",
 		"@types/geojson": "catalog:",
 		"@types/three": "^0.178.0",
-		"bits-ui": "2.4.1",
+		"bits-ui": "^2.8.10",
 		"clsx": "^2.1.1",
 		"eslint": "^9.30.1",
 		"eslint-config-prettier": "^10.1.5",
