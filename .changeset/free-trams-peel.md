@@ -2,4 +2,4 @@
 'svelte-maplibre-gl': patch
 ---
 
-Fix: GeolocationControl causes inifinite $effect loop with latest Svelte
+Fix: GeolocationControl causes infinite $effect loop with latest Svelte
