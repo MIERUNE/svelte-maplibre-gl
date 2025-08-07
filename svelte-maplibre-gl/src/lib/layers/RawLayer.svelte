@@ -107,6 +107,7 @@
 		paint;
 		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
+				// eslint-disable-next-line svelte/prefer-svelte-reactivity
 				const keysRemoved = new Set(Object.keys(prevPaint));
 				const _paint = $state.snapshot(paint) ?? {};
 				for (const [key, value] of Object.entries(_paint)) {
@@ -128,6 +129,7 @@
 		layout;
 		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
+				// eslint-disable-next-line svelte/prefer-svelte-reactivity
 				const keysRemoved = new Set(Object.keys(prevLayout));
 				const _layout = $state.snapshot(layout) ?? {};
 				for (const [key, value] of Object.entries(_layout)) {

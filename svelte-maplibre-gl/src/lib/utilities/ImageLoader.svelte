@@ -19,6 +19,7 @@
 	let initialLoaded = $state(false);
 
 	// map from loaded image id to url
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity
 	const loadedImages: Map<string, string> = new Map();
 
 	$effect(() => {

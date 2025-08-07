@@ -41,6 +41,7 @@
 		) as maplibregl.MapGeoJSONFeature[];
 
 		// deduplicate
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		let closed = new Set();
 		queriedFeature = queriedFeature.filter((feature) => {
 			if (feature.id !== undefined) {
