@@ -10,6 +10,7 @@
 		extends Omit<maplibregl.CircleLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
+		source?: string;
 		sourceLayer?: maplibregl.CircleLayerSpecification['source-layer'];
 		beforeId?: string;
 		children?: Snippet;
