@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/pmtiles",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "PMTiles extension for svelte-maplibre-gl",
 	"repository": {
