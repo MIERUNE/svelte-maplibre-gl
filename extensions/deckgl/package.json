@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/deckgl",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "DeckGL extension for svelte-maplibre-gl",
 	"repository": {
