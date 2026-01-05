@@ -7,7 +7,8 @@
 	import type { MapLayerEventProps } from './common.js';
 
 	interface Props
-		extends Omit<maplibregl.ColorReliefLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
+		extends
+			Omit<maplibregl.ColorReliefLayerSpecification, 'id' | 'source' | 'type' | 'source-layer'>,
 			MapLayerEventProps {
 		id?: string;
 		source?: string;

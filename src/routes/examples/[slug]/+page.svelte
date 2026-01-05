@@ -24,6 +24,7 @@
 			</p>
 			{#if data.meta.original}
 				<p class="mt-1.5 text-xs text-muted-foreground">
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					Based on: <a class="underline" target="_blank" href={data.meta.original}>{data.meta.original}</a>
 				</p>
 			{/if}

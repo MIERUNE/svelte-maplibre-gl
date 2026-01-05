@@ -1,6 +1,6 @@
 import { toc as docsToc } from '$content/docs/toc.js';
 import { toc as exampleToc } from '$content/examples/toc.js';
-import { toc as componentToc } from '$content/components/toc.js';
+// import { toc as componentToc } from '$content/components/toc.js';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ request }) => {
@@ -16,12 +16,12 @@ export const GET: RequestHandler = async ({ request }) => {
 		}
 	}
 
-	urls.push(origin + '/docs/components/');
-	for (const section of componentToc) {
-		for (const [path] of Object.entries(section.items)) {
-			urls.push(origin + path);
-		}
-	}
+	// urls.push(origin + '/docs/components/');
+	// for (const section of componentToc) {
+	// 	for (const [path] of Object.entries(section.items)) {
+	// 		urls.push(origin + path);
+	// 	}
+	// }
 	for (const section of docsToc) {
 		for (const [path] of Object.entries(section.items)) {
 			urls.push(origin + path);
