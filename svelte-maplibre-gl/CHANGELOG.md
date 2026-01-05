@@ -1,5 +1,11 @@
 # svelte-maplibre-gl
 
+## 1.0.3
+
+### Patch Changes
+
+- 6b3cd54: Handle feature.id being undefined in QueryRenderedFeatures.svelte
+
 ## 1.0.2
 
 ### Patch Changes

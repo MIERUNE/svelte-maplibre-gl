@@ -1,5 +1,12 @@
 # @svelte-maplibre-gl/terradraw
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [6b3cd54]
+  - svelte-maplibre-gl@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
