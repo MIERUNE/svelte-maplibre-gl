@@ -24,7 +24,7 @@ catalog:
   'publint': '^0.3.12'
   'svelte-check': '^4.3.1'
   'typescript': '^5.9.2'
-  'vite': '^6.3.6'
+  'vite': '^6.4.1'
 
   # Types
   '@types/geojson': '^7946.0.16'
