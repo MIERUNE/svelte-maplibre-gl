@@ -48,4 +48,4 @@ Your contributions are greatly appreciated.
 
 ### Authors
 
-[All contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)!
+[All contributors](https://github.com/ciscorn/svelte-maplibre-gl/graphs/contributors)!

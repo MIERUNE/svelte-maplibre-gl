@@ -6,7 +6,7 @@
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Documentation site for svelte-maplibre-gl",
 	"repository": {
-		"url": "https://github.com/MIERUNE/svelte-maplibre-gl"
+		"url": "https://github.com/ciscorn/svelte-maplibre-gl"
 	},
 	"homepage": "https://svelte-maplibre-gl.mierune.dev/",
 	"scripts": {

@@ -4,7 +4,7 @@
 	"license": "(MIT OR Apache-2.0)",
 	"description": "Build interactive web maps effortlessly with MapLibre GL JS and Svelte",
 	"repository": {
-		"url": "https://github.com/MIERUNE/svelte-maplibre-gl"
+		"url": "https://github.com/ciscorn/svelte-maplibre-gl"
 	},
 	"homepage": "https://svelte-maplibre-gl.mierune.dev/",
 	"keywords": [

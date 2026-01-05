@@ -89,7 +89,7 @@
 			class="-ml-0.5"
 			variant="ghost"
 			size="icon"
-			href="https://github.com/MIERUNE/svelte-maplibre-gl"
+			href="https://github.com/ciscorn/svelte-maplibre-gl"
 			target="_blank"
 			title="GitHub repository"
 		>
