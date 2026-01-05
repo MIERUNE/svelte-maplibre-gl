@@ -39,16 +39,21 @@
 			...options
 		};
 		let _geometry = geometry;
-		let queriedFeature = _geometry
-			? map.queryRenderedFeatures(_geometry, _options)
-			: map.queryRenderedFeatures(_options);
+		let queriedFeatures = (
+			_geometry ? map.queryRenderedFeatures(_geometry, _options) : map.queryRenderedFeatures(_options)
+		)
+			// id may be undefined - fallback to properties.id or generate one
+			.map((feature, index) => {
+				feature.id = feature.id ?? feature.properties?.id ?? `svmlgl-feature-${index}`;
+				return feature;
+			});
 
 		// sort
-		queriedFeature.sort((a, b) => {
+		queriedFeatures.sort((a, b) => {
 			return String(a.id).localeCompare(String(b.id));
 		});
 
-		features = queriedFeature;
+		features = queriedFeatures;
 	});
 
 	onDestroy(() => {
