@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { parse } from 'svelte-docgen';
+// import { parse } from 'svelte-docgen';
 
 type ParsedComponent = ReturnType<typeof parse>;
 

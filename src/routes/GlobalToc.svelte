@@ -4,7 +4,7 @@
 	import { cn } from '$lib/utils';
 
 	import { toc as docsToc } from '$content/docs/toc';
-	import { toc as componentsToc } from '$content/components/toc';
+	// import { toc as componentsToc } from '$content/components/toc';
 	import { toc as examplesToc } from '$content/examples/toc';
 	import { beforeNavigate } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
@@ -51,8 +51,10 @@
 		<div class="p-8 pb-0">
 			<Index name="Examples" toc={examplesToc}></Index>
 		</div>
+		<!--
 		<div class="p-8 pb-0">
 			<Index name="API Reference" toc={componentsToc}></Index>
 		</div>
+		-->
 	</div>
 </div>

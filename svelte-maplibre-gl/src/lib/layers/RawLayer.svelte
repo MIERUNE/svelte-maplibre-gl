@@ -6,8 +6,7 @@
 	import type { MapLayerEventProps } from './common.js';
 
 	interface Props
-		extends Omit<maplibregl.LayerSpecification, 'id' | 'source' | 'source-layer' | 'filter'>,
-			MapLayerEventProps {
+		extends Omit<maplibregl.LayerSpecification, 'id' | 'source' | 'source-layer' | 'filter'>, MapLayerEventProps {
 		id?: string;
 		source?: string;
 		beforeId?: string;

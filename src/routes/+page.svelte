@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import heroImage from '$lib/assets/hero.svg';
 </script>
 
@@ -12,7 +13,7 @@
 		</p>
 		<p class="my-10!">
 			<a
-				href="/examples/"
+				href={resolve('/examples/')}
 				class="rounded-full bg-[#2A5DAA] px-8 py-4 font-bold text-white no-underline transition-colors duration-300 hover:bg-[#FE3000]"
 				>Explore Examples</a
 			>
@@ -26,9 +27,9 @@
 
 		<h2 class="font-bold">Contents</h2>
 		<ul>
-			<li><a href="/docs/quickstart">Quickstart</a></li>
-			<li><a href="/examples">Examples</a></li>
-			<li><a href="/docs/components">API Reference</a></li>
+			<li><a href={resolve('/docs/quickstart')}>Quickstart</a></li>
+			<li><a href={resolve('/examples')}>Examples</a></li>
+			<li><a href={resolve('/docs/components')}>API Reference</a></li>
 		</ul>
 
 		<h2 class="font-bold">Features</h2>

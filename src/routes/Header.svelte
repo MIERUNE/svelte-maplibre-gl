@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+
 	import MapPinned from '@lucide/svelte/icons/map-pinned';
 	import Menu from '@lucide/svelte/icons/menu';
 	import GitHub from '$lib/assets/icons/GitHub.svelte';
@@ -8,9 +13,6 @@
 	import { default as docsearch } from '@docsearch/js';
 	import '@docsearch/css/dist/button.css';
 	import '@docsearch/css/dist/modal.css';
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 
 	let { globalTocOpen = $bindable() } = $props();
 
@@ -24,6 +26,8 @@
 				navigator: {
 					navigate({ itemUrl }) {
 						const url = new URL(itemUrl);
+
+						// eslint-disable-next-line svelte/no-navigation-without-resolve
 						goto(url.pathname + url.search + url.hash);
 					}
 				}
@@ -50,29 +54,31 @@
 			</Button>
 		</div>
 		<h1 class="text-lg font-bold md:text-xl">
-			<a href="/" class="">
+			<a href={resolve('/')} class="">
 				<MapPinned class="mr-1.5 hidden size-6! pb-1 md:inline-block" /><span>Svelte MapLibre GL</span>
 			</a>
 		</h1>
 		<nav class="ml-12 hidden gap-x-6 font-medium min-[640px]:flex">
 			<a
-				href="/docs/quickstart"
+				href={resolve('/docs/quickstart')}
 				data-active={page.url.pathname.startsWith('/docs') && !page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Docs
 			</a>
 			<a
-				href="/examples/plain"
+				href={resolve('/examples/plain')}
 				data-active={page.url.pathname.startsWith('/examples')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>Examples</a
 			>
+			<!--
 			<a
 				href="/docs/components/MapLibre"
 				data-active={page.url.pathname.startsWith('/docs/components')}
 				class="text-sm text-foreground/70 transition-colors hover:text-foreground data-[active=true]:font-semibold"
 				>API Reference</a
 			>
+			-->
 		</nav>
 	</div>
 	<div class="flex items-center text-xs leading-none">

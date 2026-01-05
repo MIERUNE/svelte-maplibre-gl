@@ -14,6 +14,7 @@
 					class="border-l border-foreground/10 py-1 pl-4 data-[active=true]:border-foreground"
 					data-active={page.url.pathname === path}
 				>
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					<a class="data-[active=true]:font-medium" data-active={page.url.pathname === path} href={path}>{title}</a>
 				</li>
 			{/each}
