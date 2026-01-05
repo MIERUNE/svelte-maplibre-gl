@@ -49,5 +49,3 @@ Your contributions are greatly appreciated.
 ### Authors
 
 [All contributors](https://github.com/MIERUNE/svelte-maplibre-gl/graphs/contributors)!
-
-Supported by MIERUNE Inc.
