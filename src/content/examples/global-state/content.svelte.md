@@ -1,7 +1,7 @@
 ---
 title: Global State
 description: Filter a layer symbols based on user input using setGlobalStateProperty().
-original: https://maplibre.org/maplibre-gl-js/docs/examples/filter-symbols-using-global-state/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/filter-layer-symbols-using-global-state/
 ---
 
 <script lang="ts">

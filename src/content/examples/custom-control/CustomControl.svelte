@@ -26,7 +26,7 @@
 	});
 </script>
 
-<MapLibre class="h-[55vh] min-h-[200px]" style={mapStyle} zoom={12} pitch={40} maxPitch={85} bind:center>
+<MapLibre class="h-[55vh] min-h-50" style={mapStyle} zoom={12} pitch={40} maxPitch={85} bind:center>
 	<!-- inject IControl (useful for plugin) -->
 	<CustomControl position="top-left" control={myControl} />
 
@@ -65,22 +65,12 @@
 		</div>
 	</CustomControl>
 
-	<RasterDEMTileSource
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		{#if isTerrainVisible}
 			<Terrain />
 		{/if}
 	</RasterDEMTileSource>
-	<RasterDEMTileSource
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		{#if isHillshadeVisible}
 			<HillshadeLayer />
 		{/if}

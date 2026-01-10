@@ -28,7 +28,7 @@
 </div>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 	zoom={2}
 	center={{ lng: 180, lat: 35 }}

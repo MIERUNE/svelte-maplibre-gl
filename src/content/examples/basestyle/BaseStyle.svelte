@@ -59,7 +59,7 @@
 	</div>
 </div>
 
-<MapLibre class="h-[55vh] min-h-[300px]" {style} zoom={4} maxPitch={80} center={{ lng: 137, lat: 36 }}>
+<MapLibre class="h-[55vh] min-h-75" {style} zoom={4} maxPitch={80} center={{ lng: 137, lat: 36 }}>
 	<!-- User-defined dynamic styles -->
 	<Projection type={globe ? 'globe' : undefined} />
 	<Light anchor="map" />
@@ -84,24 +84,11 @@
 			paint={{ 'line-color': '#ff00ff', 'line-width': 1 }}
 		/>
 	</VectorTileSource>
-	<RasterDEMTileSource
-		tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={15}
-		encoding="terrarium"
-		attribution="<a href='https://github.com/tilezen/joerd/blob/master/docs/attribution.md'>Mapzen (Terrain)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		<HillshadeLayer paint={{ 'hillshade-exaggeration': 0.2 }} />
 	</RasterDEMTileSource>
 	{#if !globe}
-		<RasterDEMTileSource
-			id="terrain"
-			tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
-			minzoom={0}
-			maxzoom={15}
-			encoding="terrarium"
-			attribution="<a href='https://github.com/tilezen/joerd/blob/master/docs/attribution.md'>Mapzen (Terrain)</a>"
-		>
+		<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 			<Terrain />
 		</RasterDEMTileSource>
 	{/if}

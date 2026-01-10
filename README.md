@@ -34,7 +34,7 @@ Licensed under the [MIT License](./LICENSE-MIT.txt) or the [Apache License 2.0](
 This project `svelte-maplibre-gl` is built from scratch, while drawing strong inspiration from the work of the following libraries:
 
 - [`dimfeld/svelte-maplibre`](https://github.com/dimfeld/svelte-maplibre) &mdash; A library offering idiomatic Svelte support for the MapLibre GL mapping software
-- [`visgl/react-map-gl`](https://github.com/visgl/react-map-gl) &mdash; React friendly API wrapper around Mapbox/MapLibre GL JS
+- [`visgl/react-map-gl`](https://visgl.github.io/react-map-gl/) and [`visgl/react-maplibre`](https://visgl.github.io/react-maplibre/) &mdash; React friendly API wrapper around Mapbox/MapLibre GL JS
 
 ## Contributing
 

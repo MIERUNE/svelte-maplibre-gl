@@ -1,7 +1,7 @@
 ---
 title: Contour Lines
 description: Render contour lines from a raster DEM source using maplibre-contour
-original: https://maplibre.org/maplibre-gl-js/docs/examples/contour-lines/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/add-contour-lines/
 ---
 
 <script lang="ts">
