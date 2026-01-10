@@ -141,7 +141,7 @@
 </div>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	bind:map
 	bind:zoom
 	bind:center
@@ -174,14 +174,7 @@
 	<NavigationControl position={controlPosition} visualizePitch />
 	<TerrainControl position={controlPosition} source="terrain" />
 	<GlobeControl position={controlPosition} />
-	<RasterDEMTileSource
-		id="terrain"
-		tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={15}
-		encoding="terrarium"
-		attribution="<a href='https://github.com/tilezen/joerd/blob/master/docs/attribution.md'>Mapzen (Terrain)</a>"
-	>
+	<RasterDEMTileSource id="terrain" url="https://tiles.mapterhorn.com/tilejson.json">
 		{#if !globe}
 			<Terrain />
 		{/if}
@@ -196,13 +189,7 @@
 	</RasterTileSource>
 	<BackgroundLayer id="dummy1" layout={{ visibility: 'none' }} />
 	{#if hillshade}
-		<RasterDEMTileSource
-			tiles={['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png']}
-			minzoom={0}
-			maxzoom={15}
-			encoding="terrarium"
-			attribution="<a href='https://github.com/tilezen/joerd/blob/master/docs/attribution.md'>Mapzen (Terrain)</a>"
-		>
+		<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 			<HillshadeLayer beforeId="dummy1" />
 		</RasterDEMTileSource>
 	{/if}

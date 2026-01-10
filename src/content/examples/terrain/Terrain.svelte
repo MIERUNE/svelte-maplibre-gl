@@ -63,23 +63,12 @@
 		/>
 	{/if}
 	<!-- Terrain -->
-	<RasterDEMTileSource
-		id="terrain"
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource id="terrain" url="https://tiles.mapterhorn.com/tilejson.json">
 		<TerrainControl position="top-right" />
 		<Terrain {exaggeration} />
 	</RasterDEMTileSource>
 	<!-- Hillshade -->
-	<RasterDEMTileSource
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		<HillshadeLayer
 			paint={{
 				'hillshade-method': hillshadeMethod,
@@ -95,7 +84,7 @@
 	</RasterDEMTileSource>
 
 	<div
-		class="absolute top-3 left-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
+		class="absolute top-3 left-3 z-10 flex min-w-50 flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<Tabs.Root bind:value={mode} class="flex h-full flex-col">
 			<Tabs.List class="grid w-full grid-cols-2">

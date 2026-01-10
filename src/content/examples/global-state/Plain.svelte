@@ -6,7 +6,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://demotiles.maplibre.org/style.json"
 	zoom={9}
 	center={[9.0679, 45.9]}
@@ -50,14 +50,14 @@
 
 	<!-- Controls -->
 	<div
-		class="absolute top-3 left-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
+		class="absolute top-3 left-3 z-10 flex min-w-50 flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<div class="flex items-center justify-between space-x-2">
-			<Label for="shadow-method" class="leading-none">Color Ramp</Label>
-			<select bind:value={type} id="hillshade-method" class="text-center">
-				<option value="">All</option>
-				<option value="lift">Aerial lift</option>
-				<option value="railway">Cable railway</option>
+			<Label for="global-state-type" class="leading-none">global-state: type =</Label>
+			<select bind:value={type} id="global-state-type" class="text-center">
+				<option value="">"" (All)</option>
+				<option value="lift">"lift"</option>
+				<option value="railway">"railway"</option>
 			</select>
 		</div>
 	</div>

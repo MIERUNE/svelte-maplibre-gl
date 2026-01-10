@@ -11,19 +11,22 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://demotiles.maplibre.org/styles/osm-bright-gl-style/style.json"
 	zoom={12}
-	minZoom={10}
+	minZoom={5}
 	center={{ lng: 11.35, lat: 47.3 }}
 >
 	<MapLibreContourSource
-		url={'https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png'}
-		maxzoom={12}
+		url={'https://tiles.mapterhorn.com/{z}/{x}/{y}.webp'}
+		encoding="terrarium"
+		maxzoom={14}
 		tileOptions={{
 			// multiplier: 1,
 			thresholds: {
 				// zoom: [minor, major]
+				5: [500, 2000],
+				8: [250, 1000],
 				11: [100, 500],
 				12: [50, 200],
 				13: [20, 100],
@@ -34,13 +37,13 @@
 			elevationKey: 'ele',
 			levelKey: 'level'
 		}}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
+		attribution="<a href='https://mapterhorn.com/attribution/'>Mapterhorn</a>"
 	>
 		{#snippet children(demSource)}
-			<RasterDEMTileSource tiles={[demSource.sharedDemProtocolUrl]} maxzoom={12} tileSize={256}>
+			<RasterDEMTileSource tiles={[demSource.sharedDemProtocolUrl]} maxzoom={14} tileSize={256}>
 				<TerrainControl />
 			</RasterDEMTileSource>
-			<RasterDEMTileSource tiles={[demSource.sharedDemProtocolUrl]} maxzoom={12} tileSize={256}>
+			<RasterDEMTileSource tiles={[demSource.sharedDemProtocolUrl]} maxzoom={14} tileSize={256}>
 				<HillshadeLayer
 					paint={{
 						'hillshade-exaggeration': 0.5,

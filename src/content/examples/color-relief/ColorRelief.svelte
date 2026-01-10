@@ -240,28 +240,15 @@
 	let hillshade = $state(0.4);
 </script>
 
-<MapLibre class="h-[55vh] min-h-[300px]" zoom={9.5} center={{ lng: 11.5, lat: 47.3 }}>
+<MapLibre class="h-[55vh] min-h-75" zoom={9.5} center={{ lng: 11.5, lat: 47.3 }}>
 	<GlobeControl />
 	<Light anchor="map" />
 	<!-- Terrain -->
-	<RasterDEMTileSource
-		id="terrain"
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		tileSize={256}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		<TerrainControl position="top-right" />
 	</RasterDEMTileSource>
 	<!-- Color Relief and Hillshade -->
-	<RasterDEMTileSource
-		tiles={['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png']}
-		minzoom={0}
-		maxzoom={12}
-		tileSize={256}
-		attribution="<a href='https://earth.jaxa.jp/en/data/policy/'>AW3D30 (JAXA)</a>"
-	>
+	<RasterDEMTileSource url="https://tiles.mapterhorn.com/tilejson.json">
 		<ColorReliefLayer
 			paint={{
 				'color-relief-opacity': 1,
@@ -279,7 +266,7 @@
 
 	<!-- Controls -->
 	<div
-		class="absolute top-3 left-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
+		class="absolute top-3 left-3 z-10 flex min-w-50 flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<div class="mb-2 flex items-center justify-between space-x-2">
 			<Label for="shadow-method" class="leading-none">Color Ramp</Label>
