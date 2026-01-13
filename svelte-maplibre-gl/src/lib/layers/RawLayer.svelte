@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
+	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, getSourceContext, prepareLayerContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
@@ -83,8 +83,31 @@
 	}
 
 	let firstRun = true;
-	mapCtx.waitForStyleLoaded(() => {
-		mapCtx.addLayer(addLayerObj, beforeId);
+	let addingLayer = false;
+	const hasSourceIfRequired = $derived.by(() => {
+		if (addLayerObj.type === 'background') {
+			return true;
+		}
+
+		const userSourceExists = mapCtx.userSources.has(sourceId ?? getSourceContext().id);
+		if (userSourceExists) {
+			return true;
+		}
+
+		const globalStyleSourceExists = !!mapCtx.map?.getSource(sourceId ?? getSourceContext().id);
+		return globalStyleSourceExists;
+	});
+	$effect(() => {
+		if (addingLayer || !hasSourceIfRequired || !firstRun) {
+			return;
+		}
+
+		addingLayer = true;
+		mapCtx.waitForStyleLoaded(() => {
+			mapCtx.addLayer(addLayerObj, beforeId);
+			firstRun = false;
+			addingLayer = false;
+		});
 	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
@@ -170,12 +193,10 @@
 		}
 	});
 
-	$effect(() => {
-		firstRun = false;
-	});
-
 	onDestroy(() => {
 		mapCtx.removeLayer(id);
+		firstRun = true;
+		addingLayer = false;
 	});
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
 	import maplibregl from 'maplibre-gl';
+	import { onDestroy, type Snippet } from 'svelte';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
 
@@ -13,6 +13,7 @@
 		| maplibregl.CanvasSource
 		| maplibregl.ImageSource
 		| maplibregl.VideoSource;
+	type TileSource = maplibregl.VectorTileSource | maplibregl.RasterTileSource | maplibregl.RasterDEMTileSource;
 
 	type Specs = maplibregl.SourceSpecification | maplibregl.CanvasSourceSpecification;
 
@@ -32,10 +33,35 @@
 	const id = _id ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	mapCtx.waitForStyleLoaded((map) => {
-		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
-		source = map.getSource(id);
-		firstRun = true;
+	let addingSource = false;
+	$effect(() => {
+		if (addingSource || !firstRun) {
+			return;
+		}
+
+		const handleSourceReady = () => {
+			firstRun = false;
+			addingSource = false;
+		};
+
+		const handleSourceError = (event: maplibregl.MapSourceDataEvent & { error: unknown }) => {
+			source?.off('data', handleSourceReady); // when we try again, we will use a new listener
+			console.error(`Error loading source '${id}':`, event.error);
+			addingSource = false;
+		};
+
+		addingSource = true;
+		mapCtx.waitForStyleLoaded((map) => {
+			mapCtx.addSource(id, $state.snapshot(spec) as Specs);
+			source = map.getSource(id);
+			source?.once('data', handleSourceReady);
+			source?.once('error', handleSourceError);
+		});
+
+		return () => {
+			source?.off('data', handleSourceReady);
+			source?.off('error', handleSourceError);
+		};
 	});
 
 	$effect(() => {
@@ -49,7 +75,12 @@
 	$effect(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.tiles;
-			if (!firstRun && 'setTiles' in source) {
+			const isDifferentTilesArray =
+				!(source as TileSource).tiles ||
+				!spec.tiles ||
+				spec.tiles.length !== (source as TileSource).tiles.length ||
+				spec.tiles.some((tile, index) => tile !== (source as TileSource).tiles[index]);
+			if (!firstRun && 'setTiles' in source && isDifferentTilesArray) {
 				source.setTiles(spec.tiles ?? []);
 			}
 		}
@@ -57,7 +88,7 @@
 	$effect(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.url;
-			if (!firstRun && 'setUrl' in source) {
+			if (!firstRun && 'setUrl' in source && spec.url !== source.url) {
 				source.setUrl(spec.url as string);
 			}
 		}
@@ -116,14 +147,11 @@
 		}
 	});
 
-	$effect(() => {
-		source;
-		firstRun = false;
-	});
-
 	onDestroy(() => {
 		mapCtx.removeSource(id);
 		source = undefined;
+		firstRun = true;
+		addingSource = false;
 	});
 </script>
 

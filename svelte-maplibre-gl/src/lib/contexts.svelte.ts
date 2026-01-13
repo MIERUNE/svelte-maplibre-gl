@@ -11,6 +11,7 @@ import type {
 	LightSpecification
 } from 'maplibre-gl';
 import { setContext, getContext } from 'svelte';
+import { SvelteSet } from 'svelte/reactivity';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
 const SOURCE_CONTEXT_KEY = Symbol('MapLibre source context');
@@ -25,9 +26,9 @@ class MapContext {
 	private _listener?: maplibregl.Listener = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
 	/** Names of layers dynamically added */
-	userLayers: Set<string> = new Set();
+	userLayers = new SvelteSet<string>();
 	/** Names of sources dynamically added */
-	userSources: Set<string> = new Set();
+	userSources = new SvelteSet<string>();
 	/** Terrain specification of the current base style */
 	baseTerrain?: TerrainSpecification | undefined;
 	/** Sky specification set by user */
