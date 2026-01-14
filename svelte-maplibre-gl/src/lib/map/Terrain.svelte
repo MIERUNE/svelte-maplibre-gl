@@ -1,8 +1,8 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-style-spec/terrain/
 
-	import { onDestroy } from 'svelte';
 	import maplibregl from 'maplibre-gl';
+	import { onDestroy } from 'svelte';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 
 	interface Props extends Omit<maplibregl.TerrainSpecification, 'source'> {
@@ -16,11 +16,42 @@
 	// Get source id from source context or props
 	const sourceId = $derived(source ?? getSourceContext().id);
 
+	let firstRun = true;
+	let addingTerrain = false;
+	const addTerrainAbortController = new AbortController();
 	$effect(() => {
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
-		mapCtx.waitForStyleLoaded((map) => {
-			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
-		});
+
+		if (addingTerrain) {
+			return;
+		}
+
+		addingTerrain = true;
+		mapCtx.waitForSourceLoaded(
+			sourceId,
+			(map, error) => {
+				if (error) {
+					console.error(`Error adding terrain due to source load failure:`, error);
+					addingTerrain = false;
+					return;
+				}
+
+				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+				firstRun = false;
+				addingTerrain = false;
+			},
+			{ signal: addTerrainAbortController.signal }
+		);
+	});
+
+	$effect(() => {
+		spec.exaggeration;
+		if (!firstRun) {
+			mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
+			mapCtx.waitForStyleLoaded((map) => {
+				map.setTerrain(mapCtx.userTerrain || null);
+			});
+		}
 	});
 
 	onDestroy(() => {
@@ -28,5 +59,6 @@
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setTerrain(mapCtx.baseTerrain ?? null);
 		});
+		addTerrainAbortController.abort();
 	});
 </script>

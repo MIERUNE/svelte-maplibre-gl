@@ -84,30 +84,46 @@
 
 	let firstRun = true;
 	let addingLayer = false;
-	const hasSourceIfRequired = $derived.by(() => {
-		if (addLayerObj.type === 'background') {
-			return true;
-		}
-
-		const userSourceExists = mapCtx.userSources.has(sourceId ?? getSourceContext().id);
-		if (userSourceExists) {
-			return true;
-		}
-
-		const globalStyleSourceExists = !!mapCtx.map?.getSource(sourceId ?? getSourceContext().id);
-		return globalStyleSourceExists;
-	});
+	const addLayerAbortController = new AbortController();
 	$effect(() => {
-		if (addingLayer || !hasSourceIfRequired || !firstRun) {
+		if (addingLayer || !firstRun) {
 			return;
 		}
 
 		addingLayer = true;
-		mapCtx.waitForStyleLoaded(() => {
-			mapCtx.addLayer(addLayerObj, beforeId);
-			firstRun = false;
-			addingLayer = false;
-		});
+		mapCtx.waitForStyleLoaded(
+			() => {
+				if (addLayerObj.type === 'background') {
+					mapCtx.addLayer(addLayerObj, beforeId);
+					firstRun = false;
+					addingLayer = false;
+					return;
+				}
+
+				// immediately register a placeholder so that the layer order
+				// matches the order of layer components specified in the consumer,
+				// and then we can replace it once the source is loaded
+				mapCtx.addPlaceholderLayer(id, beforeId);
+
+				mapCtx.waitForSourceLoaded(
+					addLayerObj.source,
+					(map, error) => {
+						if (error) {
+							console.error(`Error adding layer '${id}' due to source load failure:`, error);
+							mapCtx.removeLayer(id); // remove placeholder layer
+							addingLayer = false;
+							return;
+						}
+
+						mapCtx.replaceLayer(id, addLayerObj);
+						firstRun = false;
+						addingLayer = false;
+					},
+					{ signal: addLayerAbortController.signal }
+				);
+			},
+			{ signal: addLayerAbortController.signal }
+		);
 	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
@@ -195,8 +211,7 @@
 
 	onDestroy(() => {
 		mapCtx.removeLayer(id);
-		firstRun = true;
-		addingLayer = false;
+		addLayerAbortController.abort();
 	});
 </script>
 
