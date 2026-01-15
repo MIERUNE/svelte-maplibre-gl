@@ -7,7 +7,7 @@ catalog:
   '@deck.gl/core': ^9.2.5
   '@deck.gl/layers': ^9.2.5
   '@deck.gl/mapbox': ^9.2.5
-  '@sveltejs/kit': ^2.49.2
+  '@sveltejs/kit': ^2.49.5
   '@sveltejs/package': ^2.5.7
   '@sveltejs/vite-plugin-svelte': ^6.2.1
   '@types/geojson': ^7946.0.16
