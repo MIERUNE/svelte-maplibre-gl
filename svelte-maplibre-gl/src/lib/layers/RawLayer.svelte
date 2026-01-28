@@ -78,6 +78,7 @@
 			addLayerObj['source-layer'] = sourceLayer;
 		}
 		if (filter) {
+			// @ts-expect-error: ignore
 			addLayerObj.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
 		}
 	}

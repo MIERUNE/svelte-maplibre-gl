@@ -41,7 +41,6 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	const id = _id ?? generateLayerID();
-
 	(implementation as maplibregl.CustomLayerInterface).id ??= id;
 	(implementation as maplibregl.CustomLayerInterface).type = 'custom';
 
