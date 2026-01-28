@@ -64,7 +64,7 @@
 		"globals": "^17.2.0",
 		"install": "^0.13.0",
 		"maplibre-contour": "catalog:",
-		"maplibre-gl": "^5.17.0",
+		"maplibre-gl": "catalog:",
 		"mdsvex": "^0.12.6",
 		"mode-watcher": "^1.1.0",
 		"pathe": "^2.0.3",

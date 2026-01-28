@@ -11,6 +11,7 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
+		// @ts-expect-error: ignore
 		mapCtx.userSky = $state.snapshot(spec) as maplibregl.SkySpecification;
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setSky(mapCtx.userSky as maplibregl.SkySpecification);
