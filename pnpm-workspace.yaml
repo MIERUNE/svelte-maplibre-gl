@@ -15,7 +15,7 @@ catalog:
   maplibre-gl: 5.17.0
   pmtiles: ^4.3.2
   publint: ^0.3.17
-  svelte: ^5.48.5
+  svelte: ^5.51.5
   svelte-check: ^4.3.5
   terra-draw: ^1.23.1
   terra-draw-maplibre-gl-adapter: ^1.2.3
