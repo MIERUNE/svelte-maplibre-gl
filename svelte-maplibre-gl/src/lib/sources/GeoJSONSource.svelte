@@ -9,11 +9,12 @@
 	interface Props extends Omit<maplibregl.GeoJSONSourceSpecification, 'type'> {
 		id?: string;
 		source?: maplibregl.GeoJSONSource;
+		dataDiff?: maplibregl.GeoJSONSourceDiff;
 		children?: Snippet;
 	}
-	let { source = $bindable(undefined), id, children, ...spec }: Props = $props();
+	let { source = $bindable(undefined), id, children, dataDiff, ...spec }: Props = $props();
 </script>
 
-<RawSource {id} bind:source type="geojson" {...spec}>
+<RawSource {id} bind:source type="geojson" {dataDiff} {...spec}>
 	{@render children?.()}
 </RawSource>
