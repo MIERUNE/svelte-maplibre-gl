@@ -19,9 +19,10 @@
 	type Props = {
 		id?: string;
 		source?: Source;
+		dataDiff?: maplibregl.GeoJSONSourceDiff;
 		children?: Snippet;
 	} & Specs;
-	let { source = $bindable(undefined), id: _id, children, ...spec }: Props = $props();
+	let { source = $bindable(undefined), id: _id, children, dataDiff, ...spec }: Props = $props();
 	spec = spec as Specs;
 
 	const mapCtx = getMapContext();
@@ -92,8 +93,22 @@
 		if (source && spec.type === 'geojson') {
 			spec.data;
 			if (!firstRun) {
-				// TODO: support diffrential update ? (updateData)
 				(source as maplibregl.GeoJSONSource).setData(spec.data);
+			}
+		}
+	});
+	$effect(() => {
+		if (source && spec.type === 'geojson') {
+			dataDiff;
+			if (!firstRun && dataDiff) {
+				const geojsonSource = source as maplibregl.GeoJSONSource;
+				if (typeof geojsonSource.updateData !== 'function') {
+					throw new Error(
+						'GeoJSONSource.updateData requires MapLibre GL JS v4+. ' +
+							'Upgrade "maplibre-gl" or avoid the "dataDiff" prop.'
+					);
+				}
+				geojsonSource.updateData(dataDiff);
 			}
 		}
 	});
