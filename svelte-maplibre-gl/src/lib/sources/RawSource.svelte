@@ -89,19 +89,28 @@
 			}
 		}
 	});
+	let prevData: maplibregl.GeoJSONSourceSpecification['data'] | undefined;
 	$effect(() => {
 		if (source && spec.type === 'geojson') {
-			spec.data;
+			const dataChanged = spec.data !== prevData;
+			prevData = spec.data;
+			// Read dataDiff to subscribe even when data also changed
+			const diff = dataDiff;
+
 			if (!firstRun) {
-				(source as maplibregl.GeoJSONSource).setData(spec.data);
-			}
-		}
-	});
-	$effect(() => {
-		if (source && spec.type === 'geojson') {
-			dataDiff;
-			if (!firstRun && dataDiff) {
-				(source as maplibregl.GeoJSONSource).updateData(dataDiff);
+				const geojsonSource = source as maplibregl.GeoJSONSource;
+				if (dataChanged) {
+					// Full replace takes priority — skip any pending diff
+					geojsonSource.setData(spec.data);
+				} else if (diff) {
+					if (typeof geojsonSource.updateData !== 'function') {
+						throw new Error(
+							'GeoJSONSource.updateData requires MapLibre GL JS v4+. ' +
+								'Upgrade "maplibre-gl" or avoid the "dataDiff" prop.'
+						);
+					}
+					geojsonSource.updateData(diff);
+				}
 			}
 		}
 	});
