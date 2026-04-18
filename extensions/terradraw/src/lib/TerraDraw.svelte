@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { TerraDraw as Draw } from 'terra-draw';
+	import {
+		TerraDraw as Draw,
+		TerraDrawModeUndoRedo,
+		TerraDrawSessionUndoRedo,
+		TerraDrawUndoRedoKeyboardShortcuts
+	} from 'terra-draw';
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
 	import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 	import { getMapContext } from 'svelte-maplibre-gl';
@@ -14,6 +19,7 @@
 		tracked,
 		idStrategy,
 		draw = $bindable(),
+		undoRedo,
 		onfinish,
 		onchange,
 		onready,
@@ -26,6 +32,7 @@
 		tracked?: boolean;
 		/** Terra Draw instance */
 		draw?: Draw;
+		undoRedo: boolean;
 		onchange?: TerraDrawEventListeners['change'];
 		onfinish?: TerraDrawEventListeners['finish'];
 		onready?: TerraDrawEventListeners['ready'];
@@ -38,7 +45,14 @@
 			adapter: new TerraDrawMapLibreGLAdapter({ map }),
 			modes,
 			idStrategy,
-			tracked
+			tracked,
+			undoRedo: undoRedo
+				? {
+						modeLevel: new TerraDrawModeUndoRedo({ maxStackSize: 100 }),
+						sessionLevel: new TerraDrawSessionUndoRedo({ maxStackSize: 100 }),
+						keyboardShortcuts: new TerraDrawUndoRedoKeyboardShortcuts()
+					}
+				: undefined
 		});
 	});
 

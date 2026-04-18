@@ -53,6 +53,18 @@
 	let mode = $state('select');
 	let selected: string | number | null = $state(null);
 	let draw: Draw | undefined = $state.raw();
+	let undoRedo: boolean = $state(true);
+	let terraDrawUndoSize: number = $state(0);
+	let terradrawRedoSize: number = $state(0);
+
+	$effect(() => {
+		if (draw) {
+			draw.on('history', ({ undoSize, redoSize }) => {
+				terraDrawUndoSize = undoSize;
+				terradrawRedoSize = redoSize;
+			});
+		}
+	});
 </script>
 
 <MapLibre
@@ -69,6 +81,7 @@
 		onselect={(featureId) => (selected = featureId)}
 		ondeselect={() => (selected = null)}
 		onfinish={() => (mode = 'select')}
+		{undoRedo}
 	/>
 
 	<!-- Draw controls -->
@@ -89,5 +102,61 @@
 			>
 		{/if}
 	</div>
+
+	<!-- Undo Redo Controls -->
+	{#if undoRedo}
+		<div class="absolute top-3 left-0 right-0 z-10 flex justify-center">
+			<div
+				class="inline-flex items-center gap-1 rounded-lg border border-border/40 bg-background/80 p-1.5 backdrop-blur-sm"
+			>
+				<button
+					onclick={() => draw?.undo()}
+					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+					disabled={terraDrawUndoSize === 0}
+				>
+					<svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+						<path
+							d="M2 8a6 6 0 1 0 6-6 6 6 0 0 0-4.24 1.76L2 2"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						/>
+						<path
+							d="M2 2v3.5H5.5"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					Undo
+				</button>
+
+				<button
+					onclick={() => draw?.redo()}
+					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+					disabled={terradrawRedoSize === 0}
+				>
+					Redo
+					<svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+						<path
+							d="M14 8a6 6 0 1 1-6-6 6 6 0 0 1 4.24 1.76L14 2"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						/>
+						<path
+							d="M14 2v3.5H10.5"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</button>
+			</div>
+		</div>
+	{/if}
+
 	<GlobeControl />
 </MapLibre>
