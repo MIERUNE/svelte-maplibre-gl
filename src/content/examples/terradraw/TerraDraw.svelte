@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, GlobeControl } from 'svelte-maplibre-gl';
-	import { TerraDraw } from '@svelte-maplibre-gl/terradraw';
+	import { TerraDraw, type UndoRedoOptions } from '@svelte-maplibre-gl/terradraw';
 	import type { TerraDraw as Draw } from 'terra-draw';
 	import {
 		TerraDrawCircleMode,
@@ -53,7 +53,31 @@
 	let mode = $state('select');
 	let selected: string | number | null = $state(null);
 	let draw: Draw | undefined = $state.raw();
-	let undoRedo: boolean = $state(true);
+	let undoRedo: UndoRedoOptions = {
+		enabled: true,
+		keyboardShortcuts: {
+			undo: [
+				{
+					key: 'z',
+					heldKeys: ['ctrl']
+				},
+				{
+					key: 'z',
+					heldKeys: ['meta']
+				}
+			],
+			redo: [
+				{
+					key: 'z',
+					heldKeys: ['ctrl', 'shift']
+				},
+				{
+					key: 'z',
+					heldKeys: ['meta', 'shift']
+				}
+			]
+		}
+	};
 	let terraDrawUndoSize: number = $state(0);
 	let terradrawRedoSize: number = $state(0);
 
@@ -114,21 +138,6 @@
 					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
 					disabled={terraDrawUndoSize === 0}
 				>
-					<svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-						<path
-							d="M2 8a6 6 0 1 0 6-6 6 6 0 0 0-4.24 1.76L2 2"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-						/>
-						<path
-							d="M2 2v3.5H5.5"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
 					Undo
 				</button>
 
@@ -138,21 +147,6 @@
 					disabled={terradrawRedoSize === 0}
 				>
 					Redo
-					<svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-						<path
-							d="M14 8a6 6 0 1 1-6-6 6 6 0 0 1 4.24 1.76L14 2"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-						/>
-						<path
-							d="M14 2v3.5H10.5"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
 				</button>
 			</div>
 		</div>

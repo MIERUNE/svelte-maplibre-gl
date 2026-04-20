@@ -8,6 +8,7 @@
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
 	import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 	import { getMapContext } from 'svelte-maplibre-gl';
+	import type { UndoRedoOptions } from '$lib/types';
 
 	type FeatureId = string | number;
 
@@ -32,7 +33,7 @@
 		tracked?: boolean;
 		/** Terra Draw instance */
 		draw?: Draw;
-		undoRedo: boolean;
+		undoRedo: UndoRedoOptions;
 		onchange?: TerraDrawEventListeners['change'];
 		onfinish?: TerraDrawEventListeners['finish'];
 		onready?: TerraDrawEventListeners['ready'];
@@ -46,11 +47,16 @@
 			modes,
 			idStrategy,
 			tracked,
-			undoRedo: undoRedo
+			undoRedo: undoRedo.enabled
 				? {
 						modeLevel: new TerraDrawModeUndoRedo({ maxStackSize: 100 }),
 						sessionLevel: new TerraDrawSessionUndoRedo({ maxStackSize: 100 }),
-						keyboardShortcuts: new TerraDrawUndoRedoKeyboardShortcuts()
+						keyboardShortcuts: undoRedo.keyboardShortcuts
+							? new TerraDrawUndoRedoKeyboardShortcuts({
+									undo: undoRedo.keyboardShortcuts.undo,
+									redo: undoRedo.keyboardShortcuts.redo
+								})
+							: undefined
 					}
 				: undefined
 		});
