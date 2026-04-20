@@ -1,6 +1,9 @@
+type ShortcutHeldKey = "meta" | "shift" | "control";
+
 type UndoRedoShortcut = {
 	key: string;
-	heldKeys: string[];
+	heldKeys: ShortcutHeldKey[];
+	maxStackSize?: number
 };
 
 type UndoRedoKeyboardShortcuts = {

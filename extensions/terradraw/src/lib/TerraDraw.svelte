@@ -49,8 +49,12 @@
 			tracked,
 			undoRedo: undoRedo
 				? {
-						modeLevel: new TerraDrawModeUndoRedo({ maxStackSize: 100 }),
-						sessionLevel: new TerraDrawSessionUndoRedo({ maxStackSize: 100 }),
+						modeLevel: new TerraDrawModeUndoRedo({
+							maxStackSize: undoRedo.keyboardShortcuts?.undo[0].maxStackSize ?? 100
+						}),
+						sessionLevel: new TerraDrawSessionUndoRedo({
+							maxStackSize: undoRedo.keyboardShortcuts?.redo[0].maxStackSize ?? 100
+						}),
 						keyboardShortcuts: undoRedo.keyboardShortcuts
 							? new TerraDrawUndoRedoKeyboardShortcuts({
 									undo: undoRedo.keyboardShortcuts.undo,
