@@ -1,4 +1,4 @@
-type ShortcutHeldKey = "meta" | "shift" | "control";
+type ShortcutHeldKey = 'meta' | 'shift' | 'control';
 
 type UndoRedoShortcut = {
 	key: string;
@@ -11,8 +11,8 @@ type UndoRedoKeyboardShortcuts = {
 };
 
 type StackSizeConfig = {
-	maxStackSize: number
-}
+	maxStackSize: number;
+};
 
 export type UndoRedoOptions = {
 	sessionLevel?: StackSizeConfig;

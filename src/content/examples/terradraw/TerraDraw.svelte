@@ -60,14 +60,13 @@
 			undo: [
 				{
 					key: 'z',
-					heldKeys: ['meta'], // This is ctrl in Windows
-					maxStackSize: 10
+					heldKeys: ['meta'] // meta in Mac = ctrl in Windows
 				}
 			],
 			redo: [
 				{
 					key: 'z',
-					heldKeys: ['meta', 'shift'] // This is ctrl in Windows
+					heldKeys: ['meta', 'shift'] // meta in Mac = ctrl in Windows
 				}
 			]
 		}
