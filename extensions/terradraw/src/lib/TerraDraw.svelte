@@ -50,10 +50,10 @@
 			undoRedo: undoRedo
 				? {
 						modeLevel: new TerraDrawModeUndoRedo({
-							maxStackSize: undoRedo.keyboardShortcuts?.undo[0].maxStackSize ?? 100
+							maxStackSize: undoRedo?.modeLevel?.maxStackSize ?? 100
 						}),
 						sessionLevel: new TerraDrawSessionUndoRedo({
-							maxStackSize: undoRedo.keyboardShortcuts?.redo[0].maxStackSize ?? 100
+							maxStackSize: undoRedo?.sessionLevel?.maxStackSize ?? 100
 						}),
 						keyboardShortcuts: undoRedo.keyboardShortcuts
 							? new TerraDrawUndoRedoKeyboardShortcuts({
