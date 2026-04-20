@@ -33,7 +33,7 @@
 		tracked?: boolean;
 		/** Terra Draw instance */
 		draw?: Draw;
-		undoRedo: UndoRedoOptions;
+		undoRedo?: UndoRedoOptions;
 		onchange?: TerraDrawEventListeners['change'];
 		onfinish?: TerraDrawEventListeners['finish'];
 		onready?: TerraDrawEventListeners['ready'];
@@ -47,7 +47,7 @@
 			modes,
 			idStrategy,
 			tracked,
-			undoRedo: undoRedo.enabled
+			undoRedo: undoRedo
 				? {
 						modeLevel: new TerraDrawModeUndoRedo({ maxStackSize: 100 }),
 						sessionLevel: new TerraDrawSessionUndoRedo({ maxStackSize: 100 }),

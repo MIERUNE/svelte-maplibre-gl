@@ -9,6 +9,5 @@ type UndoRedoKeyboardShortcuts = {
 };
 
 export type UndoRedoOptions = {
-    enabled: boolean;
     keyboardShortcuts?: UndoRedoKeyboardShortcuts;
 };

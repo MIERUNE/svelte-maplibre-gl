@@ -56,7 +56,6 @@
 	let selected: string | number | null = $state(null);
 	let draw: Draw | undefined = $state.raw();
 	let undoRedo: UndoRedoOptions = {
-		enabled: true,
 		keyboardShortcuts: {
 			undo: [
 				{
@@ -140,7 +139,7 @@
 					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
 					disabled={terraDrawUndoSize === 0}
 				>
-					<RotateCcw class="w-3"/>
+					<RotateCcw class="w-3" />
 					Undo
 				</button>
 
@@ -150,7 +149,7 @@
 					disabled={terradrawRedoSize === 0}
 				>
 					Redo
-					<RotateCw class="w-3"/>
+					<RotateCw class="w-3" />
 				</button>
 			</div>
 		</div>
