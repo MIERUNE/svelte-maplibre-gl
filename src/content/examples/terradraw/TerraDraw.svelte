@@ -14,6 +14,8 @@
 		TerraDrawSelectMode,
 		TerraDrawSensorMode
 	} from 'terra-draw';
+	import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+	import RotateCw from '@lucide/svelte/icons/rotate-cw';
 
 	const defaultSelectFlags = {
 		feature: {
@@ -129,7 +131,7 @@
 
 	<!-- Undo Redo Controls -->
 	{#if undoRedo}
-		<div class="absolute top-3 left-0 right-0 z-10 flex justify-center">
+		<div class="absolute top-3 left-1/2 -translate-x-1/2 z-10 flex justify-center mx-auto">
 			<div
 				class="inline-flex items-center gap-1 rounded-lg border border-border/40 bg-background/80 p-1.5 backdrop-blur-sm"
 			>
@@ -138,6 +140,7 @@
 					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
 					disabled={terraDrawUndoSize === 0}
 				>
+					<RotateCcw class="w-3"/>
 					Undo
 				</button>
 
@@ -147,6 +150,7 @@
 					disabled={terradrawRedoSize === 0}
 				>
 					Redo
+					<RotateCw class="w-3"/>
 				</button>
 			</div>
 		</div>
