@@ -80,15 +80,21 @@
 		}
 	};
 	let terraDrawUndoSize: number = $state(0);
-	let terradrawRedoSize: number = $state(0);
+	let terraDrawRedoSize: number = $state(0);
 
 	$effect(() => {
-		if (draw) {
-			draw.on('history', ({ undoSize, redoSize }) => {
-				terraDrawUndoSize = undoSize;
-				terradrawRedoSize = redoSize;
-			});
-		}
+		if (!draw) return;
+
+		const handleHistory = ({ undoSize, redoSize }: { undoSize: number; redoSize: number }) => {
+			terraDrawUndoSize = undoSize;
+			terraDrawRedoSize = redoSize;
+		};
+
+		draw?.on('history', handleHistory);
+
+		return () => {
+			draw?.off('history', handleHistory);
+		};
 	});
 </script>
 
@@ -146,7 +152,7 @@
 				<button
 					onclick={() => draw?.redo()}
 					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-					disabled={terradrawRedoSize === 0}
+					disabled={terraDrawRedoSize === 0}
 				>
 					Redo
 					<RotateCw class="w-3" />
