@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/CanvasSource/
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
 	interface Props extends Omit<maplibregl.CanvasSourceSpecification, 'type'> {

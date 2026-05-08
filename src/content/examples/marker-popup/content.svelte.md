@@ -1,6 +1,6 @@
 ---
 title: Marker and Popup
-description: Control marker and popup states using Svelte’s reactivity.
+description: Control marker click, drag, and popup states using Svelte’s reactivity.
 ---
 
 <script lang="ts">

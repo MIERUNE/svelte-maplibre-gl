@@ -238,6 +238,7 @@
 
 	let colorRamp: ColorRamp = $state('LINZ');
 	let hillshade = $state(0.4);
+	let resampling: 'linear' | 'nearest' = $state('linear');
 </script>
 
 <MapLibre class="h-[55vh] min-h-75" zoom={9.5} center={{ lng: 11.5, lat: 47.3 }}>
@@ -252,14 +253,16 @@
 		<ColorReliefLayer
 			paint={{
 				'color-relief-opacity': 1,
-				'color-relief-color': COLOR_RAMPS[colorRamp]
+				'color-relief-color': COLOR_RAMPS[colorRamp],
+				resampling
 			}}
 		/>
 		<HillshadeLayer
 			paint={{
 				'hillshade-method': 'igor',
 				'hillshade-exaggeration': hillshade,
-				'hillshade-highlight-color': '#ffffff'
+				'hillshade-highlight-color': '#ffffff',
+				resampling
 			}}
 		/>
 	</RasterDEMTileSource>
@@ -276,9 +279,16 @@
 				{/each}
 			</select>
 		</div>
-		<div class="flex items-center justify-between space-x-3">
+		<div class="mb-2 flex items-center justify-between space-x-3">
 			<Label for="hillshade" class="leading-none">Hillshade</Label>
 			<Slider type="single" id="hillshade" bind:value={hillshade} min={0} max={1} step={0.01} />
+		</div>
+		<div class="flex items-center justify-between space-x-2">
+			<Label for="resampling" class="leading-none">Resampling</Label>
+			<select bind:value={resampling} id="resampling" class="text-center">
+				<option value="linear">linear</option>
+				<option value="nearest">nearest</option>
+			</select>
 		</div>
 	</div>
 </MapLibre>

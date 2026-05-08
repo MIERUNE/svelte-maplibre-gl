@@ -1,8 +1,8 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/
 
-	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
@@ -40,14 +40,17 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	const id = _id ?? generateLayerID();
-
-	(implementation as maplibregl.CustomLayerInterface).id ??= id;
-	(implementation as maplibregl.CustomLayerInterface).type = 'custom';
+	const id = untrack(() => _id) ?? generateLayerID();
+	const customLayer = untrack(() => {
+		const layer = implementation as maplibregl.CustomLayerInterface;
+		layer.id ??= id;
+		layer.type = 'custom';
+		return layer;
+	});
 
 	let firstRun = true;
 	mapCtx.waitForStyleLoaded(() => {
-		mapCtx.addLayer(implementation as maplibregl.CustomLayerInterface, beforeId);
+		mapCtx.addLayer(customLayer, beforeId);
 	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));

@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addimage
 
 	import { onDestroy, untrack } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props {
@@ -19,7 +19,7 @@
 	let { id, image: srcImage, options }: Props = $props();
 
 	const mapCtx = getMapContext();
-	let prevId = id;
+	let prevId = untrack(() => id);
 	let firstRun = true;
 
 	$effect(() => {

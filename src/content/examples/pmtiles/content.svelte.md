@@ -1,7 +1,7 @@
 ---
 title: PMTiles Protocol
 description: Uses the PMTiles plugin and the custom protocol to present a map.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
 ---
 
 <script lang="ts">
