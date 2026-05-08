@@ -9,7 +9,7 @@
 		Protocol
 	} from 'svelte-maplibre-gl';
 	import { PMTilesProtocol } from '@svelte-maplibre-gl/pmtiles';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 
 	const myProtocolLoadFn: maplibregl.AddProtocolAction = async (params) => {
 		const zxy = params.url.replace('myprotocol://', '');

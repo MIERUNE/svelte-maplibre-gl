@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { MapLibre } from 'svelte-maplibre-gl';
+	import type { TransformConstrainFunction } from 'maplibre-gl';
 
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -15,6 +16,13 @@
 	let scrollZoom = $state(true);
 	let touchZoomRotate = $state(true);
 	let touchPitch = $state(true);
+	let bypassConstrain = $state(false);
+
+	const passthroughConstrain: TransformConstrainFunction = (lngLat, zoom) => ({
+		center: lngLat,
+		zoom
+	});
+	let transformConstrain = $derived(bypassConstrain ? passthroughConstrain : undefined);
 </script>
 
 <MapLibre
@@ -30,6 +38,7 @@
 	{scrollZoom}
 	{touchZoomRotate}
 	{touchPitch}
+	{transformConstrain}
 	minZoom={zoomRange[0]}
 	maxZoom={zoomRange[1]}
 	minPitch={pitchRange[0]}
@@ -75,6 +84,10 @@
 		<div class="flex items-center space-x-2">
 			<Checkbox id="touchPitch" bind:checked={touchPitch} />
 			<Label for="touchPitch" class="leading-none">Touch Pitch</Label>
+		</div>
+		<div class="flex items-center space-x-2">
+			<Checkbox id="bypassConstrain" bind:checked={bypassConstrain} />
+			<Label for="bypassConstrain" class="leading-none">Bypass Transform Constrain</Label>
 		</div>
 	</div>
 </MapLibre>

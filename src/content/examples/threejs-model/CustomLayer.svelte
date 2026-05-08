@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, VideoSource, GlobeControl, RasterLayer } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 
 	let source: maplibregl.VideoSource | undefined = $state(undefined);
 	let playing = $state(true);

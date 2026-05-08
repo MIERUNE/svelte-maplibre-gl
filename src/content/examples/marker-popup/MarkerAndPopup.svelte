@@ -1,11 +1,12 @@
 <script lang="ts">
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { MapLibre, Marker, Popup } from 'svelte-maplibre-gl';
 
 	let lnglat = $state({ lng: 139.767052, lat: 35.681167 });
 	let lngLatText = $derived(`(${lnglat.lat.toFixed(3)}, ${lnglat.lng.toFixed(3)})`);
 	let popupOpen = $state(true);
 	let offset = $state(24);
+	let clickCount = $state(0);
 
 	let offsets: maplibregl.Offset = $derived({
 		top: [0, offset],
@@ -23,6 +24,7 @@
 <div class="flex items-center gap-x-4 text-sm">
 	<label><input type="checkbox" bind:checked={popupOpen} /> Popup Open</label>
 	<label>Offset ({offset}): <input type="range" min="0" max="30" bind:value={offset} /></label>
+	<span>Clicks: {clickCount}</span>
 	<pre class="my-1 grow">marker: {lngLatText}</pre>
 </div>
 
@@ -34,7 +36,7 @@
 	maxPitch={85}
 	attributionControl={false}
 >
-	<Marker bind:lnglat draggable>
+	<Marker bind:lnglat draggable onclick={() => (clickCount += 1)}>
 		{#snippet content()}
 			<div class="text-center leading-none">
 				<div class="text-3xl">🐶</div>
