@@ -67,66 +67,38 @@
 		--ring: 212.7 26.8% 83.9%;
 	}
 
-	:root {
-		--docsearch-primary-color: #0e58c0;
-		--docsearch-text-color: rgb(28, 30, 33);
-		--docsearch-spacing: 12px;
-		--docsearch-icon-stroke-width: 1.4;
-		--docsearch-highlight-color: var(--docsearch-primary-color);
-		--docsearch-muted-color: #666;
-		--docsearch-container-background: rgba(101, 108, 133, 0.8);
-		--docsearch-logo-color: rgba(84, 104, 255);
-
-		/* modal */
-		--docsearch-modal-width: 560px;
-		--docsearch-modal-height: 600px;
-		--docsearch-modal-background: rgb(245, 246, 247);
-		--docsearch-modal-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.5), 0 3px 8px 0 rgba(85, 90, 100, 1);
-
-		/* searchbox */
-		--docsearch-searchbox-height: 56px;
-		--docsearch-searchbox-background: transparent;
-		--docsearch-searchbox-focus-background: #fff;
-		--docsearch-searchbox-shadow: inset 0 0 0 2px var(--docsearch-primary-color);
-
-		/* hit */
-		--docsearch-hit-height: 56px;
-		--docsearch-hit-color: rgb(68, 73, 80);
-		--docsearch-hit-active-color: #fff;
-		--docsearch-hit-background: #fff;
-		--docsearch-hit-shadow: 0 1px 3px 0 rgb(212, 217, 225);
-
-		/* key */
-		--docsearch-key-gradient: linear-gradient(-225deg, rgb(213, 219, 228) 0%, rgb(248, 248, 248) 100%);
-		--docsearch-key-shadow:
-			inset 0 -2px 0 0 rgb(205, 205, 230), inset 0 0 1px 1px #fff, 0 1px 2px 1px rgba(30, 35, 90, 0.4);
-		--docsearch-key-pressed-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff, 0 1px 1px 0 rgba(30, 35, 90, 0.4);
-
-		/* footer */
-		--docsearch-footer-height: 44px;
-		--docsearch-footer-background: #fff;
-		--docsearch-footer-shadow: 0 -1px 0 0 rgb(224, 227, 232), 0 -3px 6px 0 rgba(69, 98, 155, 0.12);
-	}
-
-	/* Darkmode */
+	/*
+	 * DocSearch v4 ships its own dark mode under `html[data-theme=dark]`, but our
+	 * `mode-watcher` toggles `html.dark` instead. Mirror v4's dark variables here
+	 * so the dark theme applies before paint without any JS sync (no FOUC).
+	 * Source: @docsearch/css/dist/_variables.css (keep in sync on upgrades).
+	 */
 	html.dark {
-		--docsearch-text-color: rgb(245, 246, 247);
+		--docsearch-text-color: #c4c7dc;
+		--docsearch-secondary-text-color: #b6b7d5;
+		--docsearch-subtle-color: #212139;
+		--docsearch-highlight-color: #457aff;
+		--docsearch-focus-color: #9ac8ff;
+		--docsearch-background-color: #36395a;
+		--docsearch-icon-color: #b6b7d5;
 		--docsearch-container-background: rgba(9, 10, 17, 0.8);
-		--docsearch-modal-background: #151e2a;
-		--docsearch-modal-shadow: inset 1px 1px 0 0 rgb(44, 46, 64), 0 3px 8px 0 rgb(0, 3, 9);
-		--docsearch-searchbox-background: #000;
-		--docsearch-searchbox-focus-background: #000;
-		--docsearch-hit-color: rgb(190, 195, 201);
+		--docsearch-modal-background: #15172a;
+		--docsearch-modal-shadow: inset 1px 1px 0 0 #2c2e40, 0 3px 8px 0 #000309;
+		--docsearch-searchbox-background: #000000a6;
+		--docsearch-searchbox-focus-background: #000000a6;
+		--docsearch-hit-color: #bec3c9;
 		--docsearch-hit-shadow: none;
-		--docsearch-hit-background: rgb(9, 10, 17);
-		--docsearch-key-gradient: linear-gradient(-26.5deg, #566272 0%, #31425b 100%);
-		--docsearch-key-shadow:
-			inset 0 -2px 0 0 rgb(40, 56, 85), inset 0 0 1px 1px rgb(81, 93, 125), 0 2px 2px 0 rgba(3, 5, 9, 0.3);
-		--docsearch-key-pressed-shadow: inset 0 -2px 0 0 #283b55, inset 0 0 1px 1px #51617d, 0 1px 1px 0 #0305094d;
-		--docsearch-footer-background: #1f2936;
-		--docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 86, 106, 0.5), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
-		--docsearch-logo-color: rgb(255, 255, 255);
-		--docsearch-muted-color: #aaa;
+		--docsearch-hit-background: #090a11;
+		--docsearch-key-background: #36395a;
+		--docsearch-key-color: #b6b7d5;
+		--docsearch-key-pressed-shadow: inset 0 2px 4px rgba(12, 13, 20, 0.4);
+		--docsearch-footer-background: #000000a6;
+		--docsearch-footer-shadow:
+			inset 0 1px 0 0 rgba(73, 76, 106, 0.5), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+		--docsearch-logo-color: #fff;
+		--docsearch-muted-color: #7f8497;
+		--docsearch-search-button-background: var(--docsearch-modal-background);
+		--docsearch-search-button-text-color: var(--docsearch-text-color);
 	}
 }
 
