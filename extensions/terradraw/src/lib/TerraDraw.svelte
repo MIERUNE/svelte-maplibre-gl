@@ -43,8 +43,10 @@
 	});
 
 	$effect(() => {
-		draw?.start();
-		return () => draw?.stop();
+		const instance = draw;
+		if (!instance) return;
+		instance.start();
+		return () => instance.stop();
 	});
 	$effect(() => {
 		draw?.setMode(mode);
@@ -52,28 +54,33 @@
 
 	// Event listeners
 	$effect(() => {
-		if (!onready) return;
-		draw?.on('ready', onready);
-		return () => draw?.off('ready', onready);
+		const instance = draw;
+		if (!instance || !onready) return;
+		instance.on('ready', onready);
+		return () => instance.off('ready', onready);
 	});
 	$effect(() => {
-		if (!onfinish) return;
-		draw?.on('finish', onfinish);
-		return () => draw?.off('finish', onfinish);
+		const instance = draw;
+		if (!instance || !onfinish) return;
+		instance.on('finish', onfinish);
+		return () => instance.off('finish', onfinish);
 	});
 	$effect(() => {
-		if (!onchange) return;
-		draw?.on('change', onchange);
-		return () => draw?.off('change', onchange);
+		const instance = draw;
+		if (!instance || !onchange) return;
+		instance.on('change', onchange);
+		return () => instance.off('change', onchange);
 	});
 	$effect(() => {
-		if (!onselect) return;
-		draw?.on('select', onselect);
-		return () => draw?.off('select', onselect);
+		const instance = draw;
+		if (!instance || !onselect) return;
+		instance.on('select', onselect);
+		return () => instance.off('select', onselect);
 	});
 	$effect(() => {
-		if (!ondeselect) return;
-		draw?.on('deselect', ondeselect);
-		return () => draw?.off('deselect', ondeselect);
+		const instance = draw;
+		if (!instance || !ondeselect) return;
+		instance.on('deselect', ondeselect);
+		return () => instance.off('deselect', ondeselect);
 	});
 </script>

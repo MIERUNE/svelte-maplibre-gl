@@ -48,9 +48,6 @@ catalogs:
     terra-draw:
       specifier: ^1.30.0
       version: 1.30.0
-    terra-draw-maplibre-gl-adapter:
-      specifier: 1.4.0
-      version: 1.4.0
     typescript:
       specifier: ^6.0.3
       version: 6.0.3
@@ -60,6 +57,7 @@ catalogs:
 
 overrides:
   svelte2tsx: 0.7.55
+  terra-draw-maplibre-gl-adapter: 1.3.0
 
 importers:
 
@@ -229,8 +227,8 @@ importers:
         specifier: 'catalog:'
         version: 1.30.0
       terra-draw-maplibre-gl-adapter:
-        specifier: 'catalog:'
-        version: 1.4.0(maplibre-gl@5.24.0)(terra-draw@1.30.0)
+        specifier: 1.3.0
+        version: 1.3.0(maplibre-gl@5.24.0)(terra-draw@1.30.0)
       three:
         specifier: ^0.184.0
         version: 0.184.0
@@ -394,8 +392,8 @@ importers:
         specifier: 'catalog:'
         version: 1.30.0
       terra-draw-maplibre-gl-adapter:
-        specifier: 'catalog:'
-        version: 1.4.0(maplibre-gl@5.24.0)(terra-draw@1.30.0)
+        specifier: 1.3.0
+        version: 1.3.0(maplibre-gl@5.24.0)(terra-draw@1.30.0)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -3021,8 +3019,8 @@ packages:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
     engines: {node: '>=8'}
 
-  terra-draw-maplibre-gl-adapter@1.4.0:
-    resolution: {integrity: sha512-q0k+HRnMpI4k6GLx4Q9seCo9Q1ujmQAjELfo1l4JrS/VNcSaV5mKcSw5b3uaTws8Ni5BZamm2jZwXjRkwqxoag==}
+  terra-draw-maplibre-gl-adapter@1.3.0:
+    resolution: {integrity: sha512-Q0Kds+IxLIcMPv3xYAJ3TDXp1Ml1uGk2xFN8Xx5tKpVdU9AhlTkpGxJ7i+Is1v6PC4t+O7MfyGP4Tl+R+qdYeQ==}
     peerDependencies:
       maplibre-gl: '>=4'
       terra-draw: ^1.0.0
@@ -5813,7 +5811,7 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terra-draw-maplibre-gl-adapter@1.4.0(maplibre-gl@5.24.0)(terra-draw@1.30.0):
+  terra-draw-maplibre-gl-adapter@1.3.0(maplibre-gl@5.24.0)(terra-draw@1.30.0):
     dependencies:
       maplibre-gl: 5.24.0
       terra-draw: 1.30.0

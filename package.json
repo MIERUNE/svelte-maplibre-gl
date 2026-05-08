@@ -95,7 +95,8 @@
 	"packageManager": "pnpm@10.15.0",
 	"pnpm": {
 		"overrides": {
-			"svelte2tsx": "0.7.55"
+			"svelte2tsx": "0.7.55",
+			"terra-draw-maplibre-gl-adapter": "1.3.0"
 		}
 	}
 }
