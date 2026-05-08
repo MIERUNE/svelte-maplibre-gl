@@ -37,31 +37,25 @@
 	}: Props = $props();
 
 	$effect(() => {
-		if (getTile) {
-			worker = false;
+		const source = new mlcontour.DemSource({
+			url,
+			id,
+			cacheSize, // number of most-recent tiles to cache
+			encoding,
+			maxzoom,
+			timeoutMs, // timeout on fetch requests
+			worker: getTile ? false : worker, // offload isoline computation to a web worker to reduce jank
+			actor
+		});
+		if (getTile && 'getTile' in source.manager) {
+			source.manager.getTile = getTile;
 		}
-		(async () => {
-			demSource = new mlcontour.DemSource({
-				url,
-				id,
-				cacheSize, // number of most-recent tiles to cache
-				encoding,
-				maxzoom,
-				timeoutMs, // timeout on fetch requests
-				worker, // offload isoline computation to a web worker to reduce jank
-				actor
-			});
-			if (getTile && 'getTile' in demSource.manager) {
-				demSource.manager.getTile = getTile;
-			}
-			demSource.setupMaplibre(maplibregl);
-		})();
+		source.setupMaplibre(maplibregl);
+		demSource = source;
 
 		return () => {
-			if (demSource) {
-				maplibregl.removeProtocol(demSource.sharedDemProtocolId);
-				maplibregl.removeProtocol(demSource.contourProtocolId);
-			}
+			maplibregl.removeProtocol(source.sharedDemProtocolId);
+			maplibregl.removeProtocol(source.contourProtocolId);
 		};
 	});
 </script>
