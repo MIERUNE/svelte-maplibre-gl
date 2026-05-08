@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/ScaleControl/
 
 	import { onDestroy } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props extends maplibregl.ScaleControlOptions {

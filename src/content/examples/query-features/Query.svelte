@@ -8,7 +8,7 @@
 		QuerySourceFeatures,
 		QueryRenderedFeatures
 	} from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
 	let features: maplibregl.MapGeoJSONFeature[] = $state.raw([]);

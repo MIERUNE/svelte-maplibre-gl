@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { TerraDraw as Draw } from 'terra-draw';
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
-	import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter';
 	import { getMapContext } from 'svelte-maplibre-gl';
 
 	type FeatureId = string | number;
@@ -33,7 +32,8 @@
 		ondeselect?: TerraDrawEventListeners['deselect'];
 	} = $props();
 
-	mapCtx.waitForStyleLoaded((map) => {
+	mapCtx.waitForStyleLoaded(async (map) => {
+		const { TerraDrawMapLibreGLAdapter } = await import('terra-draw-maplibre-gl-adapter');
 		draw = new Draw({
 			adapter: new TerraDrawMapLibreGLAdapter({ map }),
 			modes,

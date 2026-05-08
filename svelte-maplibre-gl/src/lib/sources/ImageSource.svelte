@@ -3,7 +3,7 @@
 	// https://maplibre.org/maplibre-style-spec/sources/#image
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import RawSource from './RawSource.svelte';
 
 	interface Props extends Omit<maplibregl.ImageSourceSpecification, 'type'> {

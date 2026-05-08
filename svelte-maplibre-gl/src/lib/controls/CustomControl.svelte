@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/interfaces/IControl/
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props {
@@ -13,7 +13,6 @@
 		children?: Snippet;
 	}
 	let { position, control: givenControl, class: className, group = true, children }: Props = $props();
-	if (!givenControl && !children) throw new Error('You must provide either control or children.');
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
@@ -33,6 +32,10 @@
 				el?.parentNode?.removeChild(el);
 			}
 		};
+	});
+
+	$effect(() => {
+		if (!givenControl && !children) throw new Error('You must provide either control or children.');
 	});
 
 	$effect(() => {

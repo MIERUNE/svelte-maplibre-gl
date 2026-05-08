@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-style-spec/projection/
 
 	import { onDestroy } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	type Props = maplibregl.ProjectionSpecification;

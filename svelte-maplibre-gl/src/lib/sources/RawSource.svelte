@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
 
@@ -21,15 +21,15 @@
 		source?: Source;
 		children?: Snippet;
 	} & Specs;
-	let { source = $bindable(undefined), id: _id, children, ...spec }: Props = $props();
-	spec = spec as Specs;
+	let { source = $bindable(undefined), id: _id, children, ...rawSpec }: Props = $props();
+	let spec = $derived(rawSpec as Specs);
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let firstRun = true;
 
-	const id = _id ?? generateSourceID();
+	const id = untrack(() => _id) ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
 	mapCtx.waitForStyleLoaded((map) => {
@@ -103,14 +103,10 @@
 			spec.clusterMaxZoom;
 			spec.clusterRadius;
 			if (!firstRun) {
-				if (spec.clusterRadius !== undefined) {
-					(source as maplibregl.GeoJSONSource).workerOptions.superclusterOptions!.radius =
-						spec.clusterRadius * (8192 / source.tileSize);
-				}
 				(source as maplibregl.GeoJSONSource).setClusterOptions({
 					cluster: spec.cluster,
-					clusterMaxZoom: spec.clusterMaxZoom
-					// clusterRadius: spec.clusterRadius, // TODO: Requires a fix in maplibre-gl-js
+					clusterMaxZoom: spec.clusterMaxZoom,
+					clusterRadius: spec.clusterRadius
 				});
 			}
 		}

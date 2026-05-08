@@ -23,8 +23,6 @@ License: MIT or Apache 2.0
 npm install --save-dev svelte-maplibre-gl
 ```
 
-`svelte-maplibre-gl` only works with **Svelte 5** and above.
-
 ## License
 
 Licensed under the [MIT License](./LICENSE-MIT.txt) or the [Apache License 2.0](./LICENSE-APACHE.txt), at your option.

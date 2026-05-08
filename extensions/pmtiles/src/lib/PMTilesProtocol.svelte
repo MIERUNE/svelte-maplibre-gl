@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Protocol as MapLibreProtocol } from 'svelte-maplibre-gl';
+	import { untrack } from 'svelte';
 	import { Protocol, type PMTiles } from 'pmtiles';
 
 	let {
@@ -22,7 +23,7 @@
 		pmtiles?: PMTiles[];
 	} = $props();
 
-	const protocol = new Protocol({ metadata, errorOnMissingTile });
+	const protocol = new Protocol(untrack(() => ({ metadata, errorOnMissingTile })));
 
 	$effect(() => {
 		protocol.metadata = metadata;

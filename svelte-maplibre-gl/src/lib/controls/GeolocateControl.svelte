@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/GeolocateControl/
 
 	import { onDestroy, untrack } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
 	import type { Listener, Event } from '../types.js';

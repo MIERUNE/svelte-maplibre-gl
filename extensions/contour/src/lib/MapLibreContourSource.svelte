@@ -2,7 +2,7 @@
 	// https://github.com/onthegomap/maplibre-contour
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { default as mlcontour } from 'maplibre-contour';
 	import { VectorTileSource } from 'svelte-maplibre-gl';
 

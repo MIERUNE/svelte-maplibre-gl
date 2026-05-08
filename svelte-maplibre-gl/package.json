@@ -23,7 +23,7 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings 'state_referenced_locally:ignore'",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check ."
 	},
@@ -45,7 +45,7 @@
 		}
 	},
 	"peerDependencies": {
-		"maplibre-gl": "^5.0.0 || ^4.0.0",
+		"maplibre-gl": ">=6.0.0-0 || ^5.19.0",
 		"svelte": ">=5.0.0"
 	},
 	"devDependencies": {

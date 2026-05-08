@@ -1,7 +1,7 @@
 ---
 title: Globe with an atmosphere
 description: Display a globe with an atmosphere.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/globe-atmosphere/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/display-a-globe-with-an-atmosphere/
 ---
 
 <script lang="ts">
