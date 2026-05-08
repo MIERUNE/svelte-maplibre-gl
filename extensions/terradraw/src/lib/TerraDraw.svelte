@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import { TerraDraw as Draw } from 'terra-draw';
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
 	import { getMapContext } from 'svelte-maplibre-gl';
@@ -32,8 +33,14 @@
 		ondeselect?: TerraDrawEventListeners['deselect'];
 	} = $props();
 
+	let destroyed = false;
+	onDestroy(() => {
+		destroyed = true;
+	});
+
 	mapCtx.waitForStyleLoaded(async (map) => {
 		const { TerraDrawMapLibreGLAdapter } = await import('terra-draw-maplibre-gl-adapter');
+		if (destroyed) return;
 		draw = new Draw({
 			adapter: new TerraDrawMapLibreGLAdapter({ map }),
 			modes,
