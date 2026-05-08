@@ -50,7 +50,7 @@
 	});
 
 	onDestroy(() => {
-		if (mapCtx.map) {
+		if (mapCtx.map && prevIdentifier.id !== undefined) {
 			for (const key of prevKeys) {
 				mapCtx.map.removeFeatureState(prevIdentifier, key);
 			}
