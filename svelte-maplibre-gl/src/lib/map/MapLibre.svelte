@@ -472,7 +472,7 @@
 	});
 	$effect(() => {
 		bearingSnap;
-		if (map && bearingSnap && !firstRun) {
+		if (map && bearingSnap !== undefined && !firstRun) {
 			map._bearingSnap = bearingSnap;
 		}
 	});
