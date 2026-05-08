@@ -113,7 +113,7 @@
 		onprojectiontransition,
 
 		// Others
-		padding,
+		padding = $bindable(undefined),
 		fov,
 		cursor,
 
@@ -268,6 +268,9 @@
 			}
 			if (tr.elevation !== elevation) {
 				elevation = tr.elevation;
+			}
+			if (padding && !tr.isPaddingEqual(padding)) {
+				padding = map.getPadding();
 			}
 		});
 	});
