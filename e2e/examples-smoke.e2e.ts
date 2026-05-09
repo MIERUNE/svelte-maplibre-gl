@@ -4,10 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 
 // Discover example slugs at test-collection time.
-const examplesDir = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	'../src/content/examples'
-);
+const examplesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../src/content/examples');
 const slugs = fs
 	.readdirSync(examplesDir, { withFileTypes: true })
 	.filter((entry) => entry.isDirectory())
