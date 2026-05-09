@@ -33,36 +33,19 @@
 	const id = _id ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	let addingSource = false;
-	let sourceLoadAbortController = new AbortController();
+	let mounting = false;
+	const addSourceAbortController = new AbortController();
 	$effect(() => {
-		if (addingSource || !firstRun) {
-			return;
-		}
-
-		addingSource = true;
+		if (mounting || !firstRun) return;
+		mounting = true;
+		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
 		mapCtx.waitForStyleLoaded(
-			() => {
-				mapCtx.addSource(id, $state.snapshot(spec) as Specs);
-
-				mapCtx.waitForSourceLoaded(
-					id,
-					(map, error) => {
-						if (error) {
-							console.error(`Error loading source '${id}':`, error);
-						}
-
-						if (!error) {
-							firstRun = false;
-						}
-
-						addingSource = false;
-						source = map.getSource(id);
-					},
-					{ signal: sourceLoadAbortController.signal }
-				);
+			(map) => {
+				source = map.getSource(id);
+				firstRun = false;
+				mounting = false;
 			},
-			{ signal: sourceLoadAbortController.signal }
+			{ signal: addSourceAbortController.signal }
 		);
 	});
 
@@ -168,7 +151,7 @@
 
 	onDestroy(() => {
 		mapCtx.removeSource(id);
-		sourceLoadAbortController.abort();
+		addSourceAbortController.abort();
 		source = undefined;
 	});
 </script>

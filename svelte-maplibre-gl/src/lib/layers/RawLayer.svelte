@@ -83,44 +83,25 @@
 	}
 
 	let firstRun = true;
-	let addingLayer = false;
+	let mounting = false;
 	const addLayerAbortController = new AbortController();
 	$effect(() => {
-		if (addingLayer || !firstRun) {
+		if (mounting || !firstRun) return;
+		mounting = true;
+
+		if (addLayerObj.type === 'background') {
+			mapCtx.addLayer(addLayerObj, beforeId);
+			firstRun = false;
+			mounting = false;
 			return;
 		}
 
-		addingLayer = true;
-		mapCtx.waitForStyleLoaded(
+		mapCtx.waitForSourceRegistered(
+			addLayerObj.source,
 			() => {
-				if (addLayerObj.type === 'background') {
-					mapCtx.addLayer(addLayerObj, beforeId);
-					firstRun = false;
-					addingLayer = false;
-					return;
-				}
-
-				// immediately register a placeholder so that the layer order
-				// matches the order of layer components specified in the consumer,
-				// and then we can replace it once the source is loaded
-				mapCtx.addPlaceholderLayer(id, beforeId);
-
-				mapCtx.waitForSourceLoaded(
-					addLayerObj.source,
-					(map, error) => {
-						if (error) {
-							console.error(`Error adding layer '${id}' due to source load failure:`, error);
-							mapCtx.removeLayer(id); // remove placeholder layer
-							addingLayer = false;
-							return;
-						}
-
-						mapCtx.replaceLayer(id, addLayerObj);
-						firstRun = false;
-						addingLayer = false;
-					},
-					{ signal: addLayerAbortController.signal }
-				);
+				mapCtx.addLayer(addLayerObj, beforeId);
+				firstRun = false;
+				mounting = false;
 			},
 			{ signal: addLayerAbortController.signal }
 		);

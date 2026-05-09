@@ -17,28 +17,20 @@
 	const sourceId = $derived(source ?? getSourceContext().id);
 
 	let firstRun = true;
-	let addingTerrain = false;
+	let mounting = false;
 	const addTerrainAbortController = new AbortController();
 	$effect(() => {
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 
-		if (addingTerrain) {
-			return;
-		}
+		if (mounting || !firstRun) return;
+		mounting = true;
 
-		addingTerrain = true;
-		mapCtx.waitForSourceLoaded(
+		mapCtx.waitForSourceRegistered(
 			sourceId,
-			(map, error) => {
-				if (error) {
-					console.error(`Error adding terrain due to source load failure:`, error);
-					addingTerrain = false;
-					return;
-				}
-
+			(map) => {
 				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
 				firstRun = false;
-				addingTerrain = false;
+				mounting = false;
 			},
 			{ signal: addTerrainAbortController.signal }
 		);
