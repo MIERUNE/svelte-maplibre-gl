@@ -88,7 +88,24 @@
 	});
 
 	let firstRun = true;
-	mapCtx.waitForStyleLoaded(() => {
+	$effect(() => {
+		if (!firstRun) return;
+		if (addLayerObj.type === 'background') {
+			firstRun = false;
+			mapCtx.addLayer(addLayerObj, beforeId);
+			return;
+		}
+		// Wait until the source is available — either added through us
+		// (userSources is a reactive SvelteSet) or already in the base style
+		// (gated by styleLoaded so we don't read getSource() before the style
+		// is parsed).
+		if (
+			!mapCtx.userSources.has(addLayerObj.source) &&
+			!(mapCtx.styleLoaded && mapCtx.map?.getSource(addLayerObj.source))
+		) {
+			return;
+		}
+		firstRun = false;
 		mapCtx.addLayer(addLayerObj, beforeId);
 	});
 
@@ -173,10 +190,6 @@
 				map.moveLayer(id, beforeId);
 			});
 		}
-	});
-
-	$effect(() => {
-		firstRun = false;
 	});
 
 	onDestroy(() => {

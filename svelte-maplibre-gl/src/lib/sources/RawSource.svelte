@@ -13,6 +13,7 @@
 		| maplibregl.CanvasSource
 		| maplibregl.ImageSource
 		| maplibregl.VideoSource;
+	type TileSource = maplibregl.VectorTileSource | maplibregl.RasterTileSource | maplibregl.RasterDEMTileSource;
 
 	type Specs = maplibregl.SourceSpecification | maplibregl.CanvasSourceSpecification;
 
@@ -32,10 +33,20 @@
 	const id = untrack(() => _id) ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	mapCtx.waitForStyleLoaded((map) => {
+	let mounting = false;
+	const addSourceAbortController = new AbortController();
+	$effect(() => {
+		if (mounting || !firstRun) return;
+		mounting = true;
 		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
-		source = map.getSource(id);
-		firstRun = true;
+		mapCtx.waitForStyleLoaded(
+			(map) => {
+				source = map.getSource(id);
+				firstRun = false;
+				mounting = false;
+			},
+			{ signal: addSourceAbortController.signal }
+		);
 	});
 
 	$effect(() => {
@@ -47,17 +58,39 @@
 		}
 	});
 	$effect(() => {
-		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
+		if (
+			source &&
+			'setTiles' in source &&
+			(spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')
+		) {
 			spec.tiles;
-			if (!firstRun && 'setTiles' in source) {
-				source.setTiles(spec.tiles ?? []);
+
+			if (firstRun) {
+				return;
 			}
+
+			// if there is a TileJSON url specified, do not set tiles since
+			// they will be retrieved from the TileJSON resource instead
+			if (spec.url) {
+				return;
+			}
+
+			const isDifferentTilesArray =
+				!source.tiles ||
+				!spec.tiles ||
+				spec.tiles.length !== source.tiles.length ||
+				spec.tiles.some((tile, index) => tile !== (source as TileSource).tiles[index]);
+			if (!isDifferentTilesArray) {
+				return;
+			}
+
+			source.setTiles(spec.tiles ?? []);
 		}
 	});
 	$effect(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.url;
-			if (!firstRun && 'setUrl' in source) {
+			if (!firstRun && 'setUrl' in source && spec.url !== source.url) {
 				source.setUrl(spec.url as string);
 			}
 		}
@@ -112,13 +145,9 @@
 		}
 	});
 
-	$effect(() => {
-		source;
-		firstRun = false;
-	});
-
 	onDestroy(() => {
 		mapCtx.removeSource(id);
+		addSourceAbortController.abort();
 		source = undefined;
 	});
 </script>

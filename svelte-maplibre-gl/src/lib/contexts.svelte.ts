@@ -1,16 +1,17 @@
 import type {
+	AddLayerObject,
+	CanvasSourceSpecification,
+	LightSpecification,
 	Map as MapLibre,
 	Marker,
-	AddLayerObject,
-	SourceSpecification,
-	CanvasSourceSpecification,
-	StyleSpecification,
-	SkySpecification,
-	TerrainSpecification,
 	ProjectionSpecification,
-	LightSpecification
+	SkySpecification,
+	SourceSpecification,
+	StyleSpecification,
+	TerrainSpecification
 } from 'maplibre-gl';
-import { setContext, getContext } from 'svelte';
+import { getContext, setContext } from 'svelte';
+import { SvelteSet } from 'svelte/reactivity';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
 const SOURCE_CONTEXT_KEY = Symbol('MapLibre source context');
@@ -21,13 +22,20 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 class MapContext {
 	/** Map instance */
 	_map: MapLibre | null = $state.raw(null);
+	/**
+	 * Whether the map's current style has finished loading. Style operations
+	 * (addSource/addLayer/setPaintProperty/...) raise fatal errors if invoked
+	 * while this is false, so internal helpers and consumer effects should
+	 * gate on it. This reactively flips with `setStyle()` calls too.
+	 */
+	styleLoaded = $state(false);
 	/** Callbacks to be called when the map style is loaded */
 	private _listener?: maplibregl.Listener = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
 	/** Names of layers dynamically added */
-	userLayers: Set<string> = new Set();
+	userLayers = new SvelteSet<string>();
 	/** Names of sources dynamically added */
-	userSources: Set<string> = new Set();
+	userSources = new SvelteSet<string>();
 	/** Terrain specification of the current base style */
 	baseTerrain?: TerrainSpecification | undefined;
 	/** Sky specification set by user */
@@ -72,7 +80,9 @@ class MapContext {
 		if (!this.map) throw new Error('Map is not initialized');
 		this.userLayers.delete(id);
 		this.waitForStyleLoaded((map) => {
-			map.removeLayer(id);
+			if (map.getLayer(id)) {
+				map.removeLayer(id);
+			}
 		});
 	}
 
@@ -82,30 +92,51 @@ class MapContext {
 			map.addSource(id, source);
 		});
 	}
+
 	removeSource(id: string) {
 		this.userSources.delete(id);
 		this.waitForStyleLoaded((map) => {
-			map.removeSource(id);
+			if (map.getSource(id)) {
+				map.removeSource(id);
+			}
 		});
 	}
 
-	/** Wait for the style to be loaded before calling the function */
-	waitForStyleLoaded(func: (map: maplibregl.Map) => void) {
+	/**
+	 * Waits for the style to be loaded before calling the function.
+	 *
+	 * If an abort signal is provided, the function call will be cancelled
+	 * if the signal is aborted before the style is loaded.
+	 */
+	waitForStyleLoaded(func: (map: maplibregl.Map) => void, { signal }: { signal?: AbortSignal } = {}) {
+		if (signal?.aborted) {
+			return;
+		}
+
 		if (!this.map) {
 			return;
 		}
+
 		if (this.map.style._loaded) {
 			// style is already loaded
 			func(this.map);
-		} else {
-			// we need to wait the style to be loaded
-			this._pending.push(func);
+			return;
 		}
+
+		// we need to wait the style to be loaded
+		this._pending.push(func);
+
+		// cancel the pending function if the signal is aborted
+		signal?.addEventListener('abort', () => {
+			this._pending = this._pending.filter((f) => f !== func);
+		});
 	}
 
 	private _onstyledata(ev: maplibregl.MapStyleDataEvent) {
 		const map = ev.target;
-		if (map?.style._loaded) {
+		const loaded = !!map?.style._loaded;
+		this.styleLoaded = loaded;
+		if (loaded) {
 			for (const func of this._pending) {
 				// call pending tasks
 				func(map);

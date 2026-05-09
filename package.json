@@ -14,7 +14,7 @@
 		"build": "pnpm build:packages && vite build",
 		"build:all": "turbo run build",
 		"build:packages": "turbo run build --filter='./svelte-maplibre-gl' --filter='./extensions/*'",
-		"preview": "turbo run preview",
+		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:all": "turbo run check",
 		"check:watch": "turbo run check:watch --filter='./svelte-maplibre-gl' --filter='./extensions/*'",

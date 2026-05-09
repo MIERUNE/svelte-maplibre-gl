@@ -16,11 +16,28 @@
 	// Get source id from source context or props
 	const sourceId = $derived(source ?? getSourceContext().id);
 
+	let firstRun = true;
 	$effect(() => {
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
+
+		if (!firstRun) return;
+		if (!mapCtx.userSources.has(sourceId) && !(mapCtx.styleLoaded && mapCtx.map?.getSource(sourceId))) {
+			return;
+		}
+		firstRun = false;
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
 		});
+	});
+
+	$effect(() => {
+		spec.exaggeration;
+		if (!firstRun) {
+			mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
+			mapCtx.waitForStyleLoaded((map) => {
+				map.setTerrain(mapCtx.userTerrain || null);
+			});
+		}
 	});
 
 	onDestroy(() => {
