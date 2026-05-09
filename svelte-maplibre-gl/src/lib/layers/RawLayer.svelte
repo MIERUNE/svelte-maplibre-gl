@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext, prepareLayerContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
@@ -49,38 +49,43 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	const id = _id ?? generateLayerID();
+	const id = untrack(() => _id) ?? generateLayerID();
 	const layerCtx = prepareLayerContext();
 	layerCtx.id = id;
 
-	const addLayerObj = {
-		id,
-		type,
-		layout: $state.snapshot(layout) ?? {},
-		paint: $state.snapshot(paint) ?? {}
-	} as maplibregl.LayerSpecification;
+	const addLayerObj = untrack(() => {
+		const layer = {
+			id,
+			type,
+			layout: $state.snapshot(layout) ?? {},
+			paint: $state.snapshot(paint) ?? {}
+		} as maplibregl.LayerSpecification;
 
-	if (addLayerObj.type !== 'background') {
-		addLayerObj.source = sourceId ?? getSourceContext().id;
-	}
+		if (layer.type !== 'background') {
+			layer.source = sourceId ?? getSourceContext().id;
+		}
 
-	if (maxzoom !== undefined) {
-		addLayerObj.maxzoom = maxzoom;
-	}
-	if (minzoom !== undefined) {
-		addLayerObj.minzoom = minzoom;
-	}
-	if (metadata !== undefined) {
-		addLayerObj.metadata = metadata;
-	}
-	if (addLayerObj.type !== 'background') {
-		if (sourceLayer) {
-			addLayerObj['source-layer'] = sourceLayer;
+		if (maxzoom !== undefined) {
+			layer.maxzoom = maxzoom;
 		}
-		if (filter) {
-			addLayerObj.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
+		if (minzoom !== undefined) {
+			layer.minzoom = minzoom;
 		}
-	}
+		if (metadata !== undefined) {
+			layer.metadata = metadata;
+		}
+		if (layer.type !== 'background') {
+			if (sourceLayer) {
+				layer['source-layer'] = sourceLayer;
+			}
+			if (filter) {
+				// @ts-expect-error: ignore
+				layer.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
+			}
+		}
+
+		return layer;
+	});
 
 	let firstRun = true;
 	let mounting = false;
@@ -121,7 +126,7 @@
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchend', id, ontouchend));
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchcancel', id, ontouchcancel));
 
-	let prevPaint: Record<string, unknown> = $state.snapshot(paint) ?? {};
+	let prevPaint: Record<string, unknown> = untrack(() => $state.snapshot(paint) ?? {});
 	$effect(() => {
 		paint;
 		if (!firstRun) {
@@ -143,7 +148,7 @@
 		}
 	});
 
-	let prevLayout: Record<string, unknown> = $state.snapshot(layout) ?? {};
+	let prevLayout: Record<string, unknown> = untrack(() => $state.snapshot(layout) ?? {});
 	$effect(() => {
 		layout;
 		if (!firstRun) {

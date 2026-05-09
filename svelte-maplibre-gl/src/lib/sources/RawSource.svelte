@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
@@ -30,7 +30,7 @@
 
 	let firstRun = true;
 
-	const id = _id ?? generateSourceID();
+	const id = untrack(() => _id) ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
 	let mounting = false;
