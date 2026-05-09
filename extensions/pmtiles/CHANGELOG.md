@@ -1,5 +1,18 @@
 # @svelte-maplibre-gl/pmtiles
 
+## 2.0.0
+
+### Minor Changes
+
+- 14842b3: feat: track maplibre-gl 5.10+/5.18+/5.19+ features
+
+### Patch Changes
+
+- Updated dependencies [717a771]
+- Updated dependencies [14842b3]
+- Updated dependencies [2cf585c]
+  - svelte-maplibre-gl@2.0.0
+
 ## 1.0.3
 
 ### Patch Changes
