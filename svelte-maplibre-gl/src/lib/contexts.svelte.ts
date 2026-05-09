@@ -125,45 +125,6 @@ class MapContext {
 		});
 	}
 
-	/**
-	 * Waits for a source with the given id to be registered with the map
-	 * before calling the function. If the source is already registered, the
-	 * function runs immediately. Otherwise, a one-shot `sourcedataloading`
-	 * listener is attached and resolves on the first matching event (which
-	 * fires when `addSource(sourceId, ...)` is processed).
-	 *
-	 * Note: this only waits for source *registration*, not for tile data to
-	 * finish loading. MapLibre allows `addLayer` referencing a registered
-	 * but still-loading source.
-	 */
-	waitForSourceRegistered(
-		sourceId: string,
-		func: (map: maplibregl.Map) => void,
-		{ signal }: { signal?: AbortSignal } = {}
-	) {
-		this.waitForStyleLoaded(
-			(map) => {
-				if (signal?.aborted) return;
-
-				if (map.getSource(sourceId)) {
-					func(map);
-					return;
-				}
-
-				const handler = (event: maplibregl.MapEventType['sourcedataloading']) => {
-					if (event.sourceId !== sourceId) return;
-					cleanup();
-					func(map);
-				};
-				const cleanup = () => map.off('sourcedataloading', handler);
-
-				map.on('sourcedataloading', handler);
-				signal?.addEventListener('abort', cleanup);
-			},
-			{ signal }
-		);
-	}
-
 	private _onstyledata(ev: maplibregl.MapStyleDataEvent) {
 		const map = ev.target;
 		if (map?.style._loaded) {

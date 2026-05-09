@@ -17,23 +17,19 @@
 	const sourceId = $derived(source ?? getSourceContext().id);
 
 	let firstRun = true;
-	let mounting = false;
-	const addTerrainAbortController = new AbortController();
 	$effect(() => {
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 
-		if (mounting || !firstRun) return;
-		mounting = true;
+		if (!firstRun) return;
+		// Wait reactively for the source to be registered (see RawLayer for
+		// the same pattern). Sources from the base style are already in the
+		// map's style, so they pass the second branch immediately.
+		if (!mapCtx.userSources.has(sourceId) && !mapCtx.map?.getSource(sourceId)) return;
 
-		mapCtx.waitForSourceRegistered(
-			sourceId,
-			(map) => {
-				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
-				firstRun = false;
-				mounting = false;
-			},
-			{ signal: addTerrainAbortController.signal }
-		);
+		mapCtx.waitForStyleLoaded((map) => {
+			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+		});
+		firstRun = false;
 	});
 
 	$effect(() => {
@@ -51,6 +47,5 @@
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setTerrain(mapCtx.baseTerrain ?? null);
 		});
-		addTerrainAbortController.abort();
 	});
 </script>

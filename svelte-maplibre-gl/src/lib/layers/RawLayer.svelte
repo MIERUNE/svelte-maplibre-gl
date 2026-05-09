@@ -88,28 +88,26 @@
 	});
 
 	let firstRun = true;
-	let mounting = false;
-	const addLayerAbortController = new AbortController();
 	$effect(() => {
-		if (mounting || !firstRun) return;
-		mounting = true;
+		if (!firstRun) return;
 
-		if (addLayerObj.type === 'background') {
-			mapCtx.addLayer(addLayerObj, beforeId);
-			firstRun = false;
-			mounting = false;
+		// Background layers don't need a source. Otherwise, wait reactively for
+		// the source's mount $effect (which runs after this one in post-order)
+		// to register the source via mapCtx.addSource — which adds the id to
+		// the SvelteSet `userSources`. Reading `.has(...)` inside this effect
+		// makes it re-run when the source becomes available. Sources that come
+		// from the base style won't be in `userSources` but are already in the
+		// map's style.
+		if (
+			addLayerObj.type !== 'background' &&
+			!mapCtx.userSources.has(addLayerObj.source) &&
+			!mapCtx.map?.getSource(addLayerObj.source)
+		) {
 			return;
 		}
 
-		mapCtx.waitForSourceRegistered(
-			addLayerObj.source,
-			() => {
-				mapCtx.addLayer(addLayerObj, beforeId);
-				firstRun = false;
-				mounting = false;
-			},
-			{ signal: addLayerAbortController.signal }
-		);
+		mapCtx.addLayer(addLayerObj, beforeId);
+		firstRun = false;
 	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
@@ -197,7 +195,6 @@
 
 	onDestroy(() => {
 		mapCtx.removeLayer(id);
-		addLayerAbortController.abort();
 	});
 </script>
 
