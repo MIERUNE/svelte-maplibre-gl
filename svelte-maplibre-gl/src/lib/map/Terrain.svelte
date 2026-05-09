@@ -21,15 +21,23 @@
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 
 		if (!firstRun) return;
-		// Wait reactively for the source to be registered (see RawLayer for
-		// the same pattern). Sources from the base style are already in the
-		// map's style, so they pass the second branch immediately.
-		if (!mapCtx.userSources.has(sourceId) && !mapCtx.map?.getSource(sourceId)) return;
 
+		// User-added sources arrive reactively via the SvelteSet.
+		if (mapCtx.userSources.has(sourceId)) {
+			firstRun = false;
+			mapCtx.waitForStyleLoaded((map) => {
+				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+			});
+			return;
+		}
+
+		// Source might be from the base style — verify after style load.
 		mapCtx.waitForStyleLoaded((map) => {
-			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+			if (firstRun && map.getSource(sourceId)) {
+				firstRun = false;
+				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
+			}
 		});
-		firstRun = false;
 	});
 
 	$effect(() => {
