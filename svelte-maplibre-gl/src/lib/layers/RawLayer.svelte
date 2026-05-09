@@ -87,24 +87,14 @@
 		return layer;
 	});
 
+	// Defer addLayer to a microtask so:
+	//  1. markup order (top-down script body execution) is preserved across
+	//     siblings, which keeps `beforeId` references and z-ordering intuitive
+	//  2. any OLD destroys from a {#key} re-render run synchronously first,
+	//     so this layer's add doesn't collide with the previous mount (#137)
 	let firstRun = true;
-	$effect(() => {
+	queueMicrotask(() => {
 		if (!firstRun) return;
-		if (addLayerObj.type === 'background') {
-			firstRun = false;
-			mapCtx.addLayer(addLayerObj, beforeId);
-			return;
-		}
-		// Wait until the source is available — either added through us
-		// (userSources is a reactive SvelteSet) or already in the base style
-		// (gated by styleLoaded so we don't read getSource() before the style
-		// is parsed).
-		if (
-			!mapCtx.userSources.has(addLayerObj.source) &&
-			!(mapCtx.styleLoaded && mapCtx.map?.getSource(addLayerObj.source))
-		) {
-			return;
-		}
 		firstRun = false;
 		mapCtx.addLayer(addLayerObj, beforeId);
 	});

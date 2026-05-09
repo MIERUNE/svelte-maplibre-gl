@@ -33,20 +33,16 @@
 	const id = untrack(() => _id) ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	let mounting = false;
-	const addSourceAbortController = new AbortController();
-	$effect(() => {
-		if (mounting || !firstRun) return;
-		mounting = true;
+	// Defer addSource to a microtask so markup order (top-down script body
+	// execution) is preserved and OLD destroys from a {#key} re-render run
+	// first.
+	queueMicrotask(() => {
+		if (!firstRun) return;
 		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
-		mapCtx.waitForStyleLoaded(
-			(map) => {
-				source = map.getSource(id);
-				firstRun = false;
-				mounting = false;
-			},
-			{ signal: addSourceAbortController.signal }
-		);
+		mapCtx.waitForStyleLoaded((map) => {
+			source = map.getSource(id);
+			firstRun = false;
+		});
 	});
 
 	$effect(() => {
@@ -147,7 +143,6 @@
 
 	onDestroy(() => {
 		mapCtx.removeSource(id);
-		addSourceAbortController.abort();
 		source = undefined;
 	});
 </script>
