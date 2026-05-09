@@ -21,10 +21,7 @@
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 
 		if (!firstRun) return;
-		if (
-			!mapCtx.userSources.has(sourceId) &&
-			!(mapCtx.styleLoaded && mapCtx.map?.getSource(sourceId))
-		) {
+		if (!mapCtx.userSources.has(sourceId) && !(mapCtx.styleLoaded && mapCtx.map?.getSource(sourceId))) {
 			return;
 		}
 		firstRun = false;
