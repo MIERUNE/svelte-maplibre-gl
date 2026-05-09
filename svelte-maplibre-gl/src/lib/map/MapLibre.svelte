@@ -467,7 +467,9 @@
 			if (changed) {
 				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
 				const originalStop = map.stop;
-				map.stop = () => map?._stop(true);
+				map.stop = () => {
+					map?._stop(true);
+				};
 				map?.jumpTo(jumpTo, { reactivity: true });
 				map.stop = originalStop;
 			}
