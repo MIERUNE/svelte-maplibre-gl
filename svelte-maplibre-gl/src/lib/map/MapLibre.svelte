@@ -465,13 +465,12 @@
 			}
 
 			if (changed) {
+				const currentMap = map;
 				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
-				const originalStop = map.stop;
-				map.stop = () => {
-					map?._stop(true);
-				};
-				map?.jumpTo(jumpTo, { reactivity: true });
-				map.stop = originalStop;
+				const originalStop = currentMap.stop;
+				currentMap.stop = () => currentMap._stop(true);
+				currentMap.jumpTo(jumpTo, { reactivity: true });
+				currentMap.stop = originalStop;
 			}
 		}
 	});
