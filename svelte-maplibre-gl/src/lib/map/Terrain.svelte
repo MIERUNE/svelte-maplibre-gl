@@ -21,22 +21,15 @@
 		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
 
 		if (!firstRun) return;
-
-		// User-added sources arrive reactively via the SvelteSet.
-		if (mapCtx.userSources.has(sourceId)) {
-			firstRun = false;
-			mapCtx.waitForStyleLoaded((map) => {
-				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
-			});
+		if (
+			!mapCtx.userSources.has(sourceId) &&
+			!(mapCtx.styleLoaded && mapCtx.map?.getSource(sourceId))
+		) {
 			return;
 		}
-
-		// Source might be from the base style — verify after style load.
+		firstRun = false;
 		mapCtx.waitForStyleLoaded((map) => {
-			if (firstRun && map.getSource(sourceId)) {
-				firstRun = false;
-				map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
-			}
+			map.setTerrain((mapCtx.userTerrain as maplibregl.TerrainSpecification) || null);
 		});
 	});
 

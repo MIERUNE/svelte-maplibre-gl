@@ -22,6 +22,13 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 class MapContext {
 	/** Map instance */
 	_map: MapLibre | null = $state.raw(null);
+	/**
+	 * Whether the map's current style has finished loading. Style operations
+	 * (addSource/addLayer/setPaintProperty/...) raise fatal errors if invoked
+	 * while this is false, so internal helpers and consumer effects should
+	 * gate on it. This reactively flips with `setStyle()` calls too.
+	 */
+	styleLoaded = $state(false);
 	/** Callbacks to be called when the map style is loaded */
 	private _listener?: maplibregl.Listener = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
@@ -127,7 +134,9 @@ class MapContext {
 
 	private _onstyledata(ev: maplibregl.MapStyleDataEvent) {
 		const map = ev.target;
-		if (map?.style._loaded) {
+		const loaded = !!map?.style._loaded;
+		this.styleLoaded = loaded;
+		if (loaded) {
 			for (const func of this._pending) {
 				// call pending tasks
 				func(map);

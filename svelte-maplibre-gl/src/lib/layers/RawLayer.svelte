@@ -90,33 +90,23 @@
 	let firstRun = true;
 	$effect(() => {
 		if (!firstRun) return;
-
-		// Background layers don't need a source.
 		if (addLayerObj.type === 'background') {
 			firstRun = false;
 			mapCtx.addLayer(addLayerObj, beforeId);
 			return;
 		}
-
-		// User-added sources are tracked in the reactive SvelteSet `userSources`,
-		// so the parent source's mount $effect (which runs after this one in
-		// post-order) will trigger this effect to re-run via `.has(...)`.
-		if (mapCtx.userSources.has(addLayerObj.source)) {
-			firstRun = false;
-			mapCtx.addLayer(addLayerObj, beforeId);
+		// Wait until the source is available — either added through us
+		// (userSources is a reactive SvelteSet) or already in the base style
+		// (gated by styleLoaded so we don't read getSource() before the style
+		// is parsed).
+		if (
+			!mapCtx.userSources.has(addLayerObj.source) &&
+			!(mapCtx.styleLoaded && mapCtx.map?.getSource(addLayerObj.source))
+		) {
 			return;
 		}
-
-		// Otherwise the source might come from the base style. We have to wait
-		// for the style to be loaded before getSource() can find it. If a
-		// user-added source shows up first, the branch above will fire and
-		// flip firstRun, neutralizing this deferred callback.
-		mapCtx.waitForStyleLoaded((map) => {
-			if (firstRun && map.getSource(addLayerObj.source)) {
-				firstRun = false;
-				mapCtx.addLayer(addLayerObj, beforeId);
-			}
-		});
+		firstRun = false;
+		mapCtx.addLayer(addLayerObj, beforeId);
 	});
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
