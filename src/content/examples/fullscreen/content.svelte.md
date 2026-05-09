@@ -1,7 +1,7 @@
 ---
 title: Fullscreen
 description: View a fullscreen map
-original: https://maplibre.org/maplibre-gl-js/docs/examples/fullscreen/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/view-a-fullscreen-map/
 ---
 
 <script lang="ts">

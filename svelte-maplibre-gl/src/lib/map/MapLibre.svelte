@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
 
@@ -113,7 +113,7 @@
 		onprojectiontransition,
 
 		// Others
-		padding = { top: 0, bottom: 0, left: 0, right: 0 },
+		padding = $bindable(undefined),
 		fov,
 		cursor,
 
@@ -144,6 +144,9 @@
 		style = { version: 8, sources: {}, layers: [] },
 		transformRequest,
 		zoom = $bindable(undefined),
+		zoomSnap,
+		anisotropicFilterPitch,
+		transformConstrain,
 
 		// Map Options (properties)
 		boxZoom,
@@ -165,12 +168,14 @@
 		...restOptions
 	}: Props = $props();
 
-	if (autoloadGlobalCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
-		const link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.href = `https://unpkg.com/maplibre-gl@${maplibregl.getVersion()}/dist/maplibre-gl.css`;
-		document.head.appendChild(link);
-	}
+	$effect(() => {
+		if (autoloadGlobalCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
+			const link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = `https://unpkg.com/maplibre-gl@${maplibregl.getVersion()}/dist/maplibre-gl.css`;
+			document.head.appendChild(link);
+		}
+	});
 
 	let container: HTMLElement | undefined = $state();
 
@@ -203,6 +208,9 @@
 					style,
 					transformRequest,
 					zoom,
+					zoomSnap,
+					anisotropicFilterPitch,
+					transformConstrain,
 					// Map Options (Map properties)
 					boxZoom,
 					cancelPendingTileRequestsWhileZooming,
@@ -260,6 +268,9 @@
 			}
 			if (tr.elevation !== elevation) {
 				elevation = tr.elevation;
+			}
+			if (padding && !tr.isPaddingEqual(padding)) {
+				padding = map.getPadding();
 			}
 		});
 	});
@@ -464,8 +475,14 @@
 	});
 	$effect(() => {
 		bearingSnap;
-		if (map && bearingSnap && !firstRun) {
+		if (map && bearingSnap !== undefined && !firstRun) {
 			map._bearingSnap = bearingSnap;
+		}
+	});
+	$effect(() => {
+		zoomSnap;
+		if (map && zoomSnap !== undefined && !firstRun && map.getZoomSnap() !== zoomSnap) {
+			map.setZoomSnap(zoomSnap);
 		}
 	});
 	$effect(() => {
@@ -526,6 +543,18 @@
 		transformRequest;
 		if (!firstRun) {
 			map?.setTransformRequest(transformRequest as maplibregl.RequestTransformFunction);
+		}
+	});
+	$effect(() => {
+		transformConstrain;
+		if (map && !firstRun) {
+			map.setTransformConstrain(transformConstrain ?? null);
+		}
+	});
+	$effect(() => {
+		anisotropicFilterPitch;
+		if (map && !firstRun) {
+			map.setAnisotropicFilterPitch(anisotropicFilterPitch ?? null);
 		}
 	});
 

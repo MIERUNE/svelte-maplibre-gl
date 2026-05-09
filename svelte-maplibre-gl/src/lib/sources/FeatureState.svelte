@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#setfeaturestate
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 
 	interface Props extends Omit<maplibregl.FeatureIdentifier, 'source'> {
@@ -16,10 +16,10 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	const source = _sourceId || getSourceContext().id;
+	let source = $derived(_sourceId || getSourceContext().id);
 
 	let prevKeys: string[] = [];
-	let prevIdentifier = $state.snapshot({ source, sourceLayer, id });
+	let prevIdentifier: maplibregl.FeatureIdentifier = { source: '' };
 
 	$effect(() => {
 		if (!mapCtx.map) {
@@ -50,7 +50,7 @@
 	});
 
 	onDestroy(() => {
-		if (mapCtx.map) {
+		if (mapCtx.map && prevIdentifier.id !== undefined) {
 			for (const key of prevKeys) {
 				mapCtx.map.removeFeatureState(prevIdentifier, key);
 			}

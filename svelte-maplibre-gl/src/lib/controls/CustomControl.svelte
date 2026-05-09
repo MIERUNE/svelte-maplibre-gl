@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/interfaces/IControl/
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	interface Props {

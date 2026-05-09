@@ -20,6 +20,8 @@
 	let globe = $state(false);
 	let point = $state({ x: 100, y: 100 });
 
+	const ZERO_PADDING = { top: 0, bottom: 0, left: 0, right: 0 };
+
 	export const ro = (node: Element) => {
 		const ro = new ResizeObserver(([entry]) => (width = entry.contentRect.width));
 		ro.observe(node);
@@ -57,7 +59,7 @@
 		bind:pitch
 		bind:roll
 		bind:elevation
-		padding={splitMode === 'Split' ? { left: 0, right: width / 2, top: 0, bottom: 0 } : undefined}
+		padding={splitMode === 'Split' ? { left: 0, right: width / 2, top: 0, bottom: 0 } : ZERO_PADDING}
 	>
 		<Projection type={globe ? 'globe' : undefined} />
 	</MapLibre>
@@ -72,7 +74,7 @@
 		bind:roll
 		bind:elevation
 		attributionControl={false}
-		padding={splitMode === 'Split' ? { left: width / 2, right: 0, top: 0, bottom: 0 } : undefined}
+		padding={splitMode === 'Split' ? { left: width / 2, right: 0, top: 0, bottom: 0 } : ZERO_PADDING}
 	>
 		<Projection type={globe ? 'globe' : undefined} />
 	</MapLibre>

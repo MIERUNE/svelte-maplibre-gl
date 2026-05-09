@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-style-spec/sky/
 
 	import { onDestroy } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 
 	let { ...spec }: maplibregl.SkySpecification = $props();
@@ -11,6 +11,7 @@
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	$effect(() => {
+		// @ts-expect-error: ignore
 		mapCtx.userSky = $state.snapshot(spec) as maplibregl.SkySpecification;
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setSky(mapCtx.userSky as maplibregl.SkySpecification);

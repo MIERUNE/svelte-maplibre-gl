@@ -1,7 +1,7 @@
 ---
 title: Custom Layer
 description: Use a custom layer to draw simple WebGL content on a globe.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/globe-custom-simple/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/add-a-simple-custom-layer-on-a-globe/
 ---
 
 <script lang="ts">

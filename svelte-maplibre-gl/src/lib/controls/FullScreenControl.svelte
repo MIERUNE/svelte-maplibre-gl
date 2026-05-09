@@ -2,13 +2,15 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/FullscreenControl/
 
 	import { onDestroy } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext } from '../contexts.svelte.js';
 	import { resetEventListener } from '../utils.js';
 	import type { Listener, Event } from '../types.js';
 
 	interface Props extends maplibregl.FullscreenControlOptions {
 		position?: maplibregl.ControlPosition;
+		/** Forces CSS-based pseudo fullscreen mode. Requires maplibre-gl 5.18.0 or later. */
+		pseudo?: boolean;
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/classes/FullscreenControl/#events
 		onfullscreenstart?: Listener<Event<maplibregl.FullscreenControl>>;

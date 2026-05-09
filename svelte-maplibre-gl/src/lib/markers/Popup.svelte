@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
 
 	interface Props extends Omit<maplibregl.PopupOptions, 'className'> {

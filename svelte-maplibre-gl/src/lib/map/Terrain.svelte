@@ -1,8 +1,8 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-style-spec/terrain/
 
-	import maplibregl from 'maplibre-gl';
 	import { onDestroy } from 'svelte';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 
 	interface Props extends Omit<maplibregl.TerrainSpecification, 'source'> {

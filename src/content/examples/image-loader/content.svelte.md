@@ -1,7 +1,7 @@
 ---
 title: Load Images from URLs
 description: Utility for loading images from URLs
-original: https://maplibre.org/maplibre-gl-js/docs/examples/add-image-stretchable/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/add-a-stretchable-image-to-the-map/
 ---
 
 <script lang="ts">

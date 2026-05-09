@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount, untrack } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
 	import { getMapContext } from 'svelte-maplibre-gl';
 

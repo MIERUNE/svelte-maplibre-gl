@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { FillLayer, LineLayer, MapLibre, GeoJSONSource, FeatureState, Popup } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	let hoveredFeature: maplibregl.MapGeoJSONFeature | undefined = $state.raw();
 	let lnglat = $state.raw(new maplibregl.LngLat(0, 0));
 </script>

@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
 
@@ -17,6 +17,7 @@
 		ondrag?: maplibregl.Listener;
 		ondragstart?: maplibregl.Listener;
 		ondragend?: maplibregl.Listener;
+		onclick?: maplibregl.Listener;
 	}
 
 	let container = $state<HTMLElement | null>(null);
@@ -38,6 +39,7 @@
 		ondrag,
 		ondragstart,
 		ondragend,
+		onclick,
 		...restOptions
 	}: Props = $props();
 
@@ -90,6 +92,7 @@
 
 	$effect(() => resetEventListener(marker, 'dragstart', ondragstart));
 	$effect(() => resetEventListener(marker, 'dragend', ondragend));
+	$effect(() => resetEventListener(marker, 'click', onclick));
 
 	$effect(() => {
 		draggable;
