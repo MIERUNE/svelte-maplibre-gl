@@ -183,6 +183,8 @@
 	});
 
 	onDestroy(() => {
+		// Suppress the queued microtask if it hasn't fired yet (rapid mount/unmount).
+		firstRun = false;
 		mapCtx.removeLayer(id);
 	});
 </script>

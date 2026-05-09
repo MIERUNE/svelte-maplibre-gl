@@ -142,6 +142,8 @@
 	});
 
 	onDestroy(() => {
+		// Suppress the queued microtask if it hasn't fired yet (rapid mount/unmount).
+		firstRun = false;
 		mapCtx.removeSource(id);
 		source = undefined;
 	});

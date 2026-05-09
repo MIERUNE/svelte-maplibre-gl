@@ -37,6 +37,8 @@
 	});
 
 	onDestroy(() => {
+		// Suppress the queued microtask if it hasn't fired yet (rapid mount/unmount).
+		firstRun = false;
 		mapCtx.userTerrain = undefined;
 		mapCtx.waitForStyleLoaded((map) => {
 			map.setTerrain(mapCtx.baseTerrain ?? null);
