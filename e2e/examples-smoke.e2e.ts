@@ -23,8 +23,10 @@ test.describe('examples smoke', () => {
 			page.on('pageerror', (err) => errors.push(err.message.split('\n')[0]));
 
 			await page.goto(`/examples/${slug}/`, { waitUntil: 'domcontentloaded' });
-			// Give the map components time to mount, addSource/addLayer etc.
-			await page.waitForTimeout(2000);
+			// Wait for network to settle, but bound the wait so examples that
+			// keep network busy (e.g. animate-images cycles through frames;
+			// especially in CI without warm caches) still proceed.
+			await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
 
 			expect(errors, `pageerrors on /examples/${slug}/`).toEqual([]);
 		});

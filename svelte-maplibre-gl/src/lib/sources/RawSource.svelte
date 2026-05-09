@@ -10,7 +10,6 @@
 		| maplibregl.VectorTileSource
 		| maplibregl.RasterTileSource
 		| maplibregl.RasterDEMTileSource
-		| maplibregl.CanvasSource
 		| maplibregl.ImageSource
 		| maplibregl.VideoSource;
 	type TileSource = maplibregl.VectorTileSource | maplibregl.RasterTileSource | maplibregl.RasterDEMTileSource;
@@ -121,7 +120,7 @@
 		if (source && spec.type === 'geojson') {
 			spec.data;
 			if (!firstRun) {
-				// TODO: support diffrential update ? (updateData)
+				// TODO: support differential update ? (updateData)
 				(source as maplibregl.GeoJSONSource).setData(spec.data);
 			}
 		}

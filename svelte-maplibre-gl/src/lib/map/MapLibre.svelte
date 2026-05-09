@@ -55,7 +55,7 @@
 		class: className = '',
 		inlineStyle = '',
 		children,
-		autoloadGlobalCss: autoloadGlobalCss = true,
+		autoloadGlobalCss: autoloadCss = true,
 
 		// Events
 		// https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapEventType/
@@ -169,7 +169,7 @@
 	}: Props = $props();
 
 	$effect(() => {
-		if (autoloadGlobalCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
+		if (autoloadCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
 			const link = document.createElement('link');
 			link.rel = 'stylesheet';
 			link.href = `https://unpkg.com/maplibre-gl@${maplibregl.getVersion()}/dist/maplibre-gl.css`;
@@ -238,7 +238,7 @@
 			map.setPadding(padding);
 		}
 		if (cursor) {
-			map.getCanvas().style.cursor = cursor ?? '';
+			map.getCanvas().style.cursor = cursor;
 		}
 
 		map.on('move', () => {
@@ -353,7 +353,7 @@
 	$effect(() => {
 		// TODO: differential update ?
 		className;
-		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
+		const classNames = (className ?? '').split(/\s/).filter(Boolean);
 		if (container && !firstRun) {
 			for (const className of classNames) {
 				container.classList.add(className);
@@ -465,11 +465,12 @@
 			}
 
 			if (changed) {
+				const currentMap = map;
 				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
-				const originalStop = map.stop;
-				map.stop = () => map!._stop(true);
-				map?.jumpTo(jumpTo, { reactivity: true });
-				map.stop = originalStop;
+				const originalStop = currentMap.stop;
+				currentMap.stop = () => currentMap._stop(true);
+				currentMap.jumpTo(jumpTo, { reactivity: true });
+				currentMap.stop = originalStop;
 			}
 		}
 	});
@@ -523,8 +524,8 @@
 	});
 	$effect(() => {
 		pixelRatio;
-		if (!firstRun) {
-			map?.setPixelRatio(pixelRatio ?? (null as unknown as number));
+		if (!firstRun && pixelRatio !== undefined) {
+			map?.setPixelRatio(pixelRatio);
 		}
 	});
 	$effect(() => {

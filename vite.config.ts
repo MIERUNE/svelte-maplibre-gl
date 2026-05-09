@@ -6,8 +6,17 @@ import { searchForWorkspaceRoot } from 'vite';
 import { defineConfig } from 'vitest/config';
 
 const require = createRequire(import.meta.url);
-const maplibreVersion = require('maplibre-gl/package.json').version as string;
-const maplibreMajor = Number.parseInt(maplibreVersion, 10);
+const maplibrePkg: unknown = require('maplibre-gl/package.json');
+const maplibreVersion =
+	typeof maplibrePkg === 'object' &&
+	maplibrePkg !== null &&
+	'version' in maplibrePkg &&
+	typeof (maplibrePkg as { version: unknown }).version === 'string'
+		? (maplibrePkg as { version: string }).version
+		: '0';
+const maplibreMajorSegment = maplibreVersion.split('.')[0]?.replace(/^\D+/, '') ?? '';
+const parsedMaplibreMajor = Number.parseInt(maplibreMajorSegment, 10);
+const maplibreMajor = Number.isFinite(parsedMaplibreMajor) ? parsedMaplibreMajor : 0;
 
 export default defineConfig({
 	plugins: [
