@@ -70,7 +70,7 @@
 			}
 
 			// if there is a TileJSON url specified, do not set tiles since
-			// they will be retreived from the TileJSON resource instead
+			// they will be retrieved from the TileJSON resource instead
 			if (spec.url) {
 				return;
 			}
