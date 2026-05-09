@@ -23,8 +23,8 @@ test.describe('examples smoke', () => {
 			page.on('pageerror', (err) => errors.push(err.message.split('\n')[0]));
 
 			await page.goto(`/examples/${slug}/`, { waitUntil: 'domcontentloaded' });
-			// Give the map components time to mount, addSource/addLayer etc.
-			await page.waitForTimeout(2000);
+			// Wait for page activity to settle so map components can mount/add layers.
+			await page.waitForLoadState('networkidle');
 
 			expect(errors, `pageerrors on /examples/${slug}/`).toEqual([]);
 		});
