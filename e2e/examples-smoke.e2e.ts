@@ -17,6 +17,8 @@ const slugs = fs
 // (AJAX errors logged to the console) are not page-level errors and don't
 // fail the test.
 test.describe('examples smoke', () => {
+	test.describe.configure({ mode: 'parallel' });
+
 	for (const slug of slugs) {
 		test(slug, async ({ page }) => {
 			const errors: string[] = [];

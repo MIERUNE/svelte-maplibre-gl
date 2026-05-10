@@ -24,7 +24,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={15}
 	pitch={60}

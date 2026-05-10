@@ -92,10 +92,13 @@
 			tasks.push(
 				(async () => {
 					const image = await mapCtx.map?.loadImage(url);
+					// Bail out if `images` changed in the meantime: either the id
+					// was removed, or the same id was reassigned to a different url.
+					if (loadedImages.get(id) !== url) return;
 					if (mapCtx.map?.getImage(id)) {
 						mapCtx.map?.removeImage(id);
 					}
-					if (image && loadedImages.has(id)) {
+					if (image) {
 						mapCtx.map?.addImage(id, image?.data, options);
 					}
 				})()
@@ -104,7 +107,7 @@
 
 		if (tasks.length > 0) {
 			loading = true;
-			Promise.allSettled([tasks]).then((results) => {
+			Promise.allSettled(tasks).then((results) => {
 				const failures = results.filter((r) => r.status === 'rejected');
 				if (failures.length > 0) {
 					console.error(`${failures.length} images failed to load:`, failures);

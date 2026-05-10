@@ -14,7 +14,7 @@ catalog:
   maplibre-contour: ^0.1.0
   maplibre-gl: 5.24.0
   pmtiles: ^4.4.1
-  publint: ^0.3.19
+  publint: ^0.3.20
   svelte: ^5.55.5
   svelte-check: ^4.4.8
   terra-draw: ^1.30.0

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { FillLayer, LineLayer, MapLibre, GeoJSONSource, FeatureState, Popup } from 'svelte-maplibre-gl';
-	import * as maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
+
 	let hoveredFeature: maplibregl.MapGeoJSONFeature | undefined = $state.raw();
-	let lnglat = $state.raw(new maplibregl.LngLat(0, 0));
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 	zoom={2}
 	center={{ lng: -100.486052, lat: 37.830348 }}
@@ -21,7 +21,6 @@
 			onmousemove={(ev) => {
 				// Listen to mousemove events to track the hovered feature
 				hoveredFeature = ev.features?.[0];
-				lnglat = ev.lngLat; // cursor location
 			}}
 			onmouseleave={() => (hoveredFeature = undefined)}
 		/>
@@ -36,7 +35,7 @@
 		{#if hoveredFeature}
 			<!-- Set the hover state on the source for the hovered feature -->
 			<FeatureState id={hoveredFeature.id} state={{ hover: true }} />
-			<Popup {lnglat} closeButton={false}>{hoveredFeature.properties.STATE_NAME}</Popup>
+			<Popup trackPointer closeButton={false}>{hoveredFeature.properties.STATE_NAME}</Popup>
 		{/if}
 	</GeoJSONSource>
 </MapLibre>

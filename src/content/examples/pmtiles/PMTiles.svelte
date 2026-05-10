@@ -21,7 +21,7 @@
 
 <!-- Use the pmtiles:// protocol -->
 <MapLibre
-	class="h-[55vh] min-h-[200px]"
+	class="h-[55vh] min-h-50"
 	zoom={10}
 	center={[12.484151635086198, 41.8960910478323]}
 	style={{

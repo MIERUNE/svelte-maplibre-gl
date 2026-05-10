@@ -19,6 +19,20 @@ const mdsvexOptions = {
 	extensions: ['.svelte.md', '.svx']
 };
 
+const modernizeModuleScriptSyntax = {
+	name: 'modernize-module-script-syntax',
+	markup({ content }) {
+		const code = content.replace(
+			/<script\b([^>]*)\scontext=(['"])module\2([^>]*)>/g,
+			(_match, before, _quote, after) => `<script${before} module${after}>`
+		);
+
+		if (code === content) return;
+
+		return { code };
+	}
+};
+
 // SvelteKit
 import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
@@ -27,7 +41,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
-	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
+	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions), modernizeModuleScriptSyntax],
 
 	kit: {
 		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.

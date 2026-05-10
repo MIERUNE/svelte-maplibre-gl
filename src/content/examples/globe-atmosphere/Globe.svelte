@@ -18,7 +18,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
 	zoom={1.5}
 	center={{ lng: 155, lat: 45 }}
@@ -29,7 +29,7 @@
 
 	<!-- Control -->
 	<div
-		class="absolute top-3 left-3 z-10 flex min-w-[200px] flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
+		class="absolute top-3 left-3 z-10 flex min-w-50 flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
 		<div class="mb-4 flex flex-col items-center space-y-2 px-2">
 			<label for="theta" class="leading-none">Theta ({thetaDeg})</label>

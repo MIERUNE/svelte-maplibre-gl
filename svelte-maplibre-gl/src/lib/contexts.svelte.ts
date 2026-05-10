@@ -1,6 +1,7 @@
 import type {
 	AddLayerObject,
 	CanvasSourceSpecification,
+	LayerSpecification,
 	LightSpecification,
 	Map as MapLibre,
 	Marker,
@@ -136,8 +137,69 @@ class MapContext {
 		}
 	}
 
+	private _mergeUserLayers(previousLayers: LayerSpecification[], nextLayers: LayerSpecification[]) {
+		const userLayerIds = new Set(
+			previousLayers.filter((layer) => this.userLayers.has(layer.id)).map((layer) => layer.id)
+		);
+		if (userLayerIds.size === 0) {
+			return nextLayers;
+		}
+
+		// User layer IDs are owned by Svelte components. If the next base style
+		// contains the same ID, keep the user layer to avoid duplicate layer IDs.
+		const baseLayers = nextLayers.filter((layer) => !userLayerIds.has(layer.id));
+		const baseLayerIds = new Set(baseLayers.map((layer) => layer.id));
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const userLayersByAnchor = new Map<string, LayerSpecification[]>();
+		const trailingUserLayers: LayerSpecification[] = [];
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const anchorByUserLayerId = new Map<string, string>();
+
+		// addLayer(layer, beforeId) puts the user layer before the target in
+		// the style array, so the target is the following non-user layer.
+		let followingBaseLayerId: string | undefined;
+		for (let i = previousLayers.length - 1; i >= 0; i--) {
+			const layer = previousLayers[i];
+			if (userLayerIds.has(layer.id)) {
+				if (followingBaseLayerId) {
+					anchorByUserLayerId.set(layer.id, followingBaseLayerId);
+				}
+			} else if (baseLayerIds.has(layer.id)) {
+				followingBaseLayerId = layer.id;
+			}
+		}
+
+		for (const layer of previousLayers) {
+			if (!userLayerIds.has(layer.id)) {
+				continue;
+			}
+
+			const anchorId = anchorByUserLayerId.get(layer.id);
+
+			if (anchorId) {
+				const layers = userLayersByAnchor.get(anchorId) ?? [];
+				layers.push(layer);
+				userLayersByAnchor.set(anchorId, layers);
+			} else {
+				trailingUserLayers.push(layer);
+			}
+		}
+
+		const layers: LayerSpecification[] = [];
+		for (const layer of baseLayers) {
+			const userLayers = userLayersByAnchor.get(layer.id);
+			if (userLayers) {
+				layers.push(...userLayers);
+			}
+			layers.push(layer);
+		}
+		layers.push(...trailingUserLayers);
+
+		return layers;
+	}
+
 	setStyle(style: string | StyleSpecification | null) {
-		const { userSources: addedSources, userLayers: addedLayers } = this;
+		const { userSources: addedSources } = this;
 		if (!style) {
 			this.map?.setStyle(null);
 			return;
@@ -162,8 +224,7 @@ class MapContext {
 					}
 				}
 
-				const userLayers = previous.layers!.filter((layer) => addedLayers.has(layer.id));
-				const layers = [...next.layers!, ...userLayers];
+				const layers = this._mergeUserLayers(previous.layers ?? [], next.layers ?? []);
 
 				return {
 					...next,
