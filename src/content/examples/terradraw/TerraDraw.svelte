@@ -106,7 +106,7 @@
 			<button
 				type="button"
 				aria-label="Remove selected feature"
-				class="mt-1 inline-flex h-7 items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-2.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive/20"
+				class="mt-1 inline-flex h-7 items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-2.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive/20 dark:border-red-400/40 dark:bg-red-400/15 dark:text-red-200 dark:hover:bg-red-400/25"
 				onclick={() => {
 					if (!selected) return;
 					draw?.removeFeatures([selected]);

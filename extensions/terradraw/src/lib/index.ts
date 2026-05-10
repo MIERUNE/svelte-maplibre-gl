@@ -1,6 +1,6 @@
 export { default as TerraDraw } from './TerraDraw.svelte';
 
-import type { TerraDrawModeUndoRedo, TerraDrawSessionUndoRedo, TerraDrawUndoRedoKeyboardShortcuts } from 'terra-draw';
+import { TerraDrawModeUndoRedo, TerraDrawSessionUndoRedo, TerraDrawUndoRedoKeyboardShortcuts } from 'terra-draw';
 
 export type UndoRedoOptions = {
 	sessionLevel?: ConstructorParameters<typeof TerraDrawSessionUndoRedo>[0];
