@@ -1,7 +1,7 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-style-spec/terrain/
 
-	import { onDestroy } from 'svelte';
+	import { onDestroy, untrack } from 'svelte';
 	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext } from '../contexts.svelte.js';
 
@@ -15,9 +15,10 @@
 
 	// Get source id from source context or props
 	const sourceId = $derived(source ?? getSourceContext().id);
+	const getTerrain = () => $state.snapshot({ ...spec, source: sourceId }) as maplibregl.TerrainSpecification;
 
 	let firstRun = true;
-	mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
+	mapCtx.userTerrain = untrack(getTerrain);
 	queueMicrotask(() => {
 		if (!firstRun) return;
 		firstRun = false;
@@ -27,8 +28,7 @@
 	});
 
 	$effect(() => {
-		spec.exaggeration;
-		mapCtx.userTerrain = $state.snapshot({ ...spec, source: sourceId });
+		mapCtx.userTerrain = getTerrain();
 		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
 				map.setTerrain(mapCtx.userTerrain || null);

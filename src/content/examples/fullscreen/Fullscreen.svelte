@@ -8,7 +8,7 @@
 </script>
 
 <MapLibre
-	class="relative h-[55vh] min-h-[300px] border-8 border-slate-500"
+	class="relative h-[55vh] min-h-75 border-8 border-slate-500"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 >
 	<div

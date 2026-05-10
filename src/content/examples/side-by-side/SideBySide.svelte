@@ -45,7 +45,7 @@
 </div>
 
 <div
-	class="relative flex h-[55vh] min-h-[300px] flex-row-reverse"
+	class="relative flex h-[55vh] min-h-75 flex-row-reverse"
 	use:ro
 	role="application"
 	onmousemove={(ev) => (point = { x: ev.offsetX, y: ev.offsetY })}

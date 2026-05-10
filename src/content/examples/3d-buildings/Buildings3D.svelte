@@ -24,7 +24,7 @@
 </div>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style={STYLE_URLS[baseStyle]}
 	zoom={14.5}
 	pitch={70}

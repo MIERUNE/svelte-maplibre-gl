@@ -1,14 +1,91 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/
 
-	import { onDestroy, type Snippet } from 'svelte';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import * as maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
 
-	type MapEventProps = {
-		[K in keyof maplibregl.MapEventType as `on${K}`]?: (ev: maplibregl.MapEventType[K]) => void;
+	type RollEvent = maplibregl.MapLibreEvent<MouseEvent | TouchEvent | undefined>;
+	type RollEventType = {
+		rollstart: RollEvent;
+		roll: RollEvent;
+		rollend: RollEvent;
 	};
+	type SupportedMapEventType = maplibregl.MapEventType & RollEventType;
+	type MapEventName = keyof SupportedMapEventType;
+	type MapEventHandlerName = `on${MapEventName}`;
+	type MapEventProps = {
+		[K in keyof SupportedMapEventType as `on${K}`]?: (ev: SupportedMapEventType[K]) => void;
+	};
+
+	const mapEventNames = [
+		'boxzoomcancel',
+		'boxzoomend',
+		'boxzoomstart',
+		'click',
+		'contextmenu',
+		'cooperativegestureprevented',
+		'data',
+		'dataabort',
+		'dataloading',
+		'dblclick',
+		'drag',
+		'dragend',
+		'dragstart',
+		'error',
+		'idle',
+		'load',
+		'mousedown',
+		'mousemove',
+		'mouseout',
+		'mouseover',
+		'mouseup',
+		'move',
+		'moveend',
+		'movestart',
+		'pitch',
+		'pitchend',
+		'pitchstart',
+		'projectiontransition',
+		'remove',
+		'render',
+		'resize',
+		'rotate',
+		'rotateend',
+		'rotatestart',
+		'rollstart',
+		'roll',
+		'rollend',
+		'sourcedata',
+		'sourcedataabort',
+		'sourcedataloading',
+		'styledata',
+		'styledataloading',
+		'styleimagemissing',
+		'terrain',
+		'tiledataloading',
+		'touchcancel',
+		'touchend',
+		'touchmove',
+		'touchstart',
+		'webglcontextlost',
+		'webglcontextrestored',
+		'wheel',
+		'zoom',
+		'zoomend',
+		'zoomstart'
+	] as const satisfies readonly MapEventName[];
+
+	type Assert<T extends true> = T;
+	type MissingMapEventName = Exclude<MapEventName, (typeof mapEventNames)[number]>;
+	type _MapEventNamesAreExhaustive = Assert<MissingMapEventName extends never ? true : false>;
+
+	const mapEventNameSet = new Set<string>(mapEventNames);
+
+	function isMapEventHandlerName(name: string): name is MapEventHandlerName {
+		return name.startsWith('on') && mapEventNameSet.has(name.slice(2));
+	}
 
 	interface Props extends Omit<maplibregl.MapOptions, 'container'>, MapEventProps {
 		/**
@@ -56,61 +133,6 @@
 		inlineStyle = '',
 		children,
 		autoloadGlobalCss: autoloadCss = true,
-
-		// Events
-		// https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapEventType/
-		onerror,
-		onload,
-		onidle,
-		onremove,
-		onrender,
-		onresize,
-		onwebglcontextlost,
-		onwebglcontextrestored,
-		ondataloading,
-		ondata,
-		ontiledataloading,
-		onsourcedataloading,
-		onstyledataloading,
-		onsourcedata,
-		onstyledata,
-		onstyleimagemissing,
-		ondataabort,
-		onsourcedataabort,
-		onboxzoomcancel,
-		onboxzoomstart,
-		onboxzoomend,
-		ontouchcancel,
-		ontouchmove,
-		ontouchend,
-		ontouchstart,
-		onclick,
-		oncontextmenu,
-		ondblclick,
-		onmousemove,
-		onmouseup,
-		onmousedown,
-		onmouseout,
-		onmouseover,
-		onmovestart,
-		onmove,
-		onmoveend,
-		onzoomstart,
-		onzoom,
-		onzoomend,
-		onrotatestart,
-		onrotate,
-		onrotateend,
-		ondragstart,
-		ondrag,
-		ondragend,
-		onpitchstart,
-		onpitch,
-		onpitchend,
-		onwheel,
-		onterrain,
-		oncooperativegestureprevented,
-		onprojectiontransition,
 
 		// Others
 		padding = $bindable(undefined),
@@ -167,6 +189,7 @@
 		// Map Options (others)
 		...restOptions
 	}: Props = $props();
+	const initialClassName = untrack(() => className);
 
 	$effect(() => {
 		if (autoloadCss && globalThis.window && !document.querySelector('link[href$="/maplibre-gl.css"]')) {
@@ -227,7 +250,7 @@
 					...restOptions
 
 					// filter out undefined values
-				}).filter(([, v]) => v !== undefined)
+				}).filter(([k, v]) => v !== undefined && !isMapEventHandlerName(k))
 			)
 		};
 
@@ -275,97 +298,65 @@
 		});
 	});
 
-	let prevGlobalStateKeys: string[] = [];
+	let prevGlobalState = new Map<string, unknown>();
 	$effect(() => {
 		if (!mapCtx.map) {
 			return;
 		}
-		const newKeys = new Set(Object.keys(globalState));
-		mapCtx.waitForStyleLoaded((map) => {
-			for (const key of prevGlobalStateKeys) {
-				if (!newKeys.has(key)) {
-					map.setGlobalStateProperty(key, null);
+
+		const nextEntries = Object.entries($state.snapshot(globalState) as Record<string, unknown>);
+		const nextKeys = new Set(nextEntries.map(([key]) => key));
+		const abortController = new AbortController();
+
+		mapCtx.waitForStyleLoaded(
+			(map) => {
+				for (const key of prevGlobalState.keys()) {
+					if (!nextKeys.has(key)) {
+						map.setGlobalStateProperty(key, null);
+					}
 				}
-			}
-			for (const key of newKeys) {
-				map.setGlobalStateProperty(key, globalState![key]);
-			}
-		});
-		prevGlobalStateKeys = Array.from(newKeys);
+				for (const [key, value] of nextEntries) {
+					if (!prevGlobalState.has(key) || prevGlobalState.get(key) !== value) {
+						map.setGlobalStateProperty(key, value);
+					}
+				}
+				prevGlobalState = new Map(nextEntries);
+			},
+			{ signal: abortController.signal }
+		);
+
+		return () => abortController.abort();
 	});
 
 	// Events
-	$effect(() => resetEventListener(map, 'boxzoomcancel', onboxzoomcancel));
-	$effect(() => resetEventListener(map, 'boxzoomend', onboxzoomend));
-	$effect(() => resetEventListener(map, 'boxzoomstart', onboxzoomstart));
-	$effect(() => resetEventListener(map, 'click', onclick));
-	$effect(() => resetEventListener(map, 'contextmenu', oncontextmenu));
-	$effect(() => resetEventListener(map, 'cooperativegestureprevented', oncooperativegestureprevented));
-	$effect(() => resetEventListener(map, 'data', ondata));
-	$effect(() => resetEventListener(map, 'dataabort', ondataabort));
-	$effect(() => resetEventListener(map, 'dataloading', ondataloading));
-	$effect(() => resetEventListener(map, 'dblclick', ondblclick));
-	$effect(() => resetEventListener(map, 'drag', ondrag));
-	$effect(() => resetEventListener(map, 'dragend', ondragend));
-	$effect(() => resetEventListener(map, 'dragstart', ondragstart));
-	$effect(() => resetEventListener(map, 'error', onerror));
-	$effect(() => resetEventListener(map, 'idle', onidle));
-	$effect(() => resetEventListener(map, 'load', onload));
-	$effect(() => resetEventListener(map, 'mousedown', onmousedown));
-	$effect(() => resetEventListener(map, 'mousemove', onmousemove));
-	$effect(() => resetEventListener(map, 'mouseout', onmouseout));
-	$effect(() => resetEventListener(map, 'mouseover', onmouseover));
-	$effect(() => resetEventListener(map, 'mouseup', onmouseup));
-	$effect(() => resetEventListener(map, 'move', onmove));
-	$effect(() => resetEventListener(map, 'moveend', onmoveend));
-	$effect(() => resetEventListener(map, 'movestart', onmovestart));
-	$effect(() => resetEventListener(map, 'pitch', onpitch));
-	$effect(() => resetEventListener(map, 'pitchend', onpitchend));
-	$effect(() => resetEventListener(map, 'pitchstart', onpitchstart));
-	$effect(() => resetEventListener(map, 'projectiontransition', onprojectiontransition));
-	$effect(() => resetEventListener(map, 'remove', onremove));
-	$effect(() => resetEventListener(map, 'render', onrender));
-	$effect(() => resetEventListener(map, 'resize', onresize));
-	$effect(() => resetEventListener(map, 'rotate', onrotate));
-	$effect(() => resetEventListener(map, 'rotateend', onrotateend));
-	$effect(() => resetEventListener(map, 'rotatestart', onrotatestart));
-	$effect(() => resetEventListener(map, 'sourcedata', onsourcedata));
-	$effect(() => resetEventListener(map, 'sourcedataabort', onsourcedataabort));
-	$effect(() => resetEventListener(map, 'sourcedataloading', onsourcedataloading));
-	$effect(() => resetEventListener(map, 'styledata', onstyledata));
-	$effect(() => resetEventListener(map, 'styledataloading', onstyledataloading));
-	$effect(() => resetEventListener(map, 'styleimagemissing', onstyleimagemissing));
-	$effect(() => resetEventListener(map, 'terrain', onterrain));
-	$effect(() => resetEventListener(map, 'tiledataloading', ontiledataloading));
-	$effect(() => resetEventListener(map, 'touchcancel', ontouchcancel));
-	$effect(() => resetEventListener(map, 'touchend', ontouchend));
-	$effect(() => resetEventListener(map, 'touchmove', ontouchmove));
-	$effect(() => resetEventListener(map, 'touchstart', ontouchstart));
-	$effect(() => resetEventListener(map, 'webglcontextlost', onwebglcontextlost));
-	$effect(() => resetEventListener(map, 'webglcontextrestored', onwebglcontextrestored));
-	$effect(() => resetEventListener(map, 'wheel', onwheel));
-	$effect(() => resetEventListener(map, 'zoom', onzoom));
-	$effect(() => resetEventListener(map, 'zoomend', onzoomend));
-	$effect(() => resetEventListener(map, 'zoomstart', onzoomstart));
+	function registerMapEventListener(type: MapEventName) {
+		$effect(() =>
+			resetEventListener(map, type, restOptions[`on${type}` as MapEventHandlerName] as maplibregl.Listener | undefined)
+		);
+	}
+	mapEventNames.forEach(registerMapEventListener);
 
 	let firstRun = true;
 
+	let prevClassNames = initialClassName.split(/\s+/).filter(Boolean);
 	$effect(() => {
-		// TODO: differential update ?
-		className;
-		const classNames = (className ?? '').split(/\s/).filter(Boolean);
-		if (container && !firstRun) {
-			for (const className of classNames) {
-				container.classList.add(className);
-			}
+		const next = (className ?? '').split(/\s+/).filter(Boolean);
+		if (!container || firstRun) {
+			prevClassNames = next;
+			return;
 		}
-		return () => {
-			if (container) {
-				for (const className of classNames) {
-					container.classList.remove(className);
-				}
-			}
-		};
+
+		const nextSet = new Set(next);
+		for (const className of prevClassNames) {
+			if (!nextSet.has(className)) container.classList.remove(className);
+		}
+
+		const prevSet = new Set(prevClassNames);
+		for (const className of next) {
+			if (!prevSet.has(className)) container.classList.add(className);
+		}
+
+		prevClassNames = next;
 	});
 
 	// Others
@@ -628,7 +619,7 @@
 	});
 </script>
 
-<div class={className} style={inlineStyle} bind:this={container}>
+<div class={initialClassName} style={inlineStyle} bind:this={container}>
 	{#if map}
 		{@render children?.(map)}
 	{/if}

@@ -13,7 +13,10 @@
 		children?: Snippet;
 	}
 	let { position, control: givenControl, class: className, group = true, children }: Props = $props();
-	if (!givenControl && !children) throw new Error('You must provide either control or children.');
+	const hasGivenControl = $derived.by(() => {
+		if (!givenControl && !children) throw new Error('You must provide either control or children.');
+		return !!givenControl;
+	});
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
@@ -21,7 +24,7 @@
 	let el: HTMLDivElement | undefined = $state();
 
 	let control = $derived.by(() => {
-		if (givenControl) {
+		if (hasGivenControl) {
 			return givenControl;
 		}
 
@@ -45,7 +48,7 @@
 	});
 </script>
 
-{#if !givenControl}
+{#if !hasGivenControl}
 	<div bind:this={el} class={`maplibregl-ctrl ${className}`} class:maplibregl-ctrl-group={group}>
 		{@render children?.()}
 	</div>

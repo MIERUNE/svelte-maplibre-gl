@@ -1,7 +1,7 @@
 <script lang="ts">
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/
 
-	import { onDestroy, type Snippet } from 'svelte';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareMarkerContext } from '../contexts.svelte.js';
 	import { formatLngLat, resetEventListener } from '../utils.js';
@@ -49,6 +49,7 @@
 	let marker: maplibregl.Marker | null = $state.raw(null);
 
 	const markerCtx = prepareMarkerContext();
+	const defaultOffset = untrack(() => (content || restOptions.element ? [0, 0] : [0, -14]) as maplibregl.PointLike);
 
 	$effect(() => {
 		if (marker) {
@@ -115,8 +116,9 @@
 	});
 
 	$effect(() => {
-		if (offset && !firstRun) {
-			marker?.setOffset(offset);
+		offset;
+		if (!firstRun) {
+			marker?.setOffset(offset ?? defaultOffset);
 		}
 	});
 	$effect(() => {
@@ -127,36 +129,42 @@
 		}
 	});
 	$effect(() => {
-		if (rotationAlignment && !firstRun) {
+		rotationAlignment;
+		if (!firstRun) {
 			marker?.setRotationAlignment(rotationAlignment);
 		}
 	});
 	$effect(() => {
-		if (pitchAlignment && !firstRun) {
+		pitchAlignment;
+		if (!firstRun) {
 			marker?.setPitchAlignment(pitchAlignment);
 		}
 	});
 	$effect(() => {
-		if (subpixelPositioning !== undefined && !firstRun) {
-			marker?.setSubpixelPositioning(subpixelPositioning);
+		subpixelPositioning;
+		if (!firstRun) {
+			marker?.setSubpixelPositioning(subpixelPositioning ?? false);
 		}
 	});
 
+	let prevClassNames: string[] = [];
 	$effect(() => {
-		// TODO: differential update ?
-		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
-		if (marker && !firstRun) {
-			for (const className of classNames) {
-				marker.addClassName(className);
-			}
+		const next = (className ?? '').split(/\s+/).filter(Boolean);
+		if (!marker || firstRun) {
+			// Initial classes are added by the Marker constructor via
+			// MarkerOptions.className; record them so later diffs are correct.
+			prevClassNames = next;
+			return;
 		}
-		return () => {
-			if (marker) {
-				for (const className of classNames) {
-					marker.removeClassName(className);
-				}
-			}
-		};
+		const nextSet = new Set(next);
+		for (const c of prevClassNames) {
+			if (!nextSet.has(c)) marker.removeClassName(c);
+		}
+		const prevSet = new Set(prevClassNames);
+		for (const c of next) {
+			if (!prevSet.has(c)) marker.addClassName(c);
+		}
+		prevClassNames = next;
 	});
 
 	$effect(() => {

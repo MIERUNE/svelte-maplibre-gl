@@ -35,6 +35,8 @@
 		) {
 			mapCtx.map?.removeImage(prevId);
 			prevId = id;
+			// We just removed it, so the new id has no existing image to update.
+			prevImage = undefined;
 		}
 
 		if (!prevImage) {

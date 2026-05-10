@@ -110,9 +110,10 @@
 	$effect(() => {
 		if (spec.type === 'canvas') {
 			spec.animate;
-			if (source && spec.animate !== undefined && !firstRun) {
+			if (source && !firstRun) {
 				const cs = source as maplibregl.CanvasSource;
-				spec.animate ? cs.play() : cs.pause();
+				cs.animate = spec.animate ?? true;
+				cs.animate ? cs.play() : cs.pause();
 			}
 		}
 	});

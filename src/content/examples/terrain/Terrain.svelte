@@ -44,7 +44,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={12}
 	pitch={72}
@@ -112,8 +112,8 @@
 					</select>
 				</div>
 				<div class="mb-1 flex items-center justify-between space-x-2">
-					<Label for="shadow-sm" class="leading-none">Shadow</Label>
-					<input type="color" id="shadow-sm" bind:value={shadowColor} />
+					<Label for="shadow-color" class="leading-none">Shadow</Label>
+					<input type="color" id="shadow-color" bind:value={shadowColor} />
 				</div>
 				{#if hillshadeMethod === 'standard'}
 					<div class="mb-1 flex items-center justify-between space-x-2">

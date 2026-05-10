@@ -30,7 +30,7 @@
 
 <MapLibre
 	style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	zoom={10}
 	center={[139.7, 35.7]}
 	maxPitch={85}

@@ -53,7 +53,7 @@
 	const layerCtx = prepareLayerContext();
 	layerCtx.id = id;
 
-	const addLayerObj = untrack(() => {
+	function createLayerObject(minzoom: number | undefined, maxzoom: number | undefined) {
 		const layer = {
 			id,
 			type,
@@ -85,7 +85,24 @@
 		}
 
 		return layer;
-	});
+	}
+
+	const addLayerObj = untrack(() => createLayerObject(minzoom, maxzoom));
+	const defaultMinzoom = 0;
+	const defaultMaxzoom = 24;
+
+	function setLayerZoomRange(map: maplibregl.Map, minzoom: number | undefined, maxzoom: number | undefined) {
+		const layer = map.getLayer(id);
+		if (!layer) {
+			return;
+		}
+
+		const nextMinzoom = minzoom ?? defaultMinzoom;
+		const nextMaxzoom = maxzoom ?? defaultMaxzoom;
+		if (layer.minzoom !== nextMinzoom || layer.maxzoom !== nextMaxzoom) {
+			map.setLayerZoomRange(id, nextMinzoom, nextMaxzoom);
+		}
+	}
 
 	// Defer addLayer to a microtask so:
 	//  1. markup order (top-down script body execution) is preserved across
@@ -158,9 +175,11 @@
 	});
 
 	$effect(() => {
-		if ((minzoom !== undefined || maxzoom !== undefined) && !firstRun) {
+		minzoom;
+		maxzoom;
+		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
-				map.setLayerZoomRange(id, minzoom ?? 0, maxzoom ?? 22);
+				setLayerZoomRange(map, minzoom, maxzoom);
 			});
 		}
 	});
@@ -175,11 +194,11 @@
 	});
 
 	$effect(() => {
-		if (beforeId && !firstRun) {
-			mapCtx.waitForStyleLoaded((map) => {
-				map.moveLayer(id, beforeId);
-			});
-		}
+		beforeId;
+		if (firstRun) return;
+		mapCtx.waitForStyleLoaded((map) => {
+			map.moveLayer(id, beforeId);
+		});
 	});
 
 	onDestroy(() => {

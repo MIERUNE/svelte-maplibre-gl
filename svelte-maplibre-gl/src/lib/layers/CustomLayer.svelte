@@ -49,9 +49,10 @@
 	});
 
 	let firstRun = true;
-	mapCtx.waitForStyleLoaded(() => {
-		mapCtx.addLayer(customLayer, beforeId);
-	});
+	mapCtx.addLayer(
+		customLayer,
+		untrack(() => beforeId)
+	);
 
 	$effect(() => resetLayerEventListener(mapCtx.map, 'click', id, onclick));
 	$effect(() => resetLayerEventListener(mapCtx.map, 'dblclick', id, ondblclick));
@@ -68,11 +69,11 @@
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchcancel', id, ontouchcancel));
 
 	$effect(() => {
-		if (beforeId && !firstRun) {
-			mapCtx.waitForStyleLoaded((map) => {
-				map.moveLayer(id, beforeId);
-			});
-		}
+		beforeId;
+		if (firstRun) return;
+		mapCtx.waitForStyleLoaded((map) => {
+			map.moveLayer(id, beforeId);
+		});
 	});
 
 	$effect(() => {
