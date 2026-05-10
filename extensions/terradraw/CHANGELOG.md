@@ -1,5 +1,11 @@
 # @svelte-maplibre-gl/terradraw
 
+## 2.1.0
+
+### Minor Changes
+
+- 5ca5132: Add undo/redo support to the TerraDraw component with configurable mode-level, session-level, and keyboard shortcut options. Expose TerraDraw history events through the `onhistory` callback for updating custom undo/redo controls.
+
 ## 2.0.0
 
 ### Minor Changes
