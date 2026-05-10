@@ -275,7 +275,7 @@ importers:
         specifier: 'catalog:'
         version: 4.4.8(picomatch@4.0.4)(svelte@5.55.5(@typescript-eslint/types@8.59.2))(typescript@6.0.3)
       svelte-maplibre-gl:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../svelte-maplibre-gl
       typescript:
         specifier: 'catalog:'
@@ -317,7 +317,7 @@ importers:
         specifier: 'catalog:'
         version: 4.4.8(picomatch@4.0.4)(svelte@5.55.5(@typescript-eslint/types@8.59.2))(typescript@6.0.3)
       svelte-maplibre-gl:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../svelte-maplibre-gl
       typescript:
         specifier: 'catalog:'
@@ -353,7 +353,7 @@ importers:
         specifier: 'catalog:'
         version: 4.4.8(picomatch@4.0.4)(svelte@5.55.5(@typescript-eslint/types@8.59.2))(typescript@6.0.3)
       svelte-maplibre-gl:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../svelte-maplibre-gl
       typescript:
         specifier: 'catalog:'
@@ -386,7 +386,7 @@ importers:
         specifier: 'catalog:'
         version: 4.4.8(picomatch@4.0.4)(svelte@5.55.5(@typescript-eslint/types@8.59.2))(typescript@6.0.3)
       svelte-maplibre-gl:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../svelte-maplibre-gl
       terra-draw:
         specifier: 'catalog:'
