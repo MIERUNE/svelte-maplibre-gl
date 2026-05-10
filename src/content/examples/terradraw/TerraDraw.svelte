@@ -56,38 +56,14 @@
 	let selected: string | number | null = $state(null);
 	let draw: Draw | undefined = $state.raw();
 	let undoRedo: UndoRedoOptions = {
-		keyboardShortcuts: {
-			undo: [
-				{
-					key: 'z',
-					heldKeys: ['meta'] // meta in Mac = ctrl in Windows
-				}
-			],
-			redo: [
-				{
-					key: 'z',
-					heldKeys: ['meta', 'shift'] // meta in Mac = ctrl in Windows
-				}
-			]
-		}
+		// Enable mode/session history with a bounded stack.
+		modeLevel: { maxStackSize: 100 },
+		sessionLevel: { maxStackSize: 100 },
+		// Enable TerraDraw's default keyboard shortcuts.
+		keyboardShortcuts: {}
 	};
 	let terraDrawUndoSize: number = $state(0);
 	let terraDrawRedoSize: number = $state(0);
-
-	$effect(() => {
-		if (!draw) return;
-
-		const handleHistory = ({ undoSize, redoSize }: { undoSize: number; redoSize: number }) => {
-			terraDrawUndoSize = undoSize;
-			terraDrawRedoSize = redoSize;
-		};
-
-		draw?.on('history', handleHistory);
-
-		return () => {
-			draw?.off('history', handleHistory);
-		};
-	});
 </script>
 
 <MapLibre
@@ -103,54 +79,71 @@
 		bind:draw
 		onselect={(featureId) => (selected = featureId)}
 		ondeselect={() => (selected = null)}
-		onfinish={() => (mode = 'select')}
+		onhistory={({ undoSize, redoSize }) => {
+			terraDrawUndoSize = undoSize;
+			terraDrawRedoSize = redoSize;
+		}}
 		{undoRedo}
 	/>
 
 	<!-- Draw controls -->
 	<div
+		role="group"
+		aria-label="Draw controls"
 		class="absolute top-3 left-3 z-10 flex flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
-		{#each modeNames as modeName (modeName)}
-			<label><input type="radio" bind:group={mode} value={modeName} class="mr-1" /> {modeName}</label>
-		{/each}
+			{#each modeNames as modeName (modeName)}
+				<button
+					type="button"
+					aria-pressed={mode === modeName}
+					class="inline-flex h-7 items-center justify-start rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground"
+					onclick={() => (mode = modeName)}
+				>
+					{modeName}
+				</button>
+			{/each}
 		{#if selected}
 			<button
-				class="mt-1 rounded border px-1"
+				type="button"
+				aria-label="Remove selected feature"
+				class="mt-1 inline-flex h-7 items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-2.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive/20"
 				onclick={() => {
 					if (!selected) return;
 					draw?.removeFeatures([selected]);
-					draw?.deselectFeature(selected);
-				}}>Remove</button
-			>
-		{/if}
+						draw?.deselectFeature(selected);
+					}}>Remove</button>
+			{/if}
 	</div>
 
 	<!-- Undo Redo Controls -->
 	{#if undoRedo}
 		<div class="absolute top-3 left-1/2 -translate-x-1/2 z-10 flex justify-center mx-auto">
 			<div
+				role="group"
+				aria-label="Undo and redo controls"
 				class="inline-flex items-center gap-1 rounded-lg border border-border/40 bg-background/80 p-1.5 backdrop-blur-sm"
 			>
-				<button
-					onclick={() => draw?.undo()}
-					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-					disabled={terraDrawUndoSize === 0}
-				>
-					<RotateCcw class="w-3" />
-					Undo
-				</button>
+					<button
+						type="button"
+						onclick={() => draw?.undo()}
+						class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+						disabled={terraDrawUndoSize === 0}
+					>
+						<RotateCcw class="w-3" />
+						Undo
+					</button>
 
-				<button
-					onclick={() => draw?.redo()}
-					class="inline-flex items-center gap-1.5 rounded-md border border-border/30 px-2.5 py-1.5 text-xs text-foreground transition-opacity hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-					disabled={terraDrawRedoSize === 0}
-				>
-					Redo
-					<RotateCw class="w-3" />
-				</button>
+					<button
+						type="button"
+						onclick={() => draw?.redo()}
+						class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+						disabled={terraDrawRedoSize === 0}
+					>
+						Redo
+						<RotateCw class="w-3" />
+					</button>
+				</div>
 			</div>
-		</div>
 	{/if}
 
 	<GlobeControl />

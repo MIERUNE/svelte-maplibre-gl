@@ -25,7 +25,8 @@
 		onchange,
 		onready,
 		onselect,
-		ondeselect
+		ondeselect,
+		onhistory
 	}: {
 		mode: string;
 		modes: ConstructorParameters<typeof Draw>[0]['modes'];
@@ -39,6 +40,7 @@
 		onready?: TerraDrawEventListeners['ready'];
 		onselect?: TerraDrawEventListeners['select'];
 		ondeselect?: TerraDrawEventListeners['deselect'];
+		onhistory?: TerraDrawEventListeners['history'];
 	} = $props();
 
 	let destroyed = false;
@@ -56,17 +58,10 @@
 			tracked,
 			undoRedo: undoRedo
 				? {
-						modeLevel: new TerraDrawModeUndoRedo({
-							maxStackSize: undoRedo?.modeLevel?.maxStackSize ?? 100
-						}),
-						sessionLevel: new TerraDrawSessionUndoRedo({
-							maxStackSize: undoRedo?.sessionLevel?.maxStackSize ?? 100
-						}),
+						modeLevel: undoRedo.modeLevel ? new TerraDrawModeUndoRedo(undoRedo.modeLevel) : undefined,
+						sessionLevel: undoRedo.sessionLevel ? new TerraDrawSessionUndoRedo(undoRedo.sessionLevel) : undefined,
 						keyboardShortcuts: undoRedo.keyboardShortcuts
-							? new TerraDrawUndoRedoKeyboardShortcuts({
-									undo: undoRedo.keyboardShortcuts.undo,
-									redo: undoRedo.keyboardShortcuts.redo
-								})
+							? new TerraDrawUndoRedoKeyboardShortcuts(undoRedo.keyboardShortcuts)
 							: undefined
 					}
 				: undefined
@@ -113,5 +108,11 @@
 		if (!instance || !ondeselect) return;
 		instance.on('deselect', ondeselect);
 		return () => instance.off('deselect', ondeselect);
+	});
+	$effect(() => {
+		const instance = draw;
+		if (!instance || !onhistory) return;
+		instance.on('history', onhistory);
+		return () => instance.off('history', onhistory);
 	});
 </script>
