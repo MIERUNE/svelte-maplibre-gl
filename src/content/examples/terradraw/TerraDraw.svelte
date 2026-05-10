@@ -92,16 +92,16 @@
 		aria-label="Draw controls"
 		class="absolute top-3 left-3 z-10 flex flex-col items-stretch gap-1 rounded bg-background/60 p-3 text-sm backdrop-blur-sm"
 	>
-			{#each modeNames as modeName (modeName)}
-				<button
-					type="button"
-					aria-pressed={mode === modeName}
-					class="inline-flex h-7 items-center justify-start rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground"
-					onclick={() => (mode = modeName)}
-				>
-					{modeName}
-				</button>
-			{/each}
+		{#each modeNames as modeName (modeName)}
+			<button
+				type="button"
+				aria-pressed={mode === modeName}
+				class="inline-flex h-7 items-center justify-start rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground"
+				onclick={() => (mode = modeName)}
+			>
+				{modeName}
+			</button>
+		{/each}
 		{#if selected}
 			<button
 				type="button"
@@ -110,9 +110,10 @@
 				onclick={() => {
 					if (!selected) return;
 					draw?.removeFeatures([selected]);
-						draw?.deselectFeature(selected);
-					}}>Remove</button>
-			{/if}
+					draw?.deselectFeature(selected);
+				}}>Remove</button
+			>
+		{/if}
 	</div>
 
 	<!-- Undo Redo Controls -->
@@ -123,27 +124,27 @@
 				aria-label="Undo and redo controls"
 				class="inline-flex items-center gap-1 rounded-lg border border-border/40 bg-background/80 p-1.5 backdrop-blur-sm"
 			>
-					<button
-						type="button"
-						onclick={() => draw?.undo()}
-						class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
-						disabled={terraDrawUndoSize === 0}
-					>
-						<RotateCcw class="w-3" />
-						Undo
-					</button>
+				<button
+					type="button"
+					onclick={() => draw?.undo()}
+					class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+					disabled={terraDrawUndoSize === 0}
+				>
+					<RotateCcw class="w-3" />
+					Undo
+				</button>
 
-					<button
-						type="button"
-						onclick={() => draw?.redo()}
-						class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
-						disabled={terraDrawRedoSize === 0}
-					>
-						Redo
-						<RotateCw class="w-3" />
-					</button>
-				</div>
+				<button
+					type="button"
+					onclick={() => draw?.redo()}
+					class="inline-flex h-7 items-center justify-center gap-1 rounded-md border border-border bg-background px-2.5 text-sm font-medium transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+					disabled={terraDrawRedoSize === 0}
+				>
+					Redo
+					<RotateCw class="w-3" />
+				</button>
 			</div>
+		</div>
 	{/if}
 
 	<GlobeControl />
