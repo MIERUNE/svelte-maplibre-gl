@@ -7,8 +7,8 @@
 		TerraDrawUndoRedoKeyboardShortcuts
 	} from 'terra-draw';
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
+	import type { UndoRedoOptions } from './index';
 	import { getMapContext } from 'svelte-maplibre-gl';
-	import type { UndoRedoOptions } from '$lib/types';
 
 	type FeatureId = string | number;
 
