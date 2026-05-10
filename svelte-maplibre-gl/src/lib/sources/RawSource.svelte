@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, prepareSourceContext } from '../contexts.svelte.js';
 	import { generateSourceID } from '../utils.js';
 
@@ -10,9 +10,9 @@
 		| maplibregl.VectorTileSource
 		| maplibregl.RasterTileSource
 		| maplibregl.RasterDEMTileSource
-		| maplibregl.CanvasSource
 		| maplibregl.ImageSource
 		| maplibregl.VideoSource;
+	type TileSource = maplibregl.VectorTileSource | maplibregl.RasterTileSource | maplibregl.RasterDEMTileSource;
 
 	type Specs = maplibregl.SourceSpecification | maplibregl.CanvasSourceSpecification;
 
@@ -21,21 +21,27 @@
 		source?: Source;
 		children?: Snippet;
 	} & Specs;
-	let { source = $bindable(undefined), id: _id, children, ...spec }: Props = $props();
-	spec = spec as Specs;
+	let { source = $bindable(undefined), id: _id, children, ...rawSpec }: Props = $props();
+	let spec = $derived(rawSpec as Specs);
 
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
 	let firstRun = true;
 
-	const id = _id ?? generateSourceID();
+	const id = untrack(() => _id) ?? generateSourceID();
 	const sourceCtx = prepareSourceContext();
 	sourceCtx.id = id;
-	mapCtx.waitForStyleLoaded((map) => {
+	// Defer addSource to a microtask so markup order (top-down script body
+	// execution) is preserved and OLD destroys from a {#key} re-render run
+	// first.
+	queueMicrotask(() => {
+		if (!firstRun) return;
 		mapCtx.addSource(id, $state.snapshot(spec) as Specs);
-		source = map.getSource(id);
-		firstRun = true;
+		mapCtx.waitForStyleLoaded((map) => {
+			source = map.getSource(id);
+			firstRun = false;
+		});
 	});
 
 	$effect(() => {
@@ -47,17 +53,39 @@
 		}
 	});
 	$effect(() => {
-		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
+		if (
+			source &&
+			'setTiles' in source &&
+			(spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')
+		) {
 			spec.tiles;
-			if (!firstRun && 'setTiles' in source) {
-				source.setTiles(spec.tiles ?? []);
+
+			if (firstRun) {
+				return;
 			}
+
+			// if there is a TileJSON url specified, do not set tiles since
+			// they will be retrieved from the TileJSON resource instead
+			if (spec.url) {
+				return;
+			}
+
+			const isDifferentTilesArray =
+				!source.tiles ||
+				!spec.tiles ||
+				spec.tiles.length !== source.tiles.length ||
+				spec.tiles.some((tile, index) => tile !== (source as TileSource).tiles[index]);
+			if (!isDifferentTilesArray) {
+				return;
+			}
+
+			source.setTiles(spec.tiles ?? []);
 		}
 	});
 	$effect(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.url;
-			if (!firstRun && 'setUrl' in source) {
+			if (!firstRun && 'setUrl' in source && spec.url !== source.url) {
 				source.setUrl(spec.url as string);
 			}
 		}
@@ -82,9 +110,10 @@
 	$effect(() => {
 		if (spec.type === 'canvas') {
 			spec.animate;
-			if (source && spec.animate !== undefined && !firstRun) {
+			if (source && !firstRun) {
 				const cs = source as maplibregl.CanvasSource;
-				spec.animate ? cs.play() : cs.pause();
+				cs.animate = spec.animate ?? true;
+				cs.animate ? cs.play() : cs.pause();
 			}
 		}
 	});
@@ -92,7 +121,7 @@
 		if (source && spec.type === 'geojson') {
 			spec.data;
 			if (!firstRun) {
-				// TODO: support diffrential update ? (updateData)
+				// TODO: support differential update ? (updateData)
 				(source as maplibregl.GeoJSONSource).setData(spec.data);
 			}
 		}
@@ -103,25 +132,18 @@
 			spec.clusterMaxZoom;
 			spec.clusterRadius;
 			if (!firstRun) {
-				if (spec.clusterRadius !== undefined) {
-					(source as maplibregl.GeoJSONSource).workerOptions.superclusterOptions!.radius =
-						spec.clusterRadius * (8192 / source.tileSize);
-				}
 				(source as maplibregl.GeoJSONSource).setClusterOptions({
 					cluster: spec.cluster,
-					clusterMaxZoom: spec.clusterMaxZoom
-					// clusterRadius: spec.clusterRadius, // TODO: Requires a fix in maplibre-gl-js
+					clusterMaxZoom: spec.clusterMaxZoom,
+					clusterRadius: spec.clusterRadius
 				});
 			}
 		}
 	});
 
-	$effect(() => {
-		source;
-		firstRun = false;
-	});
-
 	onDestroy(() => {
+		// Suppress the queued microtask if it hasn't fired yet (rapid mount/unmount).
+		firstRun = false;
 		mapCtx.removeSource(id);
 		source = undefined;
 	});

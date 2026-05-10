@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getLayerContext, getMapContext } from '../contexts.svelte.js';
 
 	interface Props extends maplibregl.QueryRenderedFeaturesOptions {

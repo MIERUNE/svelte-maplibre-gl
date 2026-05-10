@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -60,7 +60,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={5}
 	pitch={50}

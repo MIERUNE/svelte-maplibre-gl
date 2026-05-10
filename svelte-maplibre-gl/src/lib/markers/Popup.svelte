@@ -2,11 +2,18 @@
 	// https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/
 
 	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getMarkerContext } from '../contexts.svelte.js';
 
 	interface Props extends Omit<maplibregl.PopupOptions, 'className'> {
 		lnglat?: maplibregl.LngLatLike;
+		/**
+		 * If `true`, the popup follows the cursor position instead of being anchored to `lnglat`.
+		 * Hidden on touchscreens. Replaces the `lnglat` behavior while enabled.
+		 *
+		 * https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/#trackpointer
+		 */
+		trackPointer?: boolean;
 		class?: string;
 		open?: boolean;
 		/** HTML content of the popup */
@@ -19,11 +26,13 @@
 	let {
 		// reactive
 		lnglat,
+		trackPointer,
 		class: className = undefined,
 		open = $bindable(),
 		offset,
 		maxWidth,
 		subpixelPositioning,
+		padding,
 		//
 		closeButton,
 		closeOnClick,
@@ -60,6 +69,7 @@
 		};
 
 		maxWidth !== undefined && (options.maxWidth = maxWidth);
+		padding !== undefined && (options.padding = padding);
 		closeButton !== undefined && (options.closeButton = closeButton);
 		closeOnClick !== undefined && (options.closeOnClick = closeOnClick);
 		closeOnMove !== undefined && (options.closeOnMove = closeOnMove);
@@ -70,7 +80,12 @@
 		popup = new maplibregl.Popup(options);
 		popup.setDOMContent(container);
 
-		if (lnglat) {
+		if (trackPointer) {
+			popup.trackPointer();
+			if (open === undefined) {
+				open = true;
+			}
+		} else if (lnglat) {
 			popup.setLngLat(lnglat);
 			if (open === undefined) {
 				open = true;
@@ -90,7 +105,7 @@
 	$effect(() => {
 		if (open === true) {
 			if (mapCtx.map && !internalOpen) {
-				if (!popup?.getLngLat()) {
+				if (!trackPointer && !popup?.getLngLat()) {
 					const lnglat = markerContext?.marker?.getLngLat();
 					if (!lnglat) return;
 					popup?.setLngLat(lnglat);
@@ -129,8 +144,13 @@
 	});
 
 	$effect(() => {
-		if (lnglat && !firstRun) {
-			popup?.setLngLat(lnglat);
+		const shouldTrackPointer = trackPointer;
+		const anchor = lnglat ?? markerContext?.marker?.getLngLat();
+		if (firstRun || !popup) return;
+		if (shouldTrackPointer) {
+			popup.trackPointer();
+		} else {
+			popup.setLngLat(anchor ?? popup.getLngLat() ?? mapCtx.map!.getCenter());
 		}
 	});
 
@@ -142,7 +162,8 @@
 	});
 
 	$effect(() => {
-		if (offset && !firstRun) {
+		offset;
+		if (!firstRun) {
 			popup?.setOffset(offset);
 		}
 	});
@@ -154,20 +175,30 @@
 	});
 
 	$effect(() => {
-		// TODO: differential update ?
-		const classNames = (className ?? '')?.split(/\s/).filter(Boolean);
-		if (popup && !firstRun) {
-			for (const className of classNames) {
-				popup.addClassName(className);
-			}
+		padding;
+		if (!firstRun) {
+			popup?.setPadding(padding);
 		}
-		return () => {
-			if (popup) {
-				for (const className of classNames) {
-					popup.removeClassName(className);
-				}
-			}
-		};
+	});
+
+	let prevClassNames: string[] = [];
+	$effect(() => {
+		const next = (className ?? '').split(/\s+/).filter(Boolean);
+		if (!popup || firstRun) {
+			// Initial classes are added by the Popup constructor via
+			// PopupOptions.className; record them so later diffs are correct.
+			prevClassNames = next;
+			return;
+		}
+		const nextSet = new Set(next);
+		for (const c of prevClassNames) {
+			if (!nextSet.has(c)) popup.removeClassName(c);
+		}
+		const prevSet = new Set(prevClassNames);
+		for (const c of next) {
+			if (!prevSet.has(c)) popup.addClassName(c);
+		}
+		prevClassNames = next;
 	});
 
 	$effect(() => {

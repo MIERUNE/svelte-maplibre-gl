@@ -8,16 +8,16 @@
 		QuerySourceFeatures,
 		QueryRenderedFeatures
 	} from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 
 	let features: maplibregl.MapGeoJSONFeature[] = $state.raw([]);
 	let mode: 'source' | 'rendered' = $state('source');
 </script>
 
-<div class="flex h-[55vh] min-h-[300px] gap-x-3">
+<div class="flex h-[55vh] min-h-75 gap-x-3">
 	<MapLibre
-		class="h-[55vh] min-h-[300px] grow"
+		class="h-[55vh] min-h-75 grow"
 		style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 		zoom={3}
 		center={{ lng: 120, lat: 20 }}

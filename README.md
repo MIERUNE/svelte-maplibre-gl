@@ -1,5 +1,6 @@
 # Svelte MapLibre GL
 
+[![CI](https://github.com/MIERUNE/svelte-maplibre-gl/actions/workflows/ci.yml/badge.svg)](https://github.com/MIERUNE/svelte-maplibre-gl/actions/workflows/ci.yml)
 ![NPM Version](https://img.shields.io/npm/v/svelte-maplibre-gl)
 ![NPM License](https://img.shields.io/npm/l/svelte-maplibre-gl?color=96C902)
 
@@ -22,8 +23,6 @@ License: MIT or Apache 2.0
 ```bash
 npm install --save-dev svelte-maplibre-gl
 ```
-
-`svelte-maplibre-gl` only works with **Svelte 5** and above.
 
 ## License
 

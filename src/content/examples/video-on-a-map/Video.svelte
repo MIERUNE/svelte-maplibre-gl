@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, VideoSource, GlobeControl, RasterLayer } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 
 	let source: maplibregl.VideoSource | undefined = $state(undefined);
 	let playing = $state(true);
@@ -14,7 +14,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	minZoom={14}
 	zoom={17}

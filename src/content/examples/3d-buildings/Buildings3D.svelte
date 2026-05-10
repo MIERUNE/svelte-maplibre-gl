@@ -1,10 +1,31 @@
 <script lang="ts">
 	import { MapLibre, FillExtrusionLayer } from 'svelte-maplibre-gl';
+	import { Label } from '$lib/components/ui/label/index.js';
+	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
+
+	const STYLES = ['Voyager', 'Dark Matter'] as const;
+	type StyleName = (typeof STYLES)[number];
+	const STYLE_URLS: Record<StyleName, string> = {
+		Voyager: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+		'Dark Matter': 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+	};
+	let baseStyle: StyleName = $state('Voyager');
 </script>
 
+<div class="mb-3">
+	<RadioGroup.Root bind:value={baseStyle} class="flex flex-row gap-x-3">
+		{#each STYLES as name (name)}
+			<div class="flex items-center space-x-1">
+				<RadioGroup.Item value={name} id={`base-${name}`} />
+				<Label class="cursor-pointer" for={`base-${name}`}>{name}</Label>
+			</div>
+		{/each}
+	</RadioGroup.Root>
+</div>
+
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
-	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+	class="h-[55vh] min-h-75"
+	style={STYLE_URLS[baseStyle]}
 	zoom={14.5}
 	pitch={70}
 	minZoom={14}

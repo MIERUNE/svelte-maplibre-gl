@@ -1,16 +1,18 @@
 import type {
+	AddLayerObject,
+	CanvasSourceSpecification,
+	LayerSpecification,
+	LightSpecification,
 	Map as MapLibre,
 	Marker,
-	AddLayerObject,
-	SourceSpecification,
-	CanvasSourceSpecification,
-	StyleSpecification,
-	SkySpecification,
-	TerrainSpecification,
 	ProjectionSpecification,
-	LightSpecification
+	SkySpecification,
+	SourceSpecification,
+	StyleSpecification,
+	TerrainSpecification
 } from 'maplibre-gl';
-import { setContext, getContext } from 'svelte';
+import { getContext, setContext } from 'svelte';
+import { SvelteSet } from 'svelte/reactivity';
 
 const MAP_CONTEXT_KEY = Symbol('MapLibre map context');
 const SOURCE_CONTEXT_KEY = Symbol('MapLibre source context');
@@ -25,9 +27,9 @@ class MapContext {
 	private _listener?: maplibregl.Listener = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
 	/** Names of layers dynamically added */
-	userLayers: Set<string> = new Set();
+	userLayers = new SvelteSet<string>();
 	/** Names of sources dynamically added */
-	userSources: Set<string> = new Set();
+	userSources = new SvelteSet<string>();
 	/** Terrain specification of the current base style */
 	baseTerrain?: TerrainSpecification | undefined;
 	/** Sky specification set by user */
@@ -72,7 +74,9 @@ class MapContext {
 		if (!this.map) throw new Error('Map is not initialized');
 		this.userLayers.delete(id);
 		this.waitForStyleLoaded((map) => {
-			map.removeLayer(id);
+			if (map.getLayer(id)) {
+				map.removeLayer(id);
+			}
 		});
 	}
 
@@ -82,25 +86,44 @@ class MapContext {
 			map.addSource(id, source);
 		});
 	}
+
 	removeSource(id: string) {
 		this.userSources.delete(id);
 		this.waitForStyleLoaded((map) => {
-			map.removeSource(id);
+			if (map.getSource(id)) {
+				map.removeSource(id);
+			}
 		});
 	}
 
-	/** Wait for the style to be loaded before calling the function */
-	waitForStyleLoaded(func: (map: maplibregl.Map) => void) {
+	/**
+	 * Waits for the style to be loaded before calling the function.
+	 *
+	 * If an abort signal is provided, the function call will be cancelled
+	 * if the signal is aborted before the style is loaded.
+	 */
+	waitForStyleLoaded(func: (map: maplibregl.Map) => void, { signal }: { signal?: AbortSignal } = {}) {
+		if (signal?.aborted) {
+			return;
+		}
+
 		if (!this.map) {
 			return;
 		}
+
 		if (this.map.style._loaded) {
 			// style is already loaded
 			func(this.map);
-		} else {
-			// we need to wait the style to be loaded
-			this._pending.push(func);
+			return;
 		}
+
+		// we need to wait the style to be loaded
+		this._pending.push(func);
+
+		// cancel the pending function if the signal is aborted
+		signal?.addEventListener('abort', () => {
+			this._pending = this._pending.filter((f) => f !== func);
+		});
 	}
 
 	private _onstyledata(ev: maplibregl.MapStyleDataEvent) {
@@ -114,8 +137,69 @@ class MapContext {
 		}
 	}
 
+	private _mergeUserLayers(previousLayers: LayerSpecification[], nextLayers: LayerSpecification[]) {
+		const userLayerIds = new Set(
+			previousLayers.filter((layer) => this.userLayers.has(layer.id)).map((layer) => layer.id)
+		);
+		if (userLayerIds.size === 0) {
+			return nextLayers;
+		}
+
+		// User layer IDs are owned by Svelte components. If the next base style
+		// contains the same ID, keep the user layer to avoid duplicate layer IDs.
+		const baseLayers = nextLayers.filter((layer) => !userLayerIds.has(layer.id));
+		const baseLayerIds = new Set(baseLayers.map((layer) => layer.id));
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const userLayersByAnchor = new Map<string, LayerSpecification[]>();
+		const trailingUserLayers: LayerSpecification[] = [];
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const anchorByUserLayerId = new Map<string, string>();
+
+		// addLayer(layer, beforeId) puts the user layer before the target in
+		// the style array, so the target is the following non-user layer.
+		let followingBaseLayerId: string | undefined;
+		for (let i = previousLayers.length - 1; i >= 0; i--) {
+			const layer = previousLayers[i];
+			if (userLayerIds.has(layer.id)) {
+				if (followingBaseLayerId) {
+					anchorByUserLayerId.set(layer.id, followingBaseLayerId);
+				}
+			} else if (baseLayerIds.has(layer.id)) {
+				followingBaseLayerId = layer.id;
+			}
+		}
+
+		for (const layer of previousLayers) {
+			if (!userLayerIds.has(layer.id)) {
+				continue;
+			}
+
+			const anchorId = anchorByUserLayerId.get(layer.id);
+
+			if (anchorId) {
+				const layers = userLayersByAnchor.get(anchorId) ?? [];
+				layers.push(layer);
+				userLayersByAnchor.set(anchorId, layers);
+			} else {
+				trailingUserLayers.push(layer);
+			}
+		}
+
+		const layers: LayerSpecification[] = [];
+		for (const layer of baseLayers) {
+			const userLayers = userLayersByAnchor.get(layer.id);
+			if (userLayers) {
+				layers.push(...userLayers);
+			}
+			layers.push(layer);
+		}
+		layers.push(...trailingUserLayers);
+
+		return layers;
+	}
+
 	setStyle(style: string | StyleSpecification | null) {
-		const { userSources: addedSources, userLayers: addedLayers } = this;
+		const { userSources: addedSources } = this;
 		if (!style) {
 			this.map?.setStyle(null);
 			return;
@@ -140,8 +224,7 @@ class MapContext {
 					}
 				}
 
-				const userLayers = previous.layers!.filter((layer) => addedLayers.has(layer.id));
-				const layers = [...next.layers!, ...userLayers];
+				const layers = this._mergeUserLayers(previous.layers ?? [], next.layers ?? []);
 
 				return {
 					...next,

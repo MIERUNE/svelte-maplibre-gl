@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onDestroy, type Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
+	import type * as maplibregl from 'maplibre-gl';
 	import { getMapContext, getSourceContext, prepareLayerContext } from '../contexts.svelte.js';
 	import { generateLayerID, resetLayerEventListener } from '../utils.js';
 	import type { MapLayerEventProps } from './common.js';
@@ -49,42 +49,70 @@
 	const mapCtx = getMapContext();
 	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
 
-	const id = _id ?? generateLayerID();
+	const id = untrack(() => _id) ?? generateLayerID();
 	const layerCtx = prepareLayerContext();
 	layerCtx.id = id;
 
-	const addLayerObj = {
-		id,
-		type,
-		layout: $state.snapshot(layout) ?? {},
-		paint: $state.snapshot(paint) ?? {}
-	} as maplibregl.LayerSpecification;
+	function createLayerObject(minzoom: number | undefined, maxzoom: number | undefined) {
+		const layer = {
+			id,
+			type,
+			layout: $state.snapshot(layout) ?? {},
+			paint: $state.snapshot(paint) ?? {}
+		} as maplibregl.LayerSpecification;
 
-	if (addLayerObj.type !== 'background') {
-		addLayerObj.source = sourceId ?? getSourceContext().id;
-	}
-
-	if (maxzoom !== undefined) {
-		addLayerObj.maxzoom = maxzoom;
-	}
-	if (minzoom !== undefined) {
-		addLayerObj.minzoom = minzoom;
-	}
-	if (metadata !== undefined) {
-		addLayerObj.metadata = metadata;
-	}
-	if (addLayerObj.type !== 'background') {
-		if (sourceLayer) {
-			addLayerObj['source-layer'] = sourceLayer;
+		if (layer.type !== 'background') {
+			layer.source = sourceId ?? getSourceContext().id;
 		}
-		if (filter) {
-			// @ts-expect-error: ignore
-			addLayerObj.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
+
+		if (maxzoom !== undefined) {
+			layer.maxzoom = maxzoom;
+		}
+		if (minzoom !== undefined) {
+			layer.minzoom = minzoom;
+		}
+		if (metadata !== undefined) {
+			layer.metadata = metadata;
+		}
+		if (layer.type !== 'background') {
+			if (sourceLayer) {
+				layer['source-layer'] = sourceLayer;
+			}
+			if (filter) {
+				// @ts-expect-error: ignore
+				layer.filter = $state.snapshot(filter) as maplibregl.FilterSpecification;
+			}
+		}
+
+		return layer;
+	}
+
+	const addLayerObj = untrack(() => createLayerObject(minzoom, maxzoom));
+	const defaultMinzoom = 0;
+	const defaultMaxzoom = 24;
+
+	function setLayerZoomRange(map: maplibregl.Map, minzoom: number | undefined, maxzoom: number | undefined) {
+		const layer = map.getLayer(id);
+		if (!layer) {
+			return;
+		}
+
+		const nextMinzoom = minzoom ?? defaultMinzoom;
+		const nextMaxzoom = maxzoom ?? defaultMaxzoom;
+		if (layer.minzoom !== nextMinzoom || layer.maxzoom !== nextMaxzoom) {
+			map.setLayerZoomRange(id, nextMinzoom, nextMaxzoom);
 		}
 	}
 
+	// Defer addLayer to a microtask so:
+	//  1. markup order (top-down script body execution) is preserved across
+	//     siblings, which keeps `beforeId` references and z-ordering intuitive
+	//  2. any OLD destroys from a {#key} re-render run synchronously first,
+	//     so this layer's add doesn't collide with the previous mount (#137)
 	let firstRun = true;
-	mapCtx.waitForStyleLoaded(() => {
+	queueMicrotask(() => {
+		if (!firstRun) return;
+		firstRun = false;
 		mapCtx.addLayer(addLayerObj, beforeId);
 	});
 
@@ -102,7 +130,7 @@
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchend', id, ontouchend));
 	$effect(() => resetLayerEventListener(mapCtx.map, 'touchcancel', id, ontouchcancel));
 
-	let prevPaint: Record<string, unknown> = $state.snapshot(paint) ?? {};
+	let prevPaint: Record<string, unknown> = untrack(() => $state.snapshot(paint) ?? {});
 	$effect(() => {
 		paint;
 		if (!firstRun) {
@@ -124,7 +152,7 @@
 		}
 	});
 
-	let prevLayout: Record<string, unknown> = $state.snapshot(layout) ?? {};
+	let prevLayout: Record<string, unknown> = untrack(() => $state.snapshot(layout) ?? {});
 	$effect(() => {
 		layout;
 		if (!firstRun) {
@@ -147,9 +175,11 @@
 	});
 
 	$effect(() => {
-		if ((minzoom !== undefined || maxzoom !== undefined) && !firstRun) {
+		minzoom;
+		maxzoom;
+		if (!firstRun) {
 			mapCtx.waitForStyleLoaded((map) => {
-				map.setLayerZoomRange(id, minzoom ?? 0, maxzoom ?? 22);
+				setLayerZoomRange(map, minzoom, maxzoom);
 			});
 		}
 	});
@@ -164,18 +194,16 @@
 	});
 
 	$effect(() => {
-		if (beforeId && !firstRun) {
-			mapCtx.waitForStyleLoaded((map) => {
-				map.moveLayer(id, beforeId);
-			});
-		}
-	});
-
-	$effect(() => {
-		firstRun = false;
+		beforeId;
+		if (firstRun) return;
+		mapCtx.waitForStyleLoaded((map) => {
+			map.moveLayer(id, beforeId);
+		});
 	});
 
 	onDestroy(() => {
+		// Suppress the queued microtask if it hasn't fired yet (rapid mount/unmount).
+		firstRun = false;
 		mapCtx.removeLayer(id);
 	});
 </script>

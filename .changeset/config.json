@@ -7,9 +7,12 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@svelte-maplibre-gl/docs"],
+	"ignore": [],
 	"privatePackages": {
 		"version": false,
 		"tag": false
+	},
+	"___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+		"onlyUpdatePeerDependentsWhenOutOfRange": true
 	}
 }

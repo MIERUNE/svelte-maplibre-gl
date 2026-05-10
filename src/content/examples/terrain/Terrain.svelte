@@ -31,6 +31,8 @@
 	let highlightColor = $state('#ffffff');
 	let direction = $state(0.0);
 	let altitude = $state(45.0);
+	// 'anisotropicFilterPitch' option is available since MapLibre GL JS v5.19.0
+	let anisotropicFilterPitch = $state(20);
 	// Sky
 	let skyEnabled = $state(true);
 	let skyColor = $state('#001560');
@@ -42,12 +44,13 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={12}
 	pitch={72}
 	maxPitch={85}
 	center={{ lng: 11.39085, lat: 47.3 }}
+	{anisotropicFilterPitch}
 >
 	<GlobeControl />
 	<Light anchor="map" />
@@ -109,8 +112,8 @@
 					</select>
 				</div>
 				<div class="mb-1 flex items-center justify-between space-x-2">
-					<Label for="shadow-sm" class="leading-none">Shadow</Label>
-					<input type="color" id="shadow-sm" bind:value={shadowColor} />
+					<Label for="shadow-color" class="leading-none">Shadow</Label>
+					<input type="color" id="shadow-color" bind:value={shadowColor} />
 				</div>
 				{#if hillshadeMethod === 'standard'}
 					<div class="mb-1 flex items-center justify-between space-x-2">
@@ -132,6 +135,12 @@
 						<Slider type="single" id="altitude" bind:value={altitude} min={0} max={90} step={0.01} />
 					</div>
 				{/if}
+				<div class="mb-3 flex flex-col items-center space-y-2 px-2">
+					<Label for="aniso" class="leading-none">
+						Anisotropic Filter Pitch ({anisotropicFilterPitch})
+					</Label>
+					<Slider type="single" id="aniso" bind:value={anisotropicFilterPitch} min={0} max={85} step={1} />
+				</div>
 			</Tabs.Content>
 			<Tabs.Content value="sky" class="min-h-0 shrink overflow-scroll pt-1">
 				<div class="mb-2 flex items-center space-x-2 self-center justify-self-center">

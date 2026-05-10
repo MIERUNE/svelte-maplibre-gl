@@ -11,8 +11,7 @@
 	import DarkModeSelector from './DarkModeSelector.svelte';
 
 	import { default as docsearch } from '@docsearch/js';
-	import '@docsearch/css/dist/button.css';
-	import '@docsearch/css/dist/modal.css';
+	import '@docsearch/css/dist/style.css';
 
 	let { globalTocOpen = $bindable() } = $props();
 

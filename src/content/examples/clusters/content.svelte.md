@@ -1,7 +1,7 @@
 ---
 title: Clusters
 description: Use MapLibre's built-in functions to visualize points as clusters.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/cluster/
+original: https://maplibre.org/maplibre-gl-js/docs/examples/create-and-style-clusters/
 ---
 
 <script lang="ts">

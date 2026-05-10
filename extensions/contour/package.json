@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/contour",
-	"version": "1.0.3",
+	"version": "2.0.0",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "maplibre-contour extension for svelte-maplibre-gl",
 	"repository": {
@@ -40,9 +40,9 @@
 	},
 	"peerDependencies": {
 		"maplibre-contour": ">=0.1.0",
-		"maplibre-gl": "^5.0.0 || ^4.0.0",
+		"maplibre-gl": ">=6.0.0-0 <7.0.0 || ^5.19.0",
 		"svelte": ">=5.0.0",
-		"svelte-maplibre-gl": "workspace:*"
+		"svelte-maplibre-gl": "workspace:^"
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "catalog:",
@@ -53,7 +53,7 @@
 		"publint": "catalog:",
 		"svelte": "catalog:",
 		"svelte-check": "catalog:",
-		"svelte-maplibre-gl": "workspace:*",
+		"svelte-maplibre-gl": "workspace:^",
 		"typescript": "catalog:",
 		"vite": "catalog:"
 	}

@@ -2,7 +2,7 @@
 	// https://maplibre.org/maplibre-style-spec/layers/#symbol
 
 	import type { Snippet } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import type * as maplibregl from 'maplibre-gl';
 	import RawLayer from './RawLayer.svelte';
 	import type { MapLayerEventProps } from './common.js';
 

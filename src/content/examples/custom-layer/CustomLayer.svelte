@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
-	import maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 
 	// define vertices of the triangle to be rendered in the custom style layer
 	const helsinki = maplibregl.MercatorCoordinate.fromLngLat({ lng: 25.004, lat: 60.239 });
@@ -145,7 +145,7 @@
 </script>
 
 <MapLibre
-	class="h-[55vh] min-h-[300px]"
+	class="h-[55vh] min-h-75"
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 	zoom={3}
 	center={[20, 58]}

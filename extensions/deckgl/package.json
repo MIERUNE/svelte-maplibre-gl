@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-maplibre-gl/deckgl",
-	"version": "1.0.3",
+	"version": "2.0.0",
 	"license": "(MIT OR Apache-2.0)",
 	"description": "DeckGL extension for svelte-maplibre-gl",
 	"repository": {
@@ -42,9 +42,9 @@
 		"@deck.gl/core": "^9.1.0",
 		"@deck.gl/layers": "^9.1.0",
 		"@deck.gl/mapbox": "^9.1.0",
-		"maplibre-gl": "^5.0.0 || ^4.0.0",
+		"maplibre-gl": ">=6.0.0-0 <7.0.0 || ^5.19.0",
 		"svelte": ">=5.0.0",
-		"svelte-maplibre-gl": "workspace:*"
+		"svelte-maplibre-gl": "workspace:^"
 	},
 	"devDependencies": {
 		"@deck.gl/core": "catalog:",
@@ -57,7 +57,7 @@
 		"publint": "catalog:",
 		"svelte": "catalog:",
 		"svelte-check": "catalog:",
-		"svelte-maplibre-gl": "workspace:*",
+		"svelte-maplibre-gl": "workspace:^",
 		"typescript": "catalog:",
 		"vite": "catalog:"
 	}
