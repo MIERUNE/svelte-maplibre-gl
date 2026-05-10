@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { TerraDraw as Draw } from 'terra-draw';
+	import {
+		TerraDraw as Draw,
+		TerraDrawModeUndoRedo,
+		TerraDrawSessionUndoRedo,
+		TerraDrawUndoRedoKeyboardShortcuts
+	} from 'terra-draw';
 	import type { IdStrategy, TerraDrawEventListeners } from 'terra-draw';
+	import type { UndoRedoOptions } from './index';
 	import { getMapContext } from 'svelte-maplibre-gl';
 
 	type FeatureId = string | number;
@@ -14,11 +20,13 @@
 		tracked,
 		idStrategy,
 		draw = $bindable(),
+		undoRedo,
 		onfinish,
 		onchange,
 		onready,
 		onselect,
-		ondeselect
+		ondeselect,
+		onhistory
 	}: {
 		mode: string;
 		modes: ConstructorParameters<typeof Draw>[0]['modes'];
@@ -26,11 +34,13 @@
 		tracked?: boolean;
 		/** Terra Draw instance */
 		draw?: Draw;
+		undoRedo?: UndoRedoOptions;
 		onchange?: TerraDrawEventListeners['change'];
 		onfinish?: TerraDrawEventListeners['finish'];
 		onready?: TerraDrawEventListeners['ready'];
 		onselect?: TerraDrawEventListeners['select'];
 		ondeselect?: TerraDrawEventListeners['deselect'];
+		onhistory?: TerraDrawEventListeners['history'];
 	} = $props();
 
 	let destroyed = false;
@@ -45,7 +55,16 @@
 			adapter: new TerraDrawMapLibreGLAdapter({ map }),
 			modes,
 			idStrategy,
-			tracked
+			tracked,
+			undoRedo: undoRedo
+				? {
+						modeLevel: undoRedo.modeLevel ? new TerraDrawModeUndoRedo(undoRedo.modeLevel) : undefined,
+						sessionLevel: undoRedo.sessionLevel ? new TerraDrawSessionUndoRedo(undoRedo.sessionLevel) : undefined,
+						keyboardShortcuts: undoRedo.keyboardShortcuts
+							? new TerraDrawUndoRedoKeyboardShortcuts(undoRedo.keyboardShortcuts)
+							: undefined
+					}
+				: undefined
 		});
 	});
 
@@ -89,5 +108,11 @@
 		if (!instance || !ondeselect) return;
 		instance.on('deselect', ondeselect);
 		return () => instance.off('deselect', ondeselect);
+	});
+	$effect(() => {
+		const instance = draw;
+		if (!instance || !onhistory) return;
+		instance.on('history', onhistory);
+		return () => instance.off('history', onhistory);
 	});
 </script>
