@@ -149,8 +149,8 @@
 		if (firstRun || !popup) return;
 		if (shouldTrackPointer) {
 			popup.trackPointer();
-		} else if (anchor) {
-			popup.setLngLat(anchor);
+		} else {
+			popup.setLngLat(anchor ?? popup.getLngLat() ?? mapCtx.map!.getCenter());
 		}
 	});
 

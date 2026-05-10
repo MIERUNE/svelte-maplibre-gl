@@ -267,7 +267,7 @@ importers:
         version: 5.24.0
       publint:
         specifier: 'catalog:'
-        version: 0.3.19
+        version: 0.3.20
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.2)
@@ -309,7 +309,7 @@ importers:
         version: 5.24.0
       publint:
         specifier: 'catalog:'
-        version: 0.3.19
+        version: 0.3.20
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.2)
@@ -345,7 +345,7 @@ importers:
         version: 4.4.1
       publint:
         specifier: 'catalog:'
-        version: 0.3.19
+        version: 0.3.20
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.2)
@@ -378,7 +378,7 @@ importers:
         version: 5.24.0
       publint:
         specifier: 'catalog:'
-        version: 0.3.19
+        version: 0.3.20
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.2)
@@ -420,7 +420,7 @@ importers:
         version: 5.24.0
       publint:
         specifier: 'catalog:'
-        version: 0.3.19
+        version: 0.3.20
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.2)
@@ -2752,11 +2752,6 @@ packages:
 
   protocol-buffers-schema@3.6.1:
     resolution: {integrity: sha512-VG2K63Igkiv9p76tk1lilczEK1cT+kCjKtkdhw1dQZV3k3IXJbd3o6Ho8b9zJZaHSnT2hKe4I+ObmX9w6m5SmQ==}
-
-  publint@0.3.19:
-    resolution: {integrity: sha512-J3p4GOocCRFyLLFRzGfIhAwWgk0Kkcdxj5iFspFvCYbyiJs5IhCM8gsIkcNeQL+tdpV671RtJQiTFSUKhl1Wjg==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   publint@0.3.20:
     resolution: {integrity: sha512-UWqFYP7VBVCe9l/leEEGJrDs6Am4K4KapLmLi5qbt+9fA+Ny38ghdW+bw1nYfVqCK8/3kgsxjjhFjTYqYYRpyw==}
@@ -5505,13 +5500,6 @@ snapshots:
   property-information@7.1.0: {}
 
   protocol-buffers-schema@3.6.1: {}
-
-  publint@0.3.19:
-    dependencies:
-      '@publint/pack': 0.1.4
-      package-manager-detector: 1.6.0
-      picocolors: 1.1.1
-      sade: 1.8.1
 
   publint@0.3.20:
     dependencies:

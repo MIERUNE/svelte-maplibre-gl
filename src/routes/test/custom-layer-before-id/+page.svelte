@@ -1,10 +1,5 @@
 <script lang="ts">
-	import type {
-		CustomLayerInterface,
-		CustomRenderMethodInput,
-		Map as MapLibreMap,
-		StyleSpecification
-	} from 'maplibre-gl';
+	import type { CustomLayerInterface, Map as MapLibreMap, StyleSpecification } from 'maplibre-gl';
 	import { CustomLayer, MapLibre } from 'svelte-maplibre-gl';
 
 	let map: MapLibreMap | undefined = $state();
@@ -23,7 +18,7 @@
 	} satisfies StyleSpecification;
 
 	const implementation = {
-		render(_gl: WebGLRenderingContext | WebGL2RenderingContext, _args: CustomRenderMethodInput) {}
+		render() {}
 	} satisfies Omit<CustomLayerInterface, 'id' | 'type'>;
 
 	$effect(() => {

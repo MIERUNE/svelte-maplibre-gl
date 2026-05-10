@@ -79,6 +79,7 @@
 
 	type Assert<T extends true> = T;
 	type MissingMapEventName = Exclude<MapEventName, (typeof mapEventNames)[number]>;
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	type _MapEventNamesAreExhaustive = Assert<MissingMapEventName extends never ? true : false>;
 
 	const mapEventNameSet = new Set<string>(mapEventNames);

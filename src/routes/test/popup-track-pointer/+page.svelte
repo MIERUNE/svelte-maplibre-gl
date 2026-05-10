@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { StyleSpecification } from 'maplibre-gl';
-	import { MapLibre, Marker, Popup } from 'svelte-maplibre-gl';
+	import { MapLibre, Popup } from 'svelte-maplibre-gl';
 
 	let trackPointer = $state(true);
 
@@ -18,7 +18,5 @@
 </script>
 
 <MapLibre {style} class="h-[200px] w-full" zoom={1} center={{ lng: 0, lat: 0 }}>
-	<Marker lnglat={{ lng: 0, lat: 0 }}>
-		<Popup open={true} {trackPointer}>Popup</Popup>
-	</Marker>
+	<Popup open={true} {trackPointer}>Popup</Popup>
 </MapLibre>

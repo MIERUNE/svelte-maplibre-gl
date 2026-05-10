@@ -149,8 +149,10 @@ class MapContext {
 		// contains the same ID, keep the user layer to avoid duplicate layer IDs.
 		const baseLayers = nextLayers.filter((layer) => !userLayerIds.has(layer.id));
 		const baseLayerIds = new Set(baseLayers.map((layer) => layer.id));
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const userLayersByAnchor = new Map<string, LayerSpecification[]>();
 		const trailingUserLayers: LayerSpecification[] = [];
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		const anchorByUserLayerId = new Map<string, string>();
 
 		// addLayer(layer, beforeId) puts the user layer before the target in
