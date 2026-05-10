@@ -1,5 +1,20 @@
 # svelte-maplibre-gl
 
+## 2.0.1
+
+### Patch Changes
+
+- b6b4a8c: fix(ImageLoader): pass `tasks` directly to `Promise.allSettled` instead of wrapping it in another array. Previously the wrapped form resolved immediately, flipping `loading` to `false` and rendering children before any image had actually loaded; rejected loads were also silently swallowed.
+
+  fix(ImageLoader): when the same id is reassigned to a different url before its previous load resolves, the stale resolution no longer overwrites the newer image. The async task now compares the captured url against the current `loadedImages` entry before adding.
+
+- b6b4a8c: perf(Marker, Popup): apply only the className delta on `class` prop changes instead of removing every previous class and re-adding every new class. Avoids redundant DOM mutations when the class list is partially updated (e.g. toggling a single class in a multi-class string).
+- b6b4a8c: feat(Popup): add `trackPointer` prop. When `true`, the popup follows the cursor instead of being pinned to `lnglat`, mirroring `Popup.trackPointer()` upstream. Toggling the prop reactively switches between cursor-tracking and anchored modes.
+- b6b4a8c: fix(RawLayer): clearing `beforeId` (changing it from a layer id back to `undefined`) now moves the layer to the top via `map.moveLayer(id)`, instead of leaving it at its previous position.
+- b6b4a8c: fix(Sprite): capture `id`/`url` at effect-run time so cleanup removes the sprite that was actually added, preventing the previous sprite from leaking when these props change.
+
+  fix(Image): when `id` changes (without dimension changes), `addImage` is now called for the new id instead of `updateImage`, which previously fired an upstream error for the missing id.
+
 ## 2.0.0
 
 ### Minor Changes
