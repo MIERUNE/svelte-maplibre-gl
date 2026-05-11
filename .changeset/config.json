@@ -3,7 +3,7 @@
 	"changelog": "@changesets/cli/changelog",
 	"commit": false,
 	"fixed": [],
-	"linked": [["svelte-maplibre-gl", "@svelte-maplibre-gl/*"]],
+	"linked": [],
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
