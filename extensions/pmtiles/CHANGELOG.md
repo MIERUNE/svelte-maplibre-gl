@@ -1,5 +1,11 @@
 # @svelte-maplibre-gl/pmtiles
 
+## 2.0.1
+
+### Patch Changes
+
+- 29f338d: Republish extensions so their `svelte-maplibre-gl` peer dependency is published as a caret range instead of an exact version.
+
 ## 2.0.0
 
 ### Minor Changes
