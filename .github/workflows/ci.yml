@@ -59,10 +59,16 @@ jobs:
 
       - name: Install Playwright browsers + system deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          NEEDRESTART_MODE: a
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Install Playwright system deps (cache hit)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          NEEDRESTART_MODE: a
         run: pnpm exec playwright install-deps chromium
 
       - name: Run e2e tests
