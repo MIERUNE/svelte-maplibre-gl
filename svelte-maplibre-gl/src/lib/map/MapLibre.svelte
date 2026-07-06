@@ -18,11 +18,13 @@
 		roll: RollEvent;
 		rollend: RollEvent;
 	};
-	type LegacyTileDataLoadingEventType = {
-		/** MapLibre GL JS 5.x exposed this event; 6.x removed it from the public event type map. */
-		tiledataloading: maplibregl.MapSourceDataEvent;
-	};
-	type SupportedMapEventType = maplibregl.MapEventType & RollEventType & LegacyTileDataLoadingEventType;
+	// MapLibre GL JS 6.x dropped `tiledataloading` from MapEventType. Keep the prop available on
+	// both versions, but take the payload from MapEventType when the key exists (5.x) so the type
+	// stays exact.
+	type TileDataLoadingEvent = maplibregl.MapEventType extends { tiledataloading: infer T }
+		? T
+		: maplibregl.MapSourceDataEvent;
+	type SupportedMapEventType = maplibregl.MapEventType & RollEventType & { tiledataloading: TileDataLoadingEvent };
 	type MapEventName = keyof SupportedMapEventType;
 	type MapEventHandlerName = `on${MapEventName}`;
 	type MapEventProps = {
