@@ -4,6 +4,15 @@
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+	type ModelTransform = {
+		getMatrixForModel(origin: [number, number], altitude: number): number[];
+	};
+
+	function getModelTransform(map: maplibregl.Map): ModelTransform {
+		const m = map as unknown as { transform?: ModelTransform; _camera?: { transform: ModelTransform } };
+		return m.transform ?? m._camera!.transform;
+	}
+
 	class CustomLayerImpl implements Omit<maplibregl.CustomLayerInterface, 'id' | 'type'> {
 		renderingMode = '3d' as const;
 		private camera = new THREE.Camera();
@@ -45,7 +54,7 @@
 			// We can use this API to get the correct model matrix.
 			// It will work regardless of current projection.
 			// See MapLibre source code, file "mercator_transform.ts" or "vertical_perspective_transform.ts".
-			const modelMatrix = this.map!.transform.getMatrixForModel(modelOrigin, modelAltitude);
+			const modelMatrix = getModelTransform(this.map!).getMatrixForModel(modelOrigin, modelAltitude);
 			const m = new THREE.Matrix4().fromArray(args.defaultProjectionData.mainMatrix);
 			const l = new THREE.Matrix4().fromArray(modelMatrix).scale(new THREE.Vector3(scaling, scaling, scaling));
 

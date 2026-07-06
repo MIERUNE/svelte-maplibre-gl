@@ -72,10 +72,11 @@ interface CameraTransform {
  * The object that holds MapLibre's internal camera state.
  *
  * - MapLibre 5.x: `Map extends Camera`, so these members live directly on `map`.
- * - MapLibre 6.x: `Map` owns a separate `Camera` at `map._camera` and delegates
+ * - MapLibre 6.x: `Map` owns a separate `Camera` at `map._camera` and delegates camera methods to it.
  */
 interface MapCamera {
 	transform: CameraTransform;
+	transformCameraUpdate: maplibregl.CameraUpdateTransformFunction | null;
 	getTransformForUpdate?: () => CameraTransform;
 	_getTransformForUpdate?: () => CameraTransform;
 	stop: () => unknown;
@@ -104,6 +105,17 @@ export function getUpdateTransform(camera: MapCamera): CameraTransform {
 		);
 	}
 	return resolve.call(camera);
+}
+
+export function setTransformCameraUpdate(map: maplibregl.Map, value: maplibregl.CameraUpdateTransformFunction | null) {
+	const m = map as maplibregl.Map & {
+		setTransformCameraUpdate?: (value: maplibregl.CameraUpdateTransformFunction | null) => void;
+	};
+	if (m.setTransformCameraUpdate) {
+		m.setTransformCameraUpdate(value);
+	} else {
+		getCamera(map).transformCameraUpdate = value;
+	}
 }
 
 export function formatLngLat(target: maplibregl.LngLatLike, lnglat: maplibregl.LngLat): maplibregl.LngLatLike {

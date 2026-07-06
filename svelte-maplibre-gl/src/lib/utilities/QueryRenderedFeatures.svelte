@@ -34,22 +34,22 @@
 			return;
 		}
 
-		let _options = {
+		const _options: maplibregl.QueryRenderedFeaturesOptions = {
 			layers: layers || [getLayerContext()?.id || ''],
 			...options
 		};
-		let _geometry = geometry;
-		let queriedFeatures = (
+		const _geometry = geometry;
+		let queriedFeatures: maplibregl.MapGeoJSONFeature[] = (
 			_geometry ? map.queryRenderedFeatures(_geometry, _options) : map.queryRenderedFeatures(_options)
 		)
 			// id may be undefined - fallback to properties.id or generate one
-			.map((feature, index) => {
+			.map((feature: maplibregl.MapGeoJSONFeature, index: number) => {
 				feature.id = feature.id ?? feature.properties?.id ?? `svmlgl-feature-${index}`;
 				return feature;
 			});
 
 		// sort
-		queriedFeatures.sort((a, b) => {
+		queriedFeatures.sort((a: maplibregl.MapGeoJSONFeature, b: maplibregl.MapGeoJSONFeature) => {
 			return String(a.id).localeCompare(String(b.id));
 		});
 

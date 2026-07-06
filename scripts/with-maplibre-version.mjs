@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const [, , requestedVersion = 'next', ...command] = process.argv;
@@ -8,13 +8,20 @@ const [, , requestedVersion = 'next', ...command] = process.argv;
 const workspacePath = resolve('pnpm-workspace.yaml');
 const lockfilePath = resolve('pnpm-lock.yaml');
 
-if (!existsSync(workspacePath)) {
+let originalWorkspace;
+try {
+	originalWorkspace = readFileSync(workspacePath, 'utf8');
+} catch {
 	console.error('pnpm-workspace.yaml not found. Run this command from the repository root.');
 	process.exit(1);
 }
 
-const originalWorkspace = readFileSync(workspacePath, 'utf8');
-const originalLockfile = existsSync(lockfilePath) ? readFileSync(lockfilePath, 'utf8') : undefined;
+let originalLockfile;
+try {
+	originalLockfile = readFileSync(lockfilePath, 'utf8');
+} catch {
+	originalLockfile = undefined;
+}
 
 function run(command, args, options = {}) {
 	const result = spawnSync(command, args, {
@@ -52,6 +59,8 @@ function restoreFiles() {
 	writeFileSync(workspacePath, originalWorkspace);
 	if (originalLockfile !== undefined) {
 		writeFileSync(lockfilePath, originalLockfile);
+	} else if (existsSync(lockfilePath)) {
+		rmSync(lockfilePath);
 	}
 }
 
@@ -106,7 +115,11 @@ try {
 	process.exitCode = 1;
 } finally {
 	restoreOnce();
-	console.log('Restored pnpm-workspace.yaml and pnpm-lock.yaml.');
+	console.log(
+		originalLockfile === undefined
+			? 'Restored pnpm-workspace.yaml and removed the generated pnpm-lock.yaml.'
+			: 'Restored pnpm-workspace.yaml and pnpm-lock.yaml.'
+	);
 	if (process.env.WITH_MAPLIBRE_SKIP_RESTORE_INSTALL !== '1') {
 		const restoreStatus = restoreInstall();
 		if (restoreStatus !== 0 && !process.exitCode) {

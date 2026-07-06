@@ -4,7 +4,13 @@
 	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import * as maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
-	import { formatLngLat, getCamera, getUpdateTransform, resetEventListener } from '../utils.js';
+	import {
+		formatLngLat,
+		getCamera,
+		getUpdateTransform,
+		resetEventListener,
+		setTransformCameraUpdate
+	} from '../utils.js';
 
 	type RollEvent = maplibregl.MapLibreEvent<MouseEvent | TouchEvent | undefined>;
 	type RollEventType = {
@@ -12,7 +18,11 @@
 		roll: RollEvent;
 		rollend: RollEvent;
 	};
-	type SupportedMapEventType = maplibregl.MapEventType & RollEventType;
+	type LegacyTileDataLoadingEventType = {
+		/** MapLibre GL JS 5.x exposed this event; 6.x removed it from the public event type map. */
+		tiledataloading: maplibregl.MapSourceDataEvent;
+	};
+	type SupportedMapEventType = maplibregl.MapEventType & RollEventType & LegacyTileDataLoadingEventType;
 	type MapEventName = keyof SupportedMapEventType;
 	type MapEventHandlerName = `on${MapEventName}`;
 	type MapEventProps = {
@@ -76,11 +86,6 @@
 		'zoomend',
 		'zoomstart'
 	] as const satisfies readonly MapEventName[];
-
-	type Assert<T extends true> = T;
-	type MissingMapEventName = Exclude<MapEventName, (typeof mapEventNames)[number]>;
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	type _MapEventNamesAreExhaustive = Assert<MissingMapEventName extends never ? true : false>;
 
 	const mapEventNameSet = new Set<string>(mapEventNames);
 
@@ -462,8 +467,11 @@
 				// ongoing gestures survive the `jumpTo` below.
 				const originalStop = camera.stop;
 				camera.stop = () => camera._stop(true);
-				map.jumpTo(jumpTo, { reactivity: true });
-				camera.stop = originalStop;
+				try {
+					map.jumpTo(jumpTo, { reactivity: true });
+				} finally {
+					camera.stop = originalStop;
+				}
 			}
 		}
 	});
@@ -606,7 +614,7 @@
 	$effect(() => {
 		transformCameraUpdate;
 		if (map && !firstRun) {
-			map.transformCameraUpdate = transformCameraUpdate ?? null;
+			setTransformCameraUpdate(map, transformCameraUpdate ?? null);
 		}
 	});
 
