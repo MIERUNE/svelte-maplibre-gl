@@ -5,12 +5,33 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+    inputs:
+      maplibre_version:
+        description: 'maplibre-gl version or dist-tag to test in the next matrix leg'
+        required: false
+        default: 'next'
+  schedule:
+    # Weekly (Mondays 06:00 UTC) — catches new MapLibre GL JS pre-releases even with no repo changes.
+    - cron: '0 6 * * 1'
 
 jobs:
   test:
+    name: Check + unit (maplibre-gl@${{ matrix.maplibre.label }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    continue-on-error: ${{ matrix.maplibre.override }}
+    strategy:
+      fail-fast: false
+      matrix:
+        maplibre:
+          - label: catalog
+            override: false
+            version: catalog
+          - label: next
+            override: true
+            version: ${{ github.event.inputs.maplibre_version || 'next' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -21,22 +42,63 @@ jobs:
           node-version: 24
           cache: 'pnpm'
 
+      - name: Override maplibre-gl in the pnpm catalog
+        if: matrix.maplibre.override
+        env:
+          MAPLIBRE_VERSION: ${{ matrix.maplibre.version }}
+        run: |
+          RESOLVED=$(npm view "maplibre-gl@${MAPLIBRE_VERSION}" version | tail -n1 | tr -d "'\" ")
+          echo "Requested '${MAPLIBRE_VERSION}' -> resolved '${RESOLVED}'"
+          # The catalog in pnpm-workspace.yaml is the single source of truth: every
+          # package depends on `maplibre-gl: catalog:`, so this one edit covers all of them.
+          # Anchored regex matches only the `maplibre-gl:` line (not maplibre-contour / adapter).
+          RESOLVED="$RESOLVED" node -e '
+            const fs = require("fs"), f = "pnpm-workspace.yaml";
+            const re = /^(\s*maplibre-gl:\s*).*$/m;
+            let s = fs.readFileSync(f, "utf8");
+            if (!re.test(s)) { console.error("maplibre-gl catalog entry not found"); process.exit(1); }
+            fs.writeFileSync(f, s.replace(re, `$1${process.env.RESOLVED}`));
+          '
+          echo '--- catalog after override ---'
+          grep -nE 'maplibre-gl:' pnpm-workspace.yaml
+
       - name: Install dependencies
+        if: ${{ !matrix.maplibre.override }}
         run: pnpm install
+
+      - name: Install dependencies with catalog override
+        if: matrix.maplibre.override
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Confirm installed maplibre-gl version
+        run: pnpm why maplibre-gl -r || pnpm ls maplibre-gl -r
 
       - name: Svelte check
         run: pnpm run check:all
 
       - name: Lint
+        if: ${{ !matrix.maplibre.override }}
         run: pnpm run lint
 
       - name: Unit tests
         run: pnpm run test:unit -- --run
 
   e2e:
+    name: e2e (maplibre-gl@${{ matrix.maplibre.label }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    continue-on-error: ${{ matrix.maplibre.override }}
+    strategy:
+      fail-fast: false
+      matrix:
+        maplibre:
+          - label: catalog
+            override: false
+            version: catalog
+          - label: next
+            override: true
+            version: ${{ github.event.inputs.maplibre_version || 'next' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -47,8 +109,36 @@ jobs:
           node-version: 24
           cache: 'pnpm'
 
+      - name: Override maplibre-gl in the pnpm catalog
+        if: matrix.maplibre.override
+        env:
+          MAPLIBRE_VERSION: ${{ matrix.maplibre.version }}
+        run: |
+          RESOLVED=$(npm view "maplibre-gl@${MAPLIBRE_VERSION}" version | tail -n1 | tr -d "'\" ")
+          echo "Requested '${MAPLIBRE_VERSION}' -> resolved '${RESOLVED}'"
+          # The catalog in pnpm-workspace.yaml is the single source of truth: every
+          # package depends on `maplibre-gl: catalog:`, so this one edit covers all of them.
+          # Anchored regex matches only the `maplibre-gl:` line (not maplibre-contour / adapter).
+          RESOLVED="$RESOLVED" node -e '
+            const fs = require("fs"), f = "pnpm-workspace.yaml";
+            const re = /^(\s*maplibre-gl:\s*).*$/m;
+            let s = fs.readFileSync(f, "utf8");
+            if (!re.test(s)) { console.error("maplibre-gl catalog entry not found"); process.exit(1); }
+            fs.writeFileSync(f, s.replace(re, `$1${process.env.RESOLVED}`));
+          '
+          echo '--- catalog after override ---'
+          grep -nE 'maplibre-gl:' pnpm-workspace.yaml
+
       - name: Install dependencies
+        if: ${{ !matrix.maplibre.override }}
         run: pnpm install
+
+      - name: Install dependencies with catalog override
+        if: matrix.maplibre.override
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Confirm installed maplibre-gl version
+        run: pnpm why maplibre-gl -r || pnpm ls maplibre-gl -r
 
       - name: Cache Playwright browsers
         id: playwright-cache
@@ -72,6 +162,6 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.maplibre.label }}
           path: playwright-report/
           retention-days: 7

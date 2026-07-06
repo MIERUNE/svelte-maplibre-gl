@@ -4,7 +4,7 @@
 	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import * as maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
-	import { formatLngLat, resetEventListener } from '../utils.js';
+	import { formatLngLat, getCamera, getUpdateTransform, resetEventListener } from '../utils.js';
 
 	type RollEvent = maplibregl.MapLibreEvent<MouseEvent | TouchEvent | undefined>;
 	type RollEventType = {
@@ -269,7 +269,7 @@
 			if (!map) {
 				return;
 			}
-			const tr = map.transform;
+			const tr = getCamera(map).transform;
 			if (center) {
 				const _center = maplibregl.LngLat.convert(center);
 				if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
@@ -415,7 +415,8 @@
 		elevation;
 		padding;
 		if (!firstRun && map) {
-			const tr = map._getTransformForUpdate();
+			const camera = getCamera(map);
+			const tr = getUpdateTransform(camera);
 			let jumpTo: maplibregl.JumpToOptions = {};
 			let changed = false;
 
@@ -457,19 +458,19 @@
 			}
 
 			if (changed) {
-				const currentMap = map;
-				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
-				const originalStop = currentMap.stop;
-				currentMap.stop = () => currentMap._stop(true);
-				currentMap.jumpTo(jumpTo, { reactivity: true });
-				currentMap.stop = originalStop;
+				// Temporarily replace the camera's `stop` with `_stop(allowGestures: true)` so that
+				// ongoing gestures survive the `jumpTo` below.
+				const originalStop = camera.stop;
+				camera.stop = () => camera._stop(true);
+				map.jumpTo(jumpTo, { reactivity: true });
+				camera.stop = originalStop;
 			}
 		}
 	});
 	$effect(() => {
 		bearingSnap;
 		if (map && bearingSnap !== undefined && !firstRun) {
-			map._bearingSnap = bearingSnap;
+			getCamera(map)._bearingSnap = bearingSnap;
 		}
 	});
 	$effect(() => {
