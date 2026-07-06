@@ -1,5 +1,11 @@
 # svelte-maplibre-gl
 
+## 2.1.0
+
+### Minor Changes
+
+- 461e3f7: Add MapLibre GL JS 6.x camera compatibility while preserving MapLibre GL JS 5.x support.
+
 ## 2.0.1
 
 ### Patch Changes
