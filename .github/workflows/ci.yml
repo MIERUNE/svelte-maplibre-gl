@@ -5,12 +5,33 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+    inputs:
+      maplibre_version:
+        description: 'maplibre-gl version or dist-tag to test in the next matrix leg'
+        required: false
+        default: 'next'
+  schedule:
+    # Weekly (Mondays 06:00 UTC) — catches new MapLibre GL JS pre-releases even with no repo changes.
+    - cron: '0 6 * * 1'
 
 jobs:
   test:
+    name: Check + unit (maplibre-gl@${{ matrix.maplibre.label }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    continue-on-error: ${{ matrix.maplibre.override }}
+    strategy:
+      fail-fast: false
+      matrix:
+        maplibre:
+          - label: catalog
+            override: false
+            version: catalog
+          - label: next
+            override: true
+            version: ${{ github.event.inputs.maplibre_version || 'next' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -22,18 +43,25 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
+        if: ${{ !matrix.maplibre.override }}
         run: pnpm install
 
-      - name: Svelte check
-        run: pnpm run check:all
+      - name: Check + unit tests
+        if: ${{ !matrix.maplibre.override }}
+        run: pnpm run ci:check-unit
 
       - name: Lint
+        if: ${{ !matrix.maplibre.override }}
         run: pnpm run lint
 
-      - name: Unit tests
-        run: pnpm run test:unit -- --run
+      - name: Check + unit tests with maplibre-gl override
+        if: matrix.maplibre.override
+        env:
+          WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
+        run: node scripts/with-maplibre-version.mjs "${{ matrix.maplibre.version }}" pnpm run ci:check-unit
 
   e2e:
+    name: e2e (maplibre-gl@catalog)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -72,6 +100,54 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report
+          name: playwright-report-catalog
+          path: playwright-report/
+          retention-days: 7
+
+  e2e-next:
+    name: e2e (maplibre-gl@next)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+
+      - run: npm i -g --force corepack && corepack enable
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browsers + system deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install Playwright system deps (cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      - name: Run e2e tests with maplibre-gl override
+        env:
+          WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
+        run: node scripts/with-maplibre-version.mjs "${{ github.event.inputs.maplibre_version || 'next' }}" pnpm run test:e2e
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-next
           path: playwright-report/
           retention-days: 7

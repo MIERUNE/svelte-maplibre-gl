@@ -1,3 +1,5 @@
+import type * as maplibregl from 'maplibre-gl';
+
 interface MyControlConstructorOptions {
 	toggleTerrain: () => boolean;
 	toggleHillshade: () => boolean;

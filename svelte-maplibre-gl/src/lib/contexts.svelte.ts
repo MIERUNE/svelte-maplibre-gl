@@ -1,9 +1,9 @@
+import type * as maplibregl from 'maplibre-gl';
 import type {
 	AddLayerObject,
 	CanvasSourceSpecification,
 	LayerSpecification,
 	LightSpecification,
-	Map as MapLibre,
 	Marker,
 	ProjectionSpecification,
 	SkySpecification,
@@ -22,7 +22,7 @@ const MARKER_CONTEXT_KEY = Symbol('MapLibre marker context');
 // https://svelte.dev/docs/svelte/$state#Classes
 class MapContext {
 	/** Map instance */
-	_map: MapLibre | null = $state.raw(null);
+	_map: maplibregl.Map | null = $state.raw(null);
 	/** Callbacks to be called when the map style is loaded */
 	private _listener?: maplibregl.Listener = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
@@ -207,7 +207,7 @@ class MapContext {
 
 		this.map?.setStyle($state.snapshot(style) as string | StyleSpecification, {
 			// Preserves user styles when the base style changes
-			transformStyle: (previous, next) => {
+			transformStyle: ((previous, next) => {
 				this.baseLight = next.light;
 				this.baseProjection = next.projection;
 				this.baseSky = next.sky;
@@ -235,7 +235,7 @@ class MapContext {
 					sources,
 					layers
 				};
-			}
+			}) satisfies maplibregl.TransformStyleFunction
 		});
 	}
 }

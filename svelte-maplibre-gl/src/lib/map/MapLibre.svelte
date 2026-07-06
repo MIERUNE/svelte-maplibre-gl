@@ -4,7 +4,13 @@
 	import { onDestroy, untrack, type Snippet } from 'svelte';
 	import * as maplibregl from 'maplibre-gl';
 	import { prepareMapContext } from '../contexts.svelte.js';
-	import { formatLngLat, resetEventListener } from '../utils.js';
+	import {
+		formatLngLat,
+		getCamera,
+		getUpdateTransform,
+		resetEventListener,
+		setTransformCameraUpdate
+	} from '../utils.js';
 
 	type RollEvent = maplibregl.MapLibreEvent<MouseEvent | TouchEvent | undefined>;
 	type RollEventType = {
@@ -12,7 +18,13 @@
 		roll: RollEvent;
 		rollend: RollEvent;
 	};
-	type SupportedMapEventType = maplibregl.MapEventType & RollEventType;
+	// MapLibre GL JS 6.x dropped `tiledataloading` from MapEventType. Keep the prop available on
+	// both versions, but take the payload from MapEventType when the key exists (5.x) so the type
+	// stays exact.
+	type TileDataLoadingEvent = maplibregl.MapEventType extends { tiledataloading: infer T }
+		? T
+		: maplibregl.MapSourceDataEvent;
+	type SupportedMapEventType = maplibregl.MapEventType & RollEventType & { tiledataloading: TileDataLoadingEvent };
 	type MapEventName = keyof SupportedMapEventType;
 	type MapEventHandlerName = `on${MapEventName}`;
 	type MapEventProps = {
@@ -76,11 +88,6 @@
 		'zoomend',
 		'zoomstart'
 	] as const satisfies readonly MapEventName[];
-
-	type Assert<T extends true> = T;
-	type MissingMapEventName = Exclude<MapEventName, (typeof mapEventNames)[number]>;
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	type _MapEventNamesAreExhaustive = Assert<MissingMapEventName extends never ? true : false>;
 
 	const mapEventNameSet = new Set<string>(mapEventNames);
 
@@ -269,7 +276,7 @@
 			if (!map) {
 				return;
 			}
-			const tr = map.transform;
+			const tr = getCamera(map).transform;
 			if (center) {
 				const _center = maplibregl.LngLat.convert(center);
 				if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
@@ -415,7 +422,8 @@
 		elevation;
 		padding;
 		if (!firstRun && map) {
-			const tr = map._getTransformForUpdate();
+			const camera = getCamera(map);
+			const tr = getUpdateTransform(camera);
 			let jumpTo: maplibregl.JumpToOptions = {};
 			let changed = false;
 
@@ -457,19 +465,22 @@
 			}
 
 			if (changed) {
-				const currentMap = map;
-				// Temporarily replace `stop` with `_stop(allowGestures: true)` to allow ongoing gestures during `jumpTo`,
-				const originalStop = currentMap.stop;
-				currentMap.stop = () => currentMap._stop(true);
-				currentMap.jumpTo(jumpTo, { reactivity: true });
-				currentMap.stop = originalStop;
+				// Temporarily replace the camera's `stop` with `_stop(allowGestures: true)` so that
+				// ongoing gestures survive the `jumpTo` below.
+				const originalStop = camera.stop;
+				camera.stop = () => camera._stop(true);
+				try {
+					map.jumpTo(jumpTo, { reactivity: true });
+				} finally {
+					camera.stop = originalStop;
+				}
 			}
 		}
 	});
 	$effect(() => {
 		bearingSnap;
 		if (map && bearingSnap !== undefined && !firstRun) {
-			map._bearingSnap = bearingSnap;
+			getCamera(map)._bearingSnap = bearingSnap;
 		}
 	});
 	$effect(() => {
@@ -605,7 +616,7 @@
 	$effect(() => {
 		transformCameraUpdate;
 		if (map && !firstRun) {
-			map.transformCameraUpdate = transformCameraUpdate ?? null;
+			setTransformCameraUpdate(map, transformCameraUpdate ?? null);
 		}
 	});
 

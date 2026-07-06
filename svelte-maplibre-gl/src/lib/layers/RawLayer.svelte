@@ -141,11 +141,11 @@
 				for (const [key, value] of Object.entries(_paint)) {
 					keysRemoved.delete(key);
 					if (prevPaint[key] !== value) {
-						map.setPaintProperty(id, key, value);
+						map.setPaintProperty(id, key as keyof maplibregl.AllPaintProperties, value);
 					}
 				}
 				for (const key of keysRemoved) {
-					map.setPaintProperty(id, key, undefined);
+					map.setPaintProperty(id, key as keyof maplibregl.AllPaintProperties, undefined);
 				}
 				prevPaint = _paint;
 			});
@@ -163,11 +163,11 @@
 				for (const [key, value] of Object.entries(_layout)) {
 					keysRemoved.delete(key);
 					if (prevLayout[key] !== value) {
-						map.setLayoutProperty(id, key, value);
+						map.setLayoutProperty(id, key as keyof maplibregl.AllLayoutProperties, value);
 					}
 				}
 				for (const key of keysRemoved) {
-					map.setLayoutProperty(id, key, undefined);
+					map.setLayoutProperty(id, key as keyof maplibregl.AllLayoutProperties, undefined);
 				}
 				prevLayout = _layout;
 			});
