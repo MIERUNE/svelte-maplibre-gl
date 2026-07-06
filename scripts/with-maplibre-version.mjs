@@ -23,21 +23,56 @@ try {
 	originalLockfile = undefined;
 }
 
+function signalExitCode(signal) {
+	return signal === 'SIGINT' ? 130 : signal === 'SIGTERM' ? 143 : 1;
+}
+
+class InterruptedError extends Error {
+	constructor(signal) {
+		super(`Interrupted by ${signal}`);
+		this.signal = signal;
+	}
+}
+
+let interruptedSignal;
+function markInterrupted(signal) {
+	interruptedSignal ??= signal;
+	process.exitCode = signalExitCode(interruptedSignal);
+}
+
+function throwIfInterrupted() {
+	if (interruptedSignal) {
+		throw new InterruptedError(interruptedSignal);
+	}
+}
+
 function run(command, args, options = {}) {
+	const { allowAfterInterrupt = false, ...spawnOptions } = options;
+	if (interruptedSignal && !allowAfterInterrupt) {
+		return signalExitCode(interruptedSignal);
+	}
+
 	const result = spawnSync(command, args, {
 		stdio: 'inherit',
 		shell: process.platform === 'win32',
-		...options
+		...spawnOptions
 	});
 
 	if (result.error) {
 		throw result.error;
 	}
 
+	if (result.signal) {
+		markInterrupted(result.signal);
+		return signalExitCode(result.signal);
+	}
+
 	return result.status ?? 1;
 }
 
 function getOutput(command, args) {
+	throwIfInterrupted();
+
 	const result = spawnSync(command, args, {
 		encoding: 'utf8',
 		shell: process.platform === 'win32'
@@ -45,6 +80,11 @@ function getOutput(command, args) {
 
 	if (result.error) {
 		throw result.error;
+	}
+
+	if (result.signal) {
+		markInterrupted(result.signal);
+		throw new InterruptedError(result.signal);
 	}
 
 	if (result.status !== 0) {
@@ -66,7 +106,7 @@ function restoreFiles() {
 
 function restoreInstall() {
 	console.log('Restoring dependencies from the original lockfile...');
-	return run('pnpm', ['install']);
+	return run('pnpm', ['install'], { allowAfterInterrupt: true });
 }
 
 let restored = false;
@@ -77,9 +117,8 @@ function restoreOnce() {
 }
 
 for (const signal of ['SIGINT', 'SIGTERM']) {
-	process.once(signal, () => {
-		restoreOnce();
-		process.kill(process.pid, signal);
+	process.on(signal, () => {
+		markInterrupted(signal);
 	});
 }
 
@@ -88,6 +127,8 @@ try {
 		.split('\n')
 		.at(-1)
 		?.replace(/["'\s]/g, '');
+
+	throwIfInterrupted();
 
 	if (!resolvedVersion) {
 		throw new Error(`Could not resolve maplibre-gl@${requestedVersion}`);
@@ -101,6 +142,7 @@ try {
 	}
 
 	writeFileSync(workspacePath, originalWorkspace.replace(catalogEntry, `$1${resolvedVersion}`));
+	throwIfInterrupted();
 
 	const installStatus = run('pnpm', ['install', '--no-frozen-lockfile']);
 	if (installStatus !== 0) {
@@ -112,7 +154,7 @@ try {
 	}
 } catch (error) {
 	console.error(error instanceof Error ? error.message : error);
-	process.exitCode = 1;
+	process.exitCode = error instanceof InterruptedError ? signalExitCode(error.signal) : 1;
 } finally {
 	restoreOnce();
 	console.log(
