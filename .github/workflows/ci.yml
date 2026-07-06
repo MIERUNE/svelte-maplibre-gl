@@ -42,63 +42,29 @@ jobs:
           node-version: 24
           cache: 'pnpm'
 
-      - name: Override maplibre-gl in the pnpm catalog
-        if: matrix.maplibre.override
-        env:
-          MAPLIBRE_VERSION: ${{ matrix.maplibre.version }}
-        run: |
-          RESOLVED=$(npm view "maplibre-gl@${MAPLIBRE_VERSION}" version | tail -n1 | tr -d "'\" ")
-          echo "Requested '${MAPLIBRE_VERSION}' -> resolved '${RESOLVED}'"
-          # The catalog in pnpm-workspace.yaml is the single source of truth: every
-          # package depends on `maplibre-gl: catalog:`, so this one edit covers all of them.
-          # Anchored regex matches only the `maplibre-gl:` line (not maplibre-contour / adapter).
-          RESOLVED="$RESOLVED" node -e '
-            const fs = require("fs"), f = "pnpm-workspace.yaml";
-            const re = /^(\s*maplibre-gl:\s*).*$/m;
-            let s = fs.readFileSync(f, "utf8");
-            if (!re.test(s)) { console.error("maplibre-gl catalog entry not found"); process.exit(1); }
-            fs.writeFileSync(f, s.replace(re, `$1${process.env.RESOLVED}`));
-          '
-          echo '--- catalog after override ---'
-          grep -nE 'maplibre-gl:' pnpm-workspace.yaml
-
       - name: Install dependencies
         if: ${{ !matrix.maplibre.override }}
         run: pnpm install
 
-      - name: Install dependencies with catalog override
-        if: matrix.maplibre.override
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Confirm installed maplibre-gl version
-        run: pnpm why maplibre-gl -r || pnpm ls maplibre-gl -r
-
-      - name: Svelte check
-        run: pnpm run check:all
+      - name: Check + unit tests
+        if: ${{ !matrix.maplibre.override }}
+        run: pnpm run ci:check-unit
 
       - name: Lint
         if: ${{ !matrix.maplibre.override }}
         run: pnpm run lint
 
-      - name: Unit tests
-        run: pnpm run test:unit -- --run
+      - name: Check + unit tests with maplibre-gl override
+        if: matrix.maplibre.override
+        env:
+          WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
+        run: node scripts/with-maplibre-version.mjs "${{ matrix.maplibre.version }}" pnpm run ci:check-unit
 
   e2e:
-    name: e2e (maplibre-gl@${{ matrix.maplibre.label }})
+    name: e2e (maplibre-gl@catalog)
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    continue-on-error: ${{ matrix.maplibre.override }}
-    strategy:
-      fail-fast: false
-      matrix:
-        maplibre:
-          - label: catalog
-            override: false
-            version: catalog
-          - label: next
-            override: true
-            version: ${{ github.event.inputs.maplibre_version || 'next' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -109,36 +75,8 @@ jobs:
           node-version: 24
           cache: 'pnpm'
 
-      - name: Override maplibre-gl in the pnpm catalog
-        if: matrix.maplibre.override
-        env:
-          MAPLIBRE_VERSION: ${{ matrix.maplibre.version }}
-        run: |
-          RESOLVED=$(npm view "maplibre-gl@${MAPLIBRE_VERSION}" version | tail -n1 | tr -d "'\" ")
-          echo "Requested '${MAPLIBRE_VERSION}' -> resolved '${RESOLVED}'"
-          # The catalog in pnpm-workspace.yaml is the single source of truth: every
-          # package depends on `maplibre-gl: catalog:`, so this one edit covers all of them.
-          # Anchored regex matches only the `maplibre-gl:` line (not maplibre-contour / adapter).
-          RESOLVED="$RESOLVED" node -e '
-            const fs = require("fs"), f = "pnpm-workspace.yaml";
-            const re = /^(\s*maplibre-gl:\s*).*$/m;
-            let s = fs.readFileSync(f, "utf8");
-            if (!re.test(s)) { console.error("maplibre-gl catalog entry not found"); process.exit(1); }
-            fs.writeFileSync(f, s.replace(re, `$1${process.env.RESOLVED}`));
-          '
-          echo '--- catalog after override ---'
-          grep -nE 'maplibre-gl:' pnpm-workspace.yaml
-
       - name: Install dependencies
-        if: ${{ !matrix.maplibre.override }}
         run: pnpm install
-
-      - name: Install dependencies with catalog override
-        if: matrix.maplibre.override
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Confirm installed maplibre-gl version
-        run: pnpm why maplibre-gl -r || pnpm ls maplibre-gl -r
 
       - name: Cache Playwright browsers
         id: playwright-cache
@@ -162,6 +100,54 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report-${{ matrix.maplibre.label }}
+          name: playwright-report-catalog
+          path: playwright-report/
+          retention-days: 7
+
+  e2e-next:
+    name: e2e (maplibre-gl@next)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+
+      - run: npm i -g --force corepack && corepack enable
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browsers + system deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install Playwright system deps (cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      - name: Run e2e tests with maplibre-gl override
+        env:
+          WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
+        run: node scripts/with-maplibre-version.mjs "${{ github.event.inputs.maplibre_version || 'next' }}" pnpm run test:e2e
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-next
           path: playwright-report/
           retention-days: 7
