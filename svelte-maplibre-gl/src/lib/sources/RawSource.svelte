@@ -52,7 +52,8 @@
 			}
 		}
 	});
-	$effect(() => {
+	// ensure it runs before options change (child effects run after parent conponent's effects)
+	$effect.pre(() => {
 		if (
 			source &&
 			'setTiles' in source &&
@@ -79,7 +80,11 @@
 				return;
 			}
 
-			source.setTiles(spec.tiles ?? []);
+			const tiles = spec.tiles ?? [];
+			// force sync write until fix in maplibre-gl
+			source.tiles = tiles;
+
+			source.setTiles(tiles);
 		}
 	});
 	$effect(() => {
