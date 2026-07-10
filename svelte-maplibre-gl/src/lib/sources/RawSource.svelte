@@ -80,11 +80,9 @@
 				return;
 			}
 
-			const tiles = spec.tiles ?? [];
-			// force sync write until fix in maplibre-gl
-			source.tiles = tiles;
+			source.tiles = spec.tiles ?? []; // force sync write until fix in maplibre-gl
 
-			source.setTiles(tiles);
+			source.setTiles(spec.tiles ?? []);
 		}
 	});
 	$effect(() => {
