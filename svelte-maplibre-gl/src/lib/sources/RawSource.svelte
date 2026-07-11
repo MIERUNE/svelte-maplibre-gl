@@ -52,7 +52,7 @@
 			}
 		}
 	});
-	// ensure it runs before options change (child effects run after parent conponent's effects)
+	// ensure it runs before options change (child effects run after parent component's effects)
 	$effect.pre(() => {
 		if (
 			source &&

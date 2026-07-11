@@ -2,4 +2,4 @@
 'svelte-maplibre-gl': patch
 ---
 
-Effects in Map run before effect in Source - using effect.pre ensures they come before
+Use `$effect.pre` for source tile updates so they run before the map’s option/camera effects when both change in the same tick.
