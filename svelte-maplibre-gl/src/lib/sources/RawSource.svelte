@@ -85,7 +85,8 @@
 			source.setTiles(spec.tiles ?? []);
 		}
 	});
-	$effect(() => {
+	// ensure it runs before options change (child effects run after parent component's effects)
+	$effect.pre(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.url;
 			if (!firstRun && 'setUrl' in source && spec.url !== source.url) {
