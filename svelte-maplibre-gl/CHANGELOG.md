@@ -1,5 +1,11 @@
 # svelte-maplibre-gl
 
+## 2.1.1
+
+### Patch Changes
+
+- deece96: Make MapLibre GL JS v6 the default while preserving compatibility with v5.
+
 ## 2.1.0
 
 ### Minor Changes

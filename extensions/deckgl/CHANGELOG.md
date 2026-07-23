@@ -1,5 +1,11 @@
 # @svelte-maplibre-gl/deckgl
 
+## 2.0.2
+
+### Patch Changes
+
+- deece96: Make MapLibre GL JS v6 the default while preserving compatibility with v5.
+
 ## 2.0.1
 
 ### Patch Changes
