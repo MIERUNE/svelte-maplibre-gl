@@ -124,7 +124,7 @@ for (const signal of ['SIGINT', 'SIGTERM']) {
 
 try {
 	const versionOutput = getOutput('npm', ['view', `maplibre-gl@${requestedVersion}`, 'version']);
-	const resolvedVersion = versionOutput.match(/\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?/g)?.at(-1);
+	const resolvedVersion = versionOutput.match(/\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?/g)?.at(-1);
 
 	throwIfInterrupted();
 

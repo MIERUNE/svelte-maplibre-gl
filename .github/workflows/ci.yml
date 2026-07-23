@@ -112,7 +112,6 @@ jobs:
 
   e2e-v5:
     name: e2e (maplibre-gl@v5)
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read

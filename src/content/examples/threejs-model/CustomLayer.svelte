@@ -4,7 +4,9 @@
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-	function getModelMatrix(origin: maplibregl.LngLatLike, altitude: number) {
+	const earthRadius = 6_371_008.8;
+
+	function getMercatorModelMatrix(origin: maplibregl.LngLatLike, altitude: number) {
 		const modelAsMercatorCoordinate = maplibregl.MercatorCoordinate.fromLngLat(origin, altitude);
 		const scale = modelAsMercatorCoordinate.meterInMercatorCoordinateUnits();
 
@@ -13,6 +15,18 @@
 			.multiply(new THREE.Matrix4().makeRotationZ(Math.PI))
 			.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2))
 			.scale(new THREE.Vector3(-scale, scale, scale));
+	}
+
+	function getGlobeModelMatrix(origin: maplibregl.LngLatLike, altitude: number) {
+		const { lng, lat } = maplibregl.LngLat.convert(origin);
+		const scale = 1 / earthRadius;
+
+		return new THREE.Matrix4()
+			.makeRotationY((lng / 180) * Math.PI)
+			.multiply(new THREE.Matrix4().makeRotationX((-lat / 180) * Math.PI))
+			.multiply(new THREE.Matrix4().makeTranslation(0, 0, 1 + altitude / earthRadius))
+			.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2))
+			.scale(new THREE.Vector3(scale, scale, scale));
 	}
 
 	class CustomLayerImpl implements Omit<maplibregl.CustomLayerInterface, 'id' | 'type'> {
@@ -54,7 +68,11 @@
 			const modelAltitude = 0;
 			const scaling = 10_000.0;
 			const m = new THREE.Matrix4().fromArray(args.defaultProjectionData.mainMatrix);
-			const l = getModelMatrix(modelOrigin, modelAltitude).scale(new THREE.Vector3(scaling, scaling, scaling));
+			const l =
+				args.defaultProjectionData.projectionTransition > 0
+					? getGlobeModelMatrix(modelOrigin, modelAltitude)
+					: getMercatorModelMatrix(modelOrigin, modelAltitude);
+			l.scale(new THREE.Vector3(scaling, scaling, scaling));
 
 			this.camera.projectionMatrix = m.multiply(l);
 			this.renderer!.resetState();
