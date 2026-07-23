@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       maplibre_version:
-        description: 'maplibre-gl version or dist-tag to test in the next matrix leg'
+        description: 'maplibre-gl version or dist-tag to test in the v5 compatibility matrix leg'
         required: false
-        default: 'next'
+        default: '5'
   schedule:
-    # Weekly (Mondays 06:00 UTC) — catches new MapLibre GL JS pre-releases even with no repo changes.
+    # Weekly (Mondays 06:00 UTC) — checks MapLibre GL JS 5.x compatibility even with no repo changes.
     - cron: '0 6 * * 1'
 
 jobs:
@@ -29,9 +29,9 @@ jobs:
           - label: catalog
             override: false
             version: catalog
-          - label: next
+          - label: v5
             override: true
-            version: ${{ github.event.inputs.maplibre_version || 'next' }}
+            version: ${{ github.event.inputs.maplibre_version || '5' }}
     steps:
       - uses: actions/checkout@v7
 
@@ -110,9 +110,8 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  e2e-next:
-    name: e2e (maplibre-gl@next)
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+  e2e-v5:
+    name: e2e (maplibre-gl@v5)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -148,12 +147,12 @@ jobs:
       - name: Run e2e tests with maplibre-gl override
         env:
           WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
-        run: node scripts/with-maplibre-version.mjs "${{ github.event.inputs.maplibre_version || 'next' }}" pnpm run test:e2e
+        run: node scripts/with-maplibre-version.mjs "${{ github.event.inputs.maplibre_version || '5' }}" pnpm run test:e2e
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report-next
+          name: playwright-report-v5
           path: playwright-report/
           retention-days: 7

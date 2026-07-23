@@ -44,7 +44,24 @@
 	}: Props = $props();
 
 	const mapCtx = getMapContext();
-	if (!mapCtx.map) throw new Error('Map instance is not initialized.');
+	const map = mapCtx.map;
+	if (!map) throw new Error('Map instance is not initialized.');
+
+	type MapWithLegacyTransform = maplibregl.Map & {
+		transform?: unknown;
+		_camera?: { transform?: unknown };
+	};
+
+	function exposeLegacyTransformForDeckGL(map: maplibregl.Map) {
+		const m = map as MapWithLegacyTransform;
+		if (m.transform || !m._camera?.transform) return;
+
+		Object.defineProperty(m, 'transform', {
+			configurable: true,
+			enumerable: false,
+			get: () => m._camera?.transform
+		});
+	}
 
 	let deckOverlay: MapboxOverlay;
 	onMount(() => {
@@ -87,9 +104,10 @@
 			}).filter(([, v]) => v !== undefined)
 		);
 
+		exposeLegacyTransformForDeckGL(map);
 		deckOverlay = new MapboxOverlay(options);
 
-		mapCtx.map?.addControl(deckOverlay as maplibregl.IControl);
+		map.addControl(deckOverlay as maplibregl.IControl);
 	});
 
 	let firstRun = true;
