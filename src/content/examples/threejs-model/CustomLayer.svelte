@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
-	import type * as maplibregl from 'maplibre-gl';
+	import * as maplibregl from 'maplibre-gl';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-	type ModelTransform = {
-		getMatrixForModel(origin: [number, number], altitude: number): number[];
-	};
+	function getModelMatrix(origin: maplibregl.LngLatLike, altitude: number) {
+		const modelAsMercatorCoordinate = maplibregl.MercatorCoordinate.fromLngLat(origin, altitude);
+		const scale = modelAsMercatorCoordinate.meterInMercatorCoordinateUnits();
 
-	function getModelTransform(map: maplibregl.Map): ModelTransform {
-		const m = map as unknown as { transform?: ModelTransform; _camera?: { transform: ModelTransform } };
-		return m.transform ?? m._camera!.transform;
+		return new THREE.Matrix4()
+			.makeTranslation(modelAsMercatorCoordinate.x, modelAsMercatorCoordinate.y, modelAsMercatorCoordinate.z)
+			.multiply(new THREE.Matrix4().makeRotationZ(Math.PI))
+			.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2))
+			.scale(new THREE.Vector3(-scale, scale, scale));
 	}
 
 	class CustomLayerImpl implements Omit<maplibregl.CustomLayerInterface, 'id' | 'type'> {
@@ -51,12 +53,8 @@
 			const modelOrigin: [number, number] = [148.9819, -35.39847];
 			const modelAltitude = 0;
 			const scaling = 10_000.0;
-			// We can use this API to get the correct model matrix.
-			// It will work regardless of current projection.
-			// See MapLibre source code, file "mercator_transform.ts" or "vertical_perspective_transform.ts".
-			const modelMatrix = getModelTransform(this.map!).getMatrixForModel(modelOrigin, modelAltitude);
 			const m = new THREE.Matrix4().fromArray(args.defaultProjectionData.mainMatrix);
-			const l = new THREE.Matrix4().fromArray(modelMatrix).scale(new THREE.Vector3(scaling, scaling, scaling));
+			const l = getModelMatrix(modelOrigin, modelAltitude).scale(new THREE.Vector3(scaling, scaling, scaling));
 
 			this.camera.projectionMatrix = m.multiply(l);
 			this.renderer!.resetState();

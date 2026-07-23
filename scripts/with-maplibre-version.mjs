@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const [, , requestedVersion = 'next', ...command] = process.argv;
+const [, , requestedVersion = '5', ...command] = process.argv;
 
 const workspacePath = resolve('pnpm-workspace.yaml');
 const lockfilePath = resolve('pnpm-lock.yaml');
@@ -123,10 +123,8 @@ for (const signal of ['SIGINT', 'SIGTERM']) {
 }
 
 try {
-	const resolvedVersion = getOutput('npm', ['view', `maplibre-gl@${requestedVersion}`, 'version'])
-		.split('\n')
-		.at(-1)
-		?.replace(/["'\s]/g, '');
+	const versionOutput = getOutput('npm', ['view', `maplibre-gl@${requestedVersion}`, 'version']);
+	const resolvedVersion = versionOutput.match(/\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?/g)?.at(-1);
 
 	throwIfInterrupted();
 
