@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { CircleLayer, MapLibre, GeoJSONSource, SymbolLayer, GlobeControl } from 'svelte-maplibre-gl';
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';

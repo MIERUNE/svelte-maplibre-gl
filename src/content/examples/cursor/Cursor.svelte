@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, GeoJSONSource, CircleLayer } from 'svelte-maplibre-gl';
 	import type GeoJSON from 'geojson';
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	// E2E fixture mirroring the markup-order pattern from /examples/complex:
 	// non-source layers (RasterLayer, BackgroundLayer anchors) interleaved
 	// with source-bound layers that reference those anchors via beforeId.

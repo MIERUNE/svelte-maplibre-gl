@@ -17,6 +17,7 @@ const maplibreVersion =
 const maplibreMajorSegment = maplibreVersion.split('.')[0]?.replace(/^\D+/, '') ?? '';
 const parsedMaplibreMajor = Number.parseInt(maplibreMajorSegment, 10);
 const maplibreMajor = Number.isFinite(parsedMaplibreMajor) ? parsedMaplibreMajor : 0;
+const maplibreWorkerUrlImport = 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 export default defineConfig({
 	plugins: [
@@ -33,7 +34,12 @@ export default defineConfig({
 
 	resolve: {
 		alias: {
-			path: 'pathe'
+			path: 'pathe',
+			...(maplibreMajor < 6
+				? {
+						[maplibreWorkerUrlImport]: `${require.resolve('maplibre-gl/dist/maplibre-gl-csp-worker.js')}?worker&url`
+					}
+				: {})
 		}
 	},
 

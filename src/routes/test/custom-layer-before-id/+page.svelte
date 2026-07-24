@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	import type { CustomLayerInterface, Map as MapLibreMap, StyleSpecification } from 'maplibre-gl';
 	import { CustomLayer, MapLibre } from 'svelte-maplibre-gl';
 

@@ -13,14 +13,31 @@ test('layers are inserted in markup order with beforeId resolution', async ({ pa
 	await page.waitForFunction(() => (window as unknown as { __map?: unknown }).__map);
 	// Allow the queued mount microtasks to flush.
 	await page.waitForTimeout(200);
-
-	const layers = await page.evaluate(() =>
-		(window as unknown as { __map: { getStyle(): { layers: { id: string }[] } } }).__map
-			.getStyle()
-			.layers.map((l) => l.id)
+	await page.waitForFunction(() =>
+		(
+			window as unknown as {
+				__map: { isSourceLoaded(id: string): boolean };
+			}
+		).__map.isSourceLoaded('circles-src')
 	);
 
+	const { layers, renderedCircleCount } = await page.evaluate(() => {
+		const map = (
+			window as unknown as {
+				__map: {
+					getStyle(): { layers: { id: string }[] };
+					queryRenderedFeatures(geometry?: undefined, options?: { layers: string[] }): unknown[];
+				};
+			}
+		).__map;
+		return {
+			layers: map.getStyle().layers.map((l) => l.id),
+			renderedCircleCount: map.queryRenderedFeatures(undefined, { layers: ['circles'] }).length
+		};
+	});
+
 	expect(errors).toEqual([]);
+	expect(renderedCircleCount, 'GeoJSON worker output was not rendered').toBeGreaterThan(0);
 
 	const idx = (id: string) => layers.indexOf(id);
 	for (const id of ['raster', 'dummy1', 'dummy2', 'dummy3', 'line', 'fill', 'circles']) {

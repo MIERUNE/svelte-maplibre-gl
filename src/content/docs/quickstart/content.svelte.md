@@ -33,7 +33,8 @@ npm install -D svelte-maplibre-gl
 
 ## 3. Add the Simplest Map
 
-Now you can add the simplest MapLibre GL JS map to your `+page.svelte` file with just one line of code.
+Import the Vite adapter once to configure the MapLibre GL JS v6 worker, then add the simplest
+map to your `+page.svelte` file.
 
 <CodeBlock content={simplestRaw} {shiki} />
 <Simplest />
