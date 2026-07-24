@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	import type { Map as MapLibreMap, StyleSpecification } from 'maplibre-gl';
 	import { CircleLayer, MapLibre } from 'svelte-maplibre-gl';
 

@@ -33,7 +33,8 @@
 		"!dist/**/*.spec.*"
 	],
 	"sideEffects": [
-		"**/*.css"
+		"**/*.css",
+		"./dist/vite.js"
 	],
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -42,6 +43,11 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
+		},
+		"./vite": {
+			"types": "./dist/vite.d.ts",
+			"svelte": "./dist/vite.js",
+			"default": "./dist/vite.js"
 		}
 	},
 	"peerDependencies": {

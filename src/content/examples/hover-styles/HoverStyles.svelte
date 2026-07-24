@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { FillLayer, LineLayer, MapLibre, GeoJSONSource, FeatureState, Popup } from 'svelte-maplibre-gl';
 	import type * as maplibregl from 'maplibre-gl';
 

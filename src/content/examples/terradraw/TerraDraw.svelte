@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, GlobeControl } from 'svelte-maplibre-gl';
 	import { TerraDraw, type UndoRedoOptions } from '@svelte-maplibre-gl/terradraw';
 	import type { TerraDraw as Draw } from 'terra-draw';

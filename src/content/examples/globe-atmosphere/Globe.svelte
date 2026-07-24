@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, Projection, Sky, Light } from 'svelte-maplibre-gl';
 
 	let thetaDeg = $state(135);

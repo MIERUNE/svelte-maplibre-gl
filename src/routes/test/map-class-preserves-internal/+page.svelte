@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	import type { StyleSpecification } from 'maplibre-gl';
 	import { MapLibre } from 'svelte-maplibre-gl';
 

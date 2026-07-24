@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, ImageSource, GlobeControl, RasterLayer } from 'svelte-maplibre-gl';
 
 	const FRAME_COUNT = 5;

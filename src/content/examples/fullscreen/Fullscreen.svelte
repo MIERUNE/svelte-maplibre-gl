@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, FullScreenControl } from 'svelte-maplibre-gl';
 
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';

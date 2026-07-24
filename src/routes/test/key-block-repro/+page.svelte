@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	// E2E fixture for #137: source/layer inside a {#key} block must survive
 	// repeated re-renders without colliding with the previous mount. Uses an
 	// empty inline style so the test does not depend on network tile fetches.

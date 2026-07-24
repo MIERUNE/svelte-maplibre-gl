@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	import type { PointLike, StyleSpecification } from 'maplibre-gl';
 	import { MapLibre, Marker } from 'svelte-maplibre-gl';
 

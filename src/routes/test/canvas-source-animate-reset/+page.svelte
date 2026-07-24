@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite';
 	import type { CanvasSource as MapLibreCanvasSource, Map as MapLibreMap, StyleSpecification } from 'maplibre-gl';
 	import { CanvasSource, MapLibre, RasterLayer } from 'svelte-maplibre-gl';
 

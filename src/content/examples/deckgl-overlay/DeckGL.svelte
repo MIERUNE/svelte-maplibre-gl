@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { onMount } from 'svelte';
 	import { MapLibre, FillExtrusionLayer } from 'svelte-maplibre-gl';
 	import { DeckGLOverlay } from '@svelte-maplibre-gl/deckgl';

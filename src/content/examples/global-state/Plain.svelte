@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { Label } from '$lib/components/ui/label';
 	import { MapLibre, GeoJSONSource, CircleLayer, SymbolLayer } from 'svelte-maplibre-gl';
 

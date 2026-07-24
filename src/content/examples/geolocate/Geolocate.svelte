@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, GeolocateControl } from 'svelte-maplibre-gl';
 
 	let logString = $state('Press the GeolocateControl button.\n');

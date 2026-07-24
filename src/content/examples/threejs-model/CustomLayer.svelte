@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'svelte-maplibre-gl/vite'; // Required only for GL JS v6+
 	import { MapLibre, CustomLayer, GlobeControl, Projection } from 'svelte-maplibre-gl';
 	import * as maplibregl from 'maplibre-gl';
 	import * as THREE from 'three';
