@@ -52,7 +52,8 @@
 			}
 		}
 	});
-	$effect(() => {
+	// ensure it runs before options change (child effects run after parent component's effects)
+	$effect.pre(() => {
 		if (
 			source &&
 			'setTiles' in source &&
@@ -79,10 +80,16 @@
 				return;
 			}
 
-			source.setTiles(spec.tiles ?? []);
+			const tiles = spec.tiles ?? [];
+
+			// TODO: remove if this gets merged: https://github.com/maplibre/maplibre-gl-js/pull/7910
+			source.tiles = tiles; // force sync write until fix in maplibre-gl
+
+			source.setTiles(tiles);
 		}
 	});
-	$effect(() => {
+	// ensure it runs before options change (child effects run after parent component's effects)
+	$effect.pre(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
 			spec.url;
 			if (!firstRun && 'setUrl' in source && spec.url !== source.url) {
