@@ -1,5 +1,11 @@
 # svelte-maplibre-gl
 
+## 2.2.0
+
+### Minor Changes
+
+- 3c60689: Add a Vite entry point that configures the MapLibre GL JS v6 worker.
+
 ## 2.1.1
 
 ### Patch Changes
