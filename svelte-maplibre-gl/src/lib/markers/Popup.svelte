@@ -120,7 +120,7 @@
 	});
 
 	$effect(() => {
-		function _onopen(ev: unknown) {
+		function _onopen(ev: maplibregl.Event) {
 			open = true;
 			internalOpen = true;
 			onopen?.(ev);
@@ -132,7 +132,7 @@
 	});
 
 	$effect(() => {
-		function _onclose(ev: unknown) {
+		function _onclose(ev: maplibregl.Event) {
 			open = false;
 			internalOpen = false;
 			onclose?.(ev);
