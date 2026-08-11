@@ -1,6 +1,6 @@
 ---
 title: 3D Buildings
-description: Use extrusions to display buildings' height in 3D.
+description: Use extrusions with rounded corners to display buildings' height in 3D.
 original: https://maplibre.org/maplibre-gl-js/docs/examples/display-buildings-in-3d/
 ---
 
