@@ -39,11 +39,16 @@
 	});
 
 	$effect(() => {
-		if (control) {
-			mapCtx.map?.addControl(control, position);
+		const map = mapCtx.map;
+		const currentControl = control;
+		if (currentControl) {
+			map?.addControl(currentControl, position);
 		}
+
 		return () => {
-			control && mapCtx.map?.removeControl(control);
+			if (currentControl) {
+				map?.removeControl(currentControl);
+			}
 		};
 	});
 </script>
