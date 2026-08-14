@@ -38,6 +38,9 @@
 		sourceLayer="building"
 		minzoom={14}
 		filter={['!=', ['get', 'hide_3d'], true]}
+		layout={{
+			'fill-extrusion-rounded-corner-distance': 2
+		}}
 		paint={{
 			'fill-extrusion-color': [
 				'interpolate',

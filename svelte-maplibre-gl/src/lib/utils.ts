@@ -16,18 +16,33 @@ export function generateSourceID() {
  *
  * Intended to be used within the $effect rune.
  */
-export function resetEventListener(
-	evented: maplibregl.Evented | null | undefined,
+type EventedLike = {
+	on: (...args: never[]) => unknown;
+	off: (...args: never[]) => unknown;
+};
+
+export function resetEventListener<TEvent>(
+	evented: EventedLike | null | undefined,
 	type: string,
-	listener: maplibregl.Listener | undefined
+	listener: ((event: TEvent) => unknown) | undefined
 ) {
+	// Event map and listener payload types became stricter in MapLibre GL JS 6.3.
+	// Cast only the shared on/off surface to preserve MapLibre 5 compatibility
+	// while retaining each caller's specific event payload type.
+	const target = evented as
+		| {
+				on(type: string, listener: (event: TEvent) => unknown): unknown;
+				off(type: string, listener: (event: TEvent) => unknown): unknown;
+		  }
+		| null
+		| undefined;
 	if (listener) {
-		evented?.on(type, listener);
+		target?.on(type, listener);
 	}
 	const prevListener = listener;
 	return () => {
 		if (prevListener) {
-			evented?.off(type, prevListener);
+			target?.off(type, prevListener);
 		}
 	};
 }
@@ -37,11 +52,11 @@ export function resetEventListener(
  *
  * Intended to be used within the $effect rune.
  */
-export function resetLayerEventListener(
+export function resetLayerEventListener<T extends keyof maplibregl.MapLayerEventType>(
 	map: maplibregl.Map | null,
-	type: keyof maplibregl.MapLayerEventType,
+	type: T,
 	layer: string,
-	listener: maplibregl.Listener | undefined
+	listener: ((event: maplibregl.MapLayerEventType[T]) => void) | undefined
 ) {
 	if (listener) {
 		map?.on(type, layer, listener);

@@ -31,8 +31,8 @@ catalogs:
       specifier: ^0.1.0
       version: 0.1.0
     maplibre-gl:
-      specifier: 6.0.0
-      version: 6.0.0
+      specifier: 6.3.0
+      version: 6.3.0
     pmtiles:
       specifier: ^4.4.1
       version: 4.4.1
@@ -168,7 +168,7 @@ importers:
         version: 0.1.0
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       mdsvex:
         specifier: ^0.12.7
         version: 0.12.7(svelte@5.55.7(@typescript-eslint/types@8.59.2))
@@ -228,7 +228,7 @@ importers:
         version: 1.30.0
       terra-draw-maplibre-gl-adapter:
         specifier: 1.3.0
-        version: 1.3.0(maplibre-gl@6.0.0)(terra-draw@1.30.0)
+        version: 1.3.0(maplibre-gl@6.3.0)(terra-draw@1.30.0)
       three:
         specifier: ^0.184.0
         version: 0.184.0
@@ -264,7 +264,7 @@ importers:
         version: 0.1.0
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       publint:
         specifier: 'catalog:'
         version: 0.3.20
@@ -306,7 +306,7 @@ importers:
         version: 7.1.2(svelte@5.55.7(@typescript-eslint/types@8.59.2))(vite@8.0.16(@types/node@25.6.2)(esbuild@0.27.2)(jiti@2.7.0))
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       publint:
         specifier: 'catalog:'
         version: 0.3.20
@@ -339,7 +339,7 @@ importers:
         version: 7.1.2(svelte@5.55.7(@typescript-eslint/types@8.59.2))(vite@8.0.16(@types/node@25.6.2)(esbuild@0.27.2)(jiti@2.7.0))
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       pmtiles:
         specifier: 'catalog:'
         version: 4.4.1
@@ -375,7 +375,7 @@ importers:
         version: 7.1.2(svelte@5.55.7(@typescript-eslint/types@8.59.2))(vite@8.0.16(@types/node@25.6.2)(esbuild@0.27.2)(jiti@2.7.0))
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       publint:
         specifier: 'catalog:'
         version: 0.3.20
@@ -393,7 +393,7 @@ importers:
         version: 1.30.0
       terra-draw-maplibre-gl-adapter:
         specifier: 1.3.0
-        version: 1.3.0(maplibre-gl@6.0.0)(terra-draw@1.30.0)
+        version: 1.3.0(maplibre-gl@6.3.0)(terra-draw@1.30.0)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -417,7 +417,7 @@ importers:
         version: 7946.0.16
       maplibre-gl:
         specifier: 'catalog:'
-        version: 6.0.0
+        version: 6.3.0
       publint:
         specifier: 'catalog:'
         version: 0.3.20
@@ -1174,8 +1174,8 @@ packages:
   '@maplibre/geojson-vt@6.1.1':
     resolution: {integrity: sha512-FVMOcmSP/yqol45t7StApEyTL5/vmqBCuFhH9n+fFuINenhaX+YgHHIt1yJ86S8kln3uJLcMvmEU2cfn6E2eCQ==}
 
-  '@maplibre/maplibre-gl-style-spec@26.1.0':
-    resolution: {integrity: sha512-JaVj0XqDWFb2xfaRFCvF2Gi7qSpCYXXJlVghDDfRUV2dks61YsQKDjlZKT3H+oVwFBxX7CjErz9zjdGTEP/Lug==}
+  '@maplibre/maplibre-gl-style-spec@26.2.1':
+    resolution: {integrity: sha512-QFKCXkOeSzOr8jF75jm6kySOg+dUvOehPhRi68gcOYPHb7U5JloUq0dJW0Y5/fZV8ygfT0Vp2RWodvq+fyxFWA==}
     hasBin: true
 
   '@maplibre/mlt@1.1.12':
@@ -2408,8 +2408,8 @@ packages:
   maplibre-contour@0.1.0:
     resolution: {integrity: sha512-H8muT7JWYE4oLbFv7L2RSbIM1NOu5JxjA9P/TQqhODDnRChE8ENoDkQIWOKgfcKNU77ypLk2ggGoh4/pt4UPLA==}
 
-  maplibre-gl@6.0.0:
-    resolution: {integrity: sha512-1wBgEhzTZfA+cDpFdt0fM1mJA5mJ90fifORJ7D8JcKLJCvPT/iTx9bNxkP7DqEYde65DJd7gE7h83khwNRqdyg==}
+  maplibre-gl@6.3.0:
+    resolution: {integrity: sha512-F0Is48MTzn3DvOEidPjh68E0kuSA7hdzY1YIR0ypPtFgcif3WPtzI1oZFgsv9WtHmarQnbwIXfsf+EfQYvM00A==}
     engines: {node: '>=16.14.0', npm: '>=8.1.0'}
 
   mdast-util-to-hast@13.2.1:
@@ -4021,7 +4021,7 @@ snapshots:
     dependencies:
       kdbush: 4.1.0
 
-  '@maplibre/maplibre-gl-style-spec@26.1.0':
+  '@maplibre/maplibre-gl-style-spec@26.2.1':
     dependencies:
       '@mapbox/jsonlint-lines-primitives': 2.0.3
       '@mapbox/unitbezier': 1.0.0
@@ -5218,14 +5218,14 @@ snapshots:
 
   maplibre-contour@0.1.0: {}
 
-  maplibre-gl@6.0.0:
+  maplibre-gl@6.3.0:
     dependencies:
       '@mapbox/point-geometry': 1.1.0
       '@mapbox/tiny-sdf': 2.2.0
       '@mapbox/unitbezier': 1.0.0
       '@mapbox/vector-tile': 3.0.0
       '@maplibre/geojson-vt': 6.1.1
-      '@maplibre/maplibre-gl-style-spec': 26.1.0
+      '@maplibre/maplibre-gl-style-spec': 26.2.1
       '@maplibre/mlt': 1.1.12
       '@maplibre/vt-pbf': 4.3.2
       '@types/geojson': 7946.0.16
@@ -5796,9 +5796,9 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terra-draw-maplibre-gl-adapter@1.3.0(maplibre-gl@6.0.0)(terra-draw@1.30.0):
+  terra-draw-maplibre-gl-adapter@1.3.0(maplibre-gl@6.3.0)(terra-draw@1.30.0):
     dependencies:
-      maplibre-gl: 6.0.0
+      maplibre-gl: 6.3.0
       terra-draw: 1.30.0
 
   terra-draw@1.30.0: {}

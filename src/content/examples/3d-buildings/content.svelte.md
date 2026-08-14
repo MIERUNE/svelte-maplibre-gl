@@ -1,6 +1,6 @@
 ---
 title: 3D Buildings
-description: Use extrusions to display buildings' height in 3D.
+description: Use extrusions with rounded corners to display buildings' height in 3D.
 original: https://maplibre.org/maplibre-gl-js/docs/examples/display-buildings-in-3d/
 ---
 
@@ -10,6 +10,8 @@ original: https://maplibre.org/maplibre-gl-js/docs/examples/display-buildings-in
   import CodeBlock from "../../CodeBlock.svelte";
   let { shiki } = $props();
 </script>
+
+Rounded corners require MapLibre GL JS 6.3 or later.
 
 <Demo />
 

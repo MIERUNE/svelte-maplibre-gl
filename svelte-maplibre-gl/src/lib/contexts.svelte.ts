@@ -24,7 +24,7 @@ class MapContext {
 	/** Map instance */
 	_map: maplibregl.Map | null = $state.raw(null);
 	/** Callbacks to be called when the map style is loaded */
-	private _listener?: maplibregl.Listener = undefined;
+	private _listener?: (ev: maplibregl.MapStyleDataEvent) => void = undefined;
 	private _pending: ((map: maplibregl.Map) => void)[] = [];
 	/** Names of layers dynamically added */
 	userLayers = new SvelteSet<string>();
