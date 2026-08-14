@@ -1,7 +1,7 @@
 ---
-title: Dynamic Image
-description: Add an icon to the map that was generated at runtime.
-original: https://maplibre.org/maplibre-gl-js/docs/examples/add-a-generated-icon-to-the-map/
+title: GPU-Animated Image
+description: Render an animated icon directly into the style image atlas with a WebGL shader.
+original: https://maplibre.org/maplibre-gl-js/docs/examples/animate-an-icon-on-the-gpu/
 ---
 
 <script lang="ts">

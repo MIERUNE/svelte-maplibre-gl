@@ -49,7 +49,7 @@ export const toc: Toc = [
 			'/examples/custom-protocol': 'Custom Protocols',
 			'/examples/canvas-source': 'Canvas Source',
 			'/examples/custom-layer': 'Custom Layer',
-			'/examples/dynamic-image': 'Dynamic Image',
+			'/examples/dynamic-image': 'GPU-Animated Image',
 			'/examples/threejs-model': '3D model with three.js'
 		}
 	},
