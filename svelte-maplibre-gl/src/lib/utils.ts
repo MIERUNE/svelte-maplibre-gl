@@ -16,8 +16,13 @@ export function generateSourceID() {
  *
  * Intended to be used within the $effect rune.
  */
+type EventedLike = {
+	on: (...args: never[]) => unknown;
+	off: (...args: never[]) => unknown;
+};
+
 export function resetEventListener<TEvent>(
-	evented: unknown,
+	evented: EventedLike | null | undefined,
 	type: string,
 	listener: ((event: TEvent) => unknown) | undefined
 ) {

@@ -11,6 +11,8 @@ original: https://maplibre.org/maplibre-gl-js/docs/examples/display-buildings-in
   let { shiki } = $props();
 </script>
 
+Rounded corners require MapLibre GL JS 6.3 or later.
+
 <Demo />
 
 <CodeBlock content={demoRaw} {shiki} />
