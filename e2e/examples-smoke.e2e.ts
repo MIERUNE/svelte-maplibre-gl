@@ -10,6 +10,11 @@ const slugs = fs
 	.filter((entry) => entry.isDirectory())
 	.map((entry) => entry.name)
 	.sort();
+const [maplibreMajor, maplibreMinor] = (process.env.MAPLIBRE_GL_VERSION ?? '')
+	.split('.')
+	.map((part) => Number.parseInt(part, 10));
+const lacksWebGLStyleImages =
+	Number.isFinite(maplibreMajor) && (maplibreMajor < 6 || (maplibreMajor === 6 && maplibreMinor < 3));
 
 // Smoke check: visit each example and assert the page does not raise any
 // uncaught errors. This catches addLayer/addSource crashes, missing imports,
@@ -21,6 +26,11 @@ test.describe('examples smoke', () => {
 
 	for (const slug of slugs) {
 		test(slug, async ({ page }) => {
+			test.skip(
+				lacksWebGLStyleImages && slug === 'dynamic-image',
+				'GPU-rendered style images require MapLibre GL JS 6.3 or later'
+			);
+
 			const errors: string[] = [];
 			page.on('pageerror', (err) => errors.push(err.message.split('\n')[0]));
 
