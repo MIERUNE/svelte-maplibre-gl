@@ -3,6 +3,7 @@
 	import { MapLibre, FillExtrusionLayer } from 'svelte-maplibre-gl';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
+	import { Slider } from '$lib/components/ui/slider/index.js';
 
 	const STYLES = ['Voyager', 'Dark Matter'] as const;
 	type StyleName = (typeof STYLES)[number];
@@ -11,9 +12,10 @@
 		'Dark Matter': 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 	};
 	let baseStyle: StyleName = $state('Voyager');
+	let roundedCornerDistance = $state(2);
 </script>
 
-<div class="mb-3">
+<div class="mb-3 flex flex-wrap items-center gap-6">
 	<RadioGroup.Root bind:value={baseStyle} class="flex flex-row gap-x-3">
 		{#each STYLES as name (name)}
 			<div class="flex items-center space-x-1">
@@ -22,6 +24,12 @@
 			</div>
 		{/each}
 	</RadioGroup.Root>
+	<div class="flex w-64 flex-col items-center gap-2">
+		<Label for="rounded-corner-distance" class="leading-none">
+			Rounded corner distance ({roundedCornerDistance} m)
+		</Label>
+		<Slider type="single" id="rounded-corner-distance" bind:value={roundedCornerDistance} min={0} max={10} step={0.5} />
+	</div>
 </div>
 
 <MapLibre
@@ -39,7 +47,7 @@
 		minzoom={14}
 		filter={['!=', ['get', 'hide_3d'], true]}
 		layout={{
-			'fill-extrusion-rounded-corner-distance': 2
+			'fill-extrusion-rounded-corner-distance': roundedCornerDistance
 		}}
 		paint={{
 			'fill-extrusion-color': [
