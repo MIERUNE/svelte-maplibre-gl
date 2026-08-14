@@ -146,7 +146,9 @@ try {
 	if (installStatus !== 0) {
 		process.exitCode = installStatus;
 	} else if (command.length > 0) {
-		process.exitCode = run(command[0], command.slice(1));
+		process.exitCode = run(command[0], command.slice(1), {
+			env: { ...process.env, MAPLIBRE_GL_VERSION: resolvedVersion }
+		});
 	} else {
 		console.log(`Installed maplibre-gl@${resolvedVersion}. No command was provided.`);
 	}
