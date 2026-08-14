@@ -17,7 +17,7 @@ on:
 
 jobs:
   test:
-    name: Check + unit (maplibre-gl@${{ matrix.maplibre.label }})
+    name: ${{ matrix.maplibre.job_name }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,10 +26,10 @@ jobs:
       fail-fast: false
       matrix:
         maplibre:
-          - label: catalog
+          - job_name: Check + unit (maplibre-gl@catalog)
             override: false
             version: catalog
-          - label: v5
+          - job_name: Check packages (maplibre-gl@v5)
             override: true
             version: ${{ github.event.inputs.maplibre_version || '5' }}
     steps:
@@ -54,11 +54,14 @@ jobs:
         if: ${{ !matrix.maplibre.override }}
         run: pnpm run lint
 
-      - name: Check + unit tests with maplibre-gl override
+      # The private docs app and examples track the catalog version and may use
+      # APIs unavailable in v5. This leg intentionally checks only the published
+      # packages, so it does not cover consumer-style typechecking under v5.
+      - name: Check packages with maplibre-gl override
         if: matrix.maplibre.override
         env:
           WITH_MAPLIBRE_SKIP_RESTORE_INSTALL: '1'
-        run: node scripts/with-maplibre-version.mjs "${{ matrix.maplibre.version }}" pnpm run ci:check-unit
+        run: node scripts/with-maplibre-version.mjs "${{ matrix.maplibre.version }}" pnpm run check:packages
 
   e2e:
     name: e2e (maplibre-gl@catalog)
