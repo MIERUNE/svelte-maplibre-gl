@@ -1,5 +1,12 @@
 # svelte-maplibre-gl
 
+## 2.2.1
+
+### Patch Changes
+
+- b52559e: Remove the previous custom control from the map when the `control` prop changes.
+- 32454f7: Preserve fullscreen event listeners when the FullScreenControl is recreated after its options change.
+
 ## 2.2.0
 
 ### Minor Changes
