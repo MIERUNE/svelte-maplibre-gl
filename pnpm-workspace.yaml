@@ -20,7 +20,7 @@ catalog:
   terra-draw: ^1.30.0
   terra-draw-maplibre-gl-adapter: 1.3.0
   typescript: ^6.0.3
-  vite: ^8.0.16
+  vite: ^8.2.2
 
 onlyBuiltDependencies:
   - esbuild
