@@ -96,7 +96,7 @@
 		"typescript": "catalog:",
 		"typescript-eslint": "^8.59.2",
 		"vite": "catalog:",
-		"vitest": "^4.1.5"
+		"vitest": "^5.0.0"
 	},
 	"packageManager": "pnpm@10.15.0",
 	"pnpm": {
