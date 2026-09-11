@@ -31,7 +31,28 @@ npm install
 npm install -D svelte-maplibre-gl
 ```
 
-## 3. Add the Simplest Map
+## 3. Configure Vite
+
+Add `maplibre-gl` to `optimizeDeps.exclude` in your `vite.config.ts`.
+
+```ts
+import tailwindcss from '@tailwindcss/vite';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [tailwindcss(), sveltekit()],
+	optimizeDeps: {
+		exclude: ['maplibre-gl']
+	}
+});
+```
+
+Without this, Vite's dependency optimizer pre-bundles MapLibre GL JS separately from the
+worker setup entry, so the web worker is requested from a path that does not exist and fails
+to load. This only affects the dev server, not production builds.
+
+## 4. Add the Simplest Map
 
 Import the Vite adapter once to configure the MapLibre GL JS v6 worker, then add the simplest
 map to your `+page.svelte` file.
@@ -39,7 +60,7 @@ map to your `+page.svelte` file.
 <CodeBlock content={simplestRaw} {shiki} />
 <Simplest />
 
-## 4. Put a Marker on the Map
+## 5. Put a Marker on the Map
 
 Let’s set an initial zoom and put a marker pin on the map.
 
