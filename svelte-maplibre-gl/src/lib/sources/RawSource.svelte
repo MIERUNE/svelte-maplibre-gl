@@ -79,15 +79,10 @@
 			if (!isDifferentTilesArray) {
 				return;
 			}
-
-			const tiles = spec.tiles ?? [];
-
-			// TODO: remove if this gets merged: https://github.com/maplibre/maplibre-gl-js/pull/7910
-			source.tiles = tiles; // force sync write until fix in maplibre-gl
-
-			source.setTiles(tiles);
+			source.setTiles(spec.tiles ?? []);
 		}
 	});
+
 	// ensure it runs before options change (child effects run after parent component's effects)
 	$effect.pre(() => {
 		if (source && (spec.type === 'vector' || spec.type === 'raster' || spec.type === 'raster-dem')) {
