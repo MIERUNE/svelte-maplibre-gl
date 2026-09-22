@@ -133,6 +133,8 @@
 
 		// Snippets
 		children?: Snippet<[maplibregl.Map]>;
+
+		touchRotate?: boolean;
 	}
 
 	let {
@@ -189,6 +191,7 @@
 		scrollZoom,
 		touchPitch,
 		touchZoomRotate,
+		touchRotate,
 		transformCameraUpdate,
 
 		// Global state
@@ -264,6 +267,10 @@
 
 		map = new maplibregl.Map(options);
 		mapCtx.map = map ?? null;
+
+		if (touchRotate === false) {
+			map.touchZoomRotate.disableRotation();
+		}
 
 		if (padding !== undefined) {
 			map.setPadding(padding);
@@ -611,6 +618,16 @@
 	$effect(() => {
 		if (touchZoomRotate !== undefined && !firstRun) {
 			touchZoomRotate ? map?.touchZoomRotate.enable(touchZoomRotate) : map?.touchZoomRotate.disable();
+		}
+	});
+	$effect(() => {
+		touchZoomRotate;
+		if (!map) return;
+
+		if (touchRotate === false) {
+			map.touchZoomRotate.disableRotation();
+		} else {
+			map.touchZoomRotate.enableRotation();
 		}
 	});
 	$effect(() => {
