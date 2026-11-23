@@ -15,5 +15,5 @@
 		globalState = { kept: 'same', changed: 'after', added: 'new' };
 	}}>Update state</button
 >
-<output data-state>{JSON.stringify(globalState)}</output>
+<output data-global-state>{JSON.stringify(globalState)}</output>
 <MapLibre bind:map {globalState} style="/delayed-global-state-style.json" class="h-[200px] w-full" />

@@ -18,7 +18,7 @@ test('reconciles initial global state changed before an asynchronous style loads
 		await page.goto('/test/global-state-initial/', { waitUntil: 'domcontentloaded' });
 		await page.waitForFunction(() => Boolean((window as unknown as TestWindow).__map));
 		await page.getByRole('button', { name: 'Update state' }).click();
-		await expect(page.locator('[data-state]')).toHaveText(
+		await expect(page.locator('[data-global-state]')).toHaveText(
 			JSON.stringify({ kept: 'same', changed: 'after', added: 'new' })
 		);
 		releaseStyle();
