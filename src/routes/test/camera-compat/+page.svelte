@@ -1,11 +1,15 @@
 <script lang="ts">
 	import 'svelte-maplibre-gl/vite';
+	import { page } from '$app/state';
+	import { untrack } from 'svelte';
 	import { MapLibre, ImageSource, RasterLayer } from 'svelte-maplibre-gl';
 	import type { Map } from 'maplibre-gl';
 	let map: Map | undefined = $state();
 	let zoom = $state(2);
 	let bearing = $state(0);
-	let imageUrl: string | undefined = $state();
+	let imageUrl: string | undefined = $state(
+		untrack(() => (page.url.searchParams.has('empty-image') ? undefined : '/favicon.png'))
+	);
 	$effect(() => {
 		if (map) (window as unknown as { __map: Map }).__map = map;
 	});

@@ -30,6 +30,7 @@ The package supports MapLibre GL JS 5.19 and later in the 5.x series, and 6.x.
 The development test matrix includes MapLibre 5 and 6.19. Camera bindings work
 with MapLibre 6.19's revised camera implementation. From MapLibre 6.7, an image
 source may start without a URL and receive one later through its reactive `url` prop.
+The deck.gl extension also adapts its legacy transform reads for MapLibre 6.19.
 Newer MapLibre map options and style properties can be passed through to the map;
 consult the installed MapLibre version for availability.
 
