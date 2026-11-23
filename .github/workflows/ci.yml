@@ -65,7 +65,8 @@ jobs:
 
   e2e:
     name: e2e (maplibre-gl@catalog)
-    runs-on: ubuntu-latest
+    # Playwright 1.59 does not support the Ubuntu 26.04 image.
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
@@ -86,7 +87,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: playwright-ubuntu-24.04-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Playwright browsers + system deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -115,7 +116,8 @@ jobs:
 
   e2e-v5:
     name: e2e (maplibre-gl@v5)
-    runs-on: ubuntu-latest
+    # Keep both browser jobs on a Playwright-supported image.
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     continue-on-error: true
@@ -137,7 +139,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: playwright-ubuntu-24.04-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Playwright browsers + system deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'

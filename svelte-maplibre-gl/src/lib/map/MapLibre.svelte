@@ -8,6 +8,7 @@
 		formatLngLat,
 		getCamera,
 		getUpdateTransform,
+		cameraSnapshot,
 		resetEventListener,
 		setTransformCameraUpdate
 	} from '../utils.js';
@@ -211,11 +212,14 @@
 	let container: HTMLElement | undefined = $state();
 
 	const mapCtx = prepareMapContext();
+	let initialGlobalStateKeys: string[] = [];
 
 	$effect(() => {
 		if (map || !container) {
 			return;
 		}
+		const initialGlobalState = $state.snapshot(globalState);
+		initialGlobalStateKeys = Object.keys(initialGlobalState);
 		const options: maplibregl.MapOptions = {
 			container,
 			...Object.fromEntries(
@@ -254,6 +258,8 @@
 					touchPitch,
 					touchZoomRotate,
 					transformCameraUpdate,
+					// Apply initial state before the first style is loaded (MapLibre 6.14+).
+					globalState: initialGlobalState,
 					// Map Options (others)
 					...restOptions
 
@@ -276,7 +282,8 @@
 			if (!map) {
 				return;
 			}
-			const tr = getCamera(map).transform;
+			const camera = getCamera(map);
+			const tr = camera.transform ?? cameraSnapshot(map);
 			if (center) {
 				const _center = maplibregl.LngLat.convert(center);
 				if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
@@ -318,7 +325,8 @@
 
 		mapCtx.waitForStyleLoaded(
 			(map) => {
-				for (const key of prevGlobalState.keys()) {
+				// Include constructor keys even if an earlier deferred synchronization was aborted.
+				for (const key of new Set([...initialGlobalStateKeys, ...prevGlobalState.keys()])) {
 					if (!nextKeys.has(key)) {
 						map.setGlobalStateProperty(key, null);
 					}
@@ -329,6 +337,7 @@
 					}
 				}
 				prevGlobalState = new Map(nextEntries);
+				initialGlobalStateKeys = [];
 			},
 			{ signal: abortController.signal }
 		);
@@ -423,7 +432,7 @@
 		padding;
 		if (!firstRun && map) {
 			const camera = getCamera(map);
-			const tr = getUpdateTransform(camera);
+			const tr = getUpdateTransform(camera) ?? cameraSnapshot(map);
 			let jumpTo: maplibregl.JumpToOptions = {};
 			let changed = false;
 
@@ -468,7 +477,7 @@
 				// Temporarily replace the camera's `stop` with `_stop(allowGestures: true)` so that
 				// ongoing gestures survive the `jumpTo` below.
 				const originalStop = camera.stop;
-				camera.stop = () => camera._stop(true);
+				if (camera._stop) camera.stop = () => camera._stop!(true);
 				try {
 					map.jumpTo(jumpTo, { reactivity: true });
 				} finally {

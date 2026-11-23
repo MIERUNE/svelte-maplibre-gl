@@ -54,12 +54,23 @@
 
 	function exposeLegacyTransformForDeckGL(map: maplibregl.Map) {
 		const m = map as MapWithLegacyTransform;
-		if (m.transform || !m._camera?.transform) return;
+		if (m.transform) return;
+
+		// MapLibre 6.19 removed the private camera transform. deck.gl still
+		// reads its viewport height and terrain elevation; use live public getters.
+		const publicTransform = {
+			get height() {
+				return map.getCanvas().clientHeight;
+			},
+			get elevation() {
+				return map.getCenterElevation();
+			}
+		};
 
 		Object.defineProperty(m, 'transform', {
 			configurable: true,
 			enumerable: false,
-			get: () => m._camera?.transform
+			get: () => m._camera?.transform ?? publicTransform
 		});
 	}
 

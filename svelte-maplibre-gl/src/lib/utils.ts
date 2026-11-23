@@ -90,12 +90,12 @@ interface CameraTransform {
  * - MapLibre 6.x: `Map` owns a separate `Camera` at `map._camera` and delegates camera methods to it.
  */
 interface MapCamera {
-	transform: CameraTransform;
+	transform?: CameraTransform;
 	transformCameraUpdate: maplibregl.CameraUpdateTransformFunction | null;
 	getTransformForUpdate?: () => CameraTransform;
 	_getTransformForUpdate?: () => CameraTransform;
 	stop: () => unknown;
-	_stop: (allowGestures?: boolean) => unknown;
+	_stop?: (allowGestures?: boolean) => unknown;
 	_bearingSnap: number;
 }
 
@@ -112,14 +112,24 @@ export function getCamera(map: maplibregl.Map): MapCamera {
  * Reads the pending "desired state" camera transform, bridging the 5.x
  * `_getTransformForUpdate()` / 6.x `getTransformForUpdate()` rename.
  */
-export function getUpdateTransform(camera: MapCamera): CameraTransform {
+export function getUpdateTransform(camera: MapCamera): CameraTransform | undefined {
 	const resolve = camera.getTransformForUpdate ?? camera._getTransformForUpdate;
-	if (!resolve) {
-		throw new Error(
-			'svelte-maplibre-gl: neither getTransformForUpdate nor _getTransformForUpdate is available on the map camera'
-		);
-	}
-	return resolve.call(camera);
+	return resolve?.call(camera);
+}
+
+/** Read camera state through public APIs when a MapLibre version has no exposed transform. */
+export function cameraSnapshot(map: maplibregl.Map): CameraTransform {
+	const currentPadding = map.getPadding();
+	return {
+		center: map.getCenter(),
+		zoom: map.getZoom(),
+		bearing: map.getBearing(),
+		pitch: map.getPitch(),
+		roll: map.getRoll(),
+		elevation: map.getCenterElevation(),
+		isPaddingEqual: (padding) =>
+			(['top', 'right', 'bottom', 'left'] as const).every((edge) => (padding[edge] ?? 0) === currentPadding[edge])
+	};
 }
 
 export function setTransformCameraUpdate(map: maplibregl.Map, value: maplibregl.CameraUpdateTransformFunction | null) {
