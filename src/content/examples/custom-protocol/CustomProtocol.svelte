@@ -16,7 +16,7 @@
 		const zxy = params.url.replace('myprotocol://', '');
 		const [z, x, y] = zxy.split('/').map((v) => parseInt(v, 10));
 
-		const png = await new Promise((resolve) => {
+		const png = await new Promise<ArrayBuffer>((resolve, reject) => {
 			const canvas = document.createElement('canvas');
 			canvas.width = 512;
 			canvas.height = 512;
@@ -31,7 +31,11 @@
 
 			// canvas -> Blob (png) -> ArrayBuffer
 			canvas.toBlob(async (blob) => {
-				resolve(await blob!.arrayBuffer());
+				if (!blob) {
+					reject(new Error('Canvas PNG encoding failed'));
+					return;
+				}
+				resolve(await blob.arrayBuffer());
 			});
 		});
 

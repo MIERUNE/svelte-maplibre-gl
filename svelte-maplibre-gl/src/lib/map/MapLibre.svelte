@@ -255,6 +255,8 @@
 					touchPitch,
 					touchZoomRotate,
 					transformCameraUpdate,
+					// Apply initial state before the first style is loaded (MapLibre 6.14+).
+					globalState: $state.snapshot(globalState),
 					// Map Options (others)
 					...restOptions
 
