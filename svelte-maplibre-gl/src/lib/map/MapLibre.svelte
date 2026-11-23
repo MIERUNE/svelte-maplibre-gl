@@ -8,6 +8,7 @@
 		formatLngLat,
 		getCamera,
 		getUpdateTransform,
+		cameraSnapshot,
 		resetEventListener,
 		setTransformCameraUpdate
 	} from '../utils.js';
@@ -276,7 +277,8 @@
 			if (!map) {
 				return;
 			}
-			const tr = getCamera(map).transform;
+			const camera = getCamera(map);
+			const tr = camera.transform ?? cameraSnapshot(map);
 			if (center) {
 				const _center = maplibregl.LngLat.convert(center);
 				if (_center.lat !== tr.center.lat || _center.lng !== tr.center.lng) {
@@ -423,7 +425,7 @@
 		padding;
 		if (!firstRun && map) {
 			const camera = getCamera(map);
-			const tr = getUpdateTransform(camera);
+			const tr = getUpdateTransform(camera) ?? cameraSnapshot(map);
 			let jumpTo: maplibregl.JumpToOptions = {};
 			let changed = false;
 
@@ -468,7 +470,7 @@
 				// Temporarily replace the camera's `stop` with `_stop(allowGestures: true)` so that
 				// ongoing gestures survive the `jumpTo` below.
 				const originalStop = camera.stop;
-				camera.stop = () => camera._stop(true);
+				if (camera._stop) camera.stop = () => camera._stop!(true);
 				try {
 					map.jumpTo(jumpTo, { reactivity: true });
 				} finally {

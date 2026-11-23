@@ -93,7 +93,7 @@
 	$effect(() => {
 		if (source && spec.type === 'image') {
 			spec.url;
-			if (!firstRun) {
+			if (!firstRun && spec.url) {
 				(source as maplibregl.ImageSource).updateImage({ url: spec.url });
 			}
 		}
