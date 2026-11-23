@@ -212,14 +212,14 @@
 	let container: HTMLElement | undefined = $state();
 
 	const mapCtx = prepareMapContext();
-	let initialGlobalStateKeys = new Set<string>();
+	let initialGlobalStateKeys: string[] = [];
 
 	$effect(() => {
 		if (map || !container) {
 			return;
 		}
 		const initialGlobalState = $state.snapshot(globalState);
-		initialGlobalStateKeys = new Set(Object.keys(initialGlobalState));
+		initialGlobalStateKeys = Object.keys(initialGlobalState);
 		const options: maplibregl.MapOptions = {
 			container,
 			...Object.fromEntries(
@@ -337,7 +337,7 @@
 					}
 				}
 				prevGlobalState = new Map(nextEntries);
-				initialGlobalStateKeys.clear();
+				initialGlobalStateKeys = [];
 			},
 			{ signal: abortController.signal }
 		);
