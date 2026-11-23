@@ -2,4 +2,4 @@
 'svelte-maplibre-gl': patch
 ---
 
-Support MapLibre GL JS 6.19 camera state and initially empty image sources introduced in 6.7.
+Support MapLibre GL JS 6.19 camera bindings and image sources that start without a URL. Pass initial global state to the map constructor on versions that support it, and update the custom protocol example for the current response type.
