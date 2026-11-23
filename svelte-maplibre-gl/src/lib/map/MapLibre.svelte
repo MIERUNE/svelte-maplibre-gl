@@ -212,11 +212,14 @@
 	let container: HTMLElement | undefined = $state();
 
 	const mapCtx = prepareMapContext();
+	let initialGlobalStateKeys = new Set<string>();
 
 	$effect(() => {
 		if (map || !container) {
 			return;
 		}
+		const initialGlobalState = $state.snapshot(globalState);
+		initialGlobalStateKeys = new Set(Object.keys(initialGlobalState));
 		const options: maplibregl.MapOptions = {
 			container,
 			...Object.fromEntries(
@@ -256,7 +259,7 @@
 					touchZoomRotate,
 					transformCameraUpdate,
 					// Apply initial state before the first style is loaded (MapLibre 6.14+).
-					globalState: $state.snapshot(globalState),
+					globalState: initialGlobalState,
 					// Map Options (others)
 					...restOptions
 
@@ -322,7 +325,8 @@
 
 		mapCtx.waitForStyleLoaded(
 			(map) => {
-				for (const key of prevGlobalState.keys()) {
+				// Include constructor keys even if an earlier deferred synchronization was aborted.
+				for (const key of new Set([...initialGlobalStateKeys, ...prevGlobalState.keys()])) {
 					if (!nextKeys.has(key)) {
 						map.setGlobalStateProperty(key, null);
 					}
@@ -333,6 +337,7 @@
 					}
 				}
 				prevGlobalState = new Map(nextEntries);
+				initialGlobalStateKeys.clear();
 			},
 			{ signal: abortController.signal }
 		);
